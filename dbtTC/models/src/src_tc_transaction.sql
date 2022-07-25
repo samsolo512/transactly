@@ -16,4 +16,5 @@ select
     ,t.created_by_id
     ,t.address_id
     ,t.expiration_date
+    ,t.current_contract_id
 from src_tc_transaction t

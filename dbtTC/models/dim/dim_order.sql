@@ -24,15 +24,15 @@ with
         from {{ ref('src_tc_office') }}
     )
 
-    ,close_date as(
-        select
-            o.order_id
-            ,case
-                when check_json(o.order_data) is null
-                then json_extract_path_text(o.order_data, 'contract.closing_date')
-                end as closing_date
-        from src_tc_order o
-    )
+--     ,close_date as(
+--         select
+--             o.order_id
+--             ,case
+--                 when check_json(o.order_data) is null
+--                 then json_extract_path_text(o.order_data, 'contract.closing_date')
+--                 end as closing_date
+--         from src_tc_order o
+--     )
 
 select
     working.seq_dim_order.nextval as order_pk
@@ -54,7 +54,8 @@ select
         when o.order_side_id = 2 then 'seller'
         else null
         end as order_side
-    ,iff(try_to_date(cd.closing_date) is not null, to_date(cd.closing_date), null) as closed_date
+--     ,iff(try_to_date(cd.closing_date) is not null, to_date(cd.closing_date), null) as closed_date
+    ,c.closing_date
     ,case
         when check_json(order_data) is null
         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
@@ -64,7 +65,8 @@ from
     src_tc_transaction t
     left join src_tc_address a on t.address_id = a.address_id
     left join src_tc_order o on t.transaction_id = o.transaction_id
-    left join close_date cd on o.order_id = cd.order_id
+    left join dim_contract c on c.contract_id = t.current_contract_id
+--     left join close_date cd on o.order_id = cd.order_id
     left join src_tc_office offc on o.assigned_tc_office_id = offc.office_id
     left join src_tc_user u on o.assigned_tc_id = u.user_id
     left join src_tc_user usr on u.user_id = u.google_user_id

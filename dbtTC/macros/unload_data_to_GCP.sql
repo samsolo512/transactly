@@ -31,7 +31,7 @@
                 ,user.tier_3 as tier_3_date  -- user created date
                 ,line.created_date
                 ,line.due_date
-                ,o.closed_date
+                ,o.closing_date
                 ,line.cancelled_date as cancelled_date
                 ,user.last_order_placed as last_order_placed_date
                 ,user.last_order_due as last_order_due_date
