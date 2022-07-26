@@ -24,6 +24,11 @@ with
         from {{ ref('src_tc_user_subscription') }}
     )
 
+    ,hs_agent as(
+        select *
+        from {{ ref('HS_agent') }}
+    )
+
     ,last_order_placed as (
         select
             l.user_id
@@ -135,6 +140,7 @@ select
     ,subscription_level
     ,pays_at_title
     ,tc_client_flag
+    ,lead_status as transaction_coordinator_status
     ,max(last_order_placed) as last_order_placed
     ,max(last_order_due) as last_order_due
     ,tier_3
@@ -158,6 +164,7 @@ from(
             else null
             end as pays_at_title
         ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
+        ,hagent.lead_status
         ,fp.first_order_placed as tier_3
 --         ,u.created_date as tier_3
         ,min(li.due_date) as tier_2
@@ -171,14 +178,15 @@ from(
         src_tc_user u
         left join client c on u.user_id = c.user_id
         left join src_tc_line_item li on li.user_id = u.user_id
+        left join hs_agent hagent on u.user_id = hagent.transactly_id
         left join last_order_placed loc on u.user_id = loc.user_id
         left join fifth_order fifth on u.user_id = fifth.user_id
         left join fifth_order_closed fifth_c on u.user_id = fifth_c.user_id
         left join first_order_placed fp on u.user_id = fp.user_id
         left join first_order_closed fc on u.user_id = fc.user_id
         left join src_tc_user_subscription sub on u.user_id = sub.user_id
-    group by u.user_id, u.first_name, u.last_name, u.fullname, u.email, u.brokerage, pays_at_title, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level
+    group by u.user_id, u.first_name, u.last_name, u.fullname, u.email, u.brokerage, pays_at_title, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status
 )
-group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title, tc_client_flag, tier_3, subscription_level
+group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title, tc_client_flag, tier_3, subscription_level, lead_status
 
-union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null

@@ -2,7 +2,7 @@ select *
 from
     hubspot_extract.v2_daily.object_properties
 where
-    value like '%9356042278%'
+    name = 'hs_lead_status'
 order by name
 ;
 
