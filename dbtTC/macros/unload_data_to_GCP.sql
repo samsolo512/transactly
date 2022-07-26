@@ -42,6 +42,8 @@
                 ,o.order_status
                 ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
                 ,user.subscription_level
+                ,user.transaction_coordinator_status
+                ,user.eligible_for_clients
             from
                 fact_line_item fact
                 join dim_line_item line on fact.line_item_pk = line.line_item_pk

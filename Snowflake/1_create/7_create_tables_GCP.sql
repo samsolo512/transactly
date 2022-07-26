@@ -24,7 +24,7 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,tier_3_date date
     ,created_date date
     ,due_date date
-    ,closed_date date
+    ,closing_date date
     ,cancelled_date date
     ,last_order_placed_date date
     ,last_order_due_date date
@@ -35,4 +35,6 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,order_status string
     ,last_sync datetime
     ,subscription_level string
+    ,transaction_coordinator_status string
+    ,eligible_for_clients string
 )
