@@ -24,6 +24,7 @@ select
     ,company as company_name
     ,brokerage_growth_manager
     ,type
+    ,eligible_for_clients
 
 from(
 
@@ -31,7 +32,7 @@ from(
         objectid
         ,name
         ,value
-    from object_properties
+    from src_hs_object_properties
     where
         objecttypeid = '0-1'
         and name in(
@@ -70,6 +71,7 @@ from(
             -- listing MLS Number
             ,'brokerage_growth_manager'
             ,'type'
+            ,'eligible_for_clients'
         )
 //        and objectid = '30163801'
 
@@ -96,6 +98,7 @@ pivot(
         ,'company'
         ,'brokerage_growth_manager'
         ,'type'
+        ,'eligible_for_clients'
     )
 )
 as p(
@@ -119,4 +122,5 @@ as p(
     ,company
     ,brokerage_growth_manager
     ,type
+    ,eligible_for_clients
 )

@@ -2,7 +2,7 @@ select *
 from
     hubspot_extract.v2_daily.object_properties
 where
-    name = 'hs_lead_status'
+    name = 'eligible_for_clients'
 order by name
 ;
 
