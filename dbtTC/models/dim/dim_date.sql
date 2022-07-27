@@ -1,3 +1,4 @@
+
 with cte_my_date AS (
     select dateadd(day, seq4(), '2016-01-01') AS date_id
     from table(generator(rowcount => 10000))  -- Number of days after reference date in previous line
