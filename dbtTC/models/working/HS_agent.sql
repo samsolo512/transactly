@@ -9,7 +9,7 @@ select
     ,lastname as last_name
     ,brokerage_name
     ,to_number(case when transactly_user_id__app_ = '' then null else transactly_user_id__app_ end) as transactly_id
-    ,createdate as created_date
+    ,cast(createdate as date) as created_date
     ,hs_lead_status as lead_status
     ,case when email = '' then null else email end as email
     ,original_sales_repr as original_sales_rep
@@ -25,6 +25,9 @@ select
     ,brokerage_growth_manager
     ,type
     ,eligible_for_clients
+--     ,cast(hs_start_date as date) as hs_start_date
+--     ,cast(start_date as date) as start_date
+--     ,cast(tc_start_date as date) as tc_start_date
 
 from(
 
@@ -72,6 +75,9 @@ from(
             ,'brokerage_growth_manager'
             ,'type'
             ,'eligible_for_clients'
+            ,'hs_start_date'
+            ,'start_date'
+            ,'tc_start_date'
         )
 //        and objectid = '30163801'
 
@@ -99,6 +105,9 @@ pivot(
         ,'brokerage_growth_manager'
         ,'type'
         ,'eligible_for_clients'
+        ,'hs_start_date'
+        ,'start_date'
+        ,'tc_start_date'
     )
 )
 as p(
@@ -123,4 +132,7 @@ as p(
     ,brokerage_growth_manager
     ,type
     ,eligible_for_clients
+    ,hs_start_date
+    ,start_date
+    ,tc_start_date
 )

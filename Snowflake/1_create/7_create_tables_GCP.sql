@@ -37,4 +37,7 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,subscription_level string
     ,transaction_coordinator_status string
     ,eligible_for_clients string
+    ,hs_start_date date
+    ,days_between_start_date_and_first_order_date int
+    ,total_fees numeric
 )

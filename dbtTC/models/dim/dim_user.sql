@@ -142,6 +142,8 @@ select
     ,tc_client_flag
     ,lead_status as transaction_coordinator_status
     ,eligible_for_clients
+    ,hs_start_date
+    ,days_between_start_date_and_first_order_date
     ,max(last_order_placed) as last_order_placed
     ,max(last_order_due) as last_order_due
     ,tier_3
@@ -167,6 +169,8 @@ from(
         ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
         ,hagent.lead_status
         ,hagent.eligible_for_clients
+        ,hagent.created_date as hs_start_date
+        ,datediff(day, hagent.created_date, fp.first_order_placed) as days_between_start_date_and_first_order_date
         ,fp.first_order_placed as tier_3
 --         ,u.created_date as tier_3
         ,min(li.due_date) as tier_2
@@ -187,8 +191,8 @@ from(
         left join first_order_placed fp on u.user_id = fp.user_id
         left join first_order_closed fc on u.user_id = fc.user_id
         left join src_tc_user_subscription sub on u.user_id = sub.user_id
-    group by u.user_id, u.first_name, u.last_name, u.fullname, u.email, u.brokerage, pays_at_title, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients
+    group by u.user_id, u.first_name, u.last_name, u.fullname, u.email, u.brokerage, pays_at_title, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date
 )
-group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients
+group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients, hs_start_date, days_between_start_date_and_first_order_date
 
-union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null

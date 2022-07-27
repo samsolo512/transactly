@@ -44,6 +44,9 @@
                 ,user.subscription_level
                 ,user.transaction_coordinator_status
                 ,user.eligible_for_clients
+                ,user.hs_start_date
+                ,user.days_between_start_date_and_first_order_date
+                ,line.total_fees
             from
                 fact_line_item fact
                 join dim_line_item line on fact.line_item_pk = line.line_item_pk

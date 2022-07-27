@@ -1,8 +1,8 @@
-select distinct name
+select value
 from
     hubspot_extract.v2_daily.object_properties
 where
-    name like '%start%date%'
+    name in('hs_start_date', 'start_date', 'tc_start_date')
 order by name
 ;
 

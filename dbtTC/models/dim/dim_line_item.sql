@@ -10,6 +10,7 @@ select
     ,l.description
     ,l.agent_pays
     ,l.office_pays
+    ,l.agent_pays + l.office_pays as total_fees
     ,l.due_date
     ,case l.paid
         when 'TRUE' then 'yes'
@@ -27,4 +28,4 @@ select
 from
     src_tc_line_item l
 
-union select 0, 0, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, null, null, null, null, null, null, null, null, null, null, null
