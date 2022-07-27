@@ -40,6 +40,8 @@ models:
       +materialized: ephemeral
     fact:
       +materialized: table
+    GCP:
+      +materialized: table
 
 
 #hooks

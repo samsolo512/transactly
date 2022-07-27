@@ -4,12 +4,6 @@
 -- client_orders
 -- client_revenue
 
-{{ config(
-    post_hook=[
-      "{{unload_data_to_GCP()}}"
-    ]
-) }}
-
 with
     src_tc_transaction as(
         select *
