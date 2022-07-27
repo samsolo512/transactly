@@ -4,6 +4,12 @@
 -- client_orders
 -- client_revenue
 
+{{ config(
+    post_hook=[
+      "{{unload_data_to_GCP()}}"
+    ]
+) }}
+
 with
     src_tc_transaction as(
         select *
@@ -108,7 +114,7 @@ from
     left join src_tc_order o on t.transaction_id = o.transaction_id
     left join src_tc_line_item l
         join dim_line_item line on l.id = line.line_item_id
-        on o.order_id = l.order_id
+    on o.order_id = l.order_id
     left join dim_office ofc on o.agent_office_id = ofc.office_id
     left join dim_user user on l.user_id = user.user_id
     left join dim_order ord on o.order_id = ord.order_id

@@ -1,8 +1,8 @@
-select *
+select distinct name
 from
     hubspot_extract.v2_daily.object_properties
 where
-    name = 'eligible_for_clients'
+    name like '%start%date%'
 order by name
 ;
 
