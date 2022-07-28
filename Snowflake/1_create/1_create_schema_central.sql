@@ -30,14 +30,11 @@ create database if not exists stage;
 create schema if not exists airbyte.postgreSQL;
 create schema if not exists dev.dimensional;
 create schema if not exists dev.working;
-create schema if not exists dev.load;
 create schema if not exists dev.models;
 create schema if not exists prod.dimensional;
 create schema if not exists prod.working;
-create schema if not exists prod.load;
 create schema if not exists stage.dimensional;
 create schema if not exists stage.working;
-create schema if not exists stage.load;
 
 
 
@@ -45,20 +42,18 @@ use role useradmin;
 ----------------------------------------------------------------------------------------------------
 -- create or modify service accounts
 create user if not exists airbyte_svc default_role = airbyte_role default_warehouse = airbyte_wh default_namespace = airbyte.postgreSQL password = '' must_change_password = false;
-create user if not exists powerbi_svc default_role = powerbi_role default_warehouse = powerbi_wh default_namespace = prod.load password = '' must_change_password = false;
-create user if not exists tableau_svc default_role = tableau_role default_warehouse = tableau_wh default_namespace = prod.load password = '' must_change_password = false;
+create user if not exists powerbi_svc default_role = powerbi_role default_warehouse = powerbi_wh default_namespace = prod.dimensional password = '' must_change_password = false;
 create user if not exists dbt_svc default_role = dbt_role default_warehouse = dbt_WH default_namespace = dev.models password = '' must_change_password = false;
 create user if not exists fivetran_user default_role = fivetran_role default_warehouse = fivetran_wh password = '' must_change_password = false;
 
 
 -- create or modify users
 create user if not exists sbrown default_role = data_engineer default_warehouse = compute_wh default_namespace = dev.dimensional;
-create user if not exists CATHERINEHARRIS default_role = sysadmin default_warehouse = compute_wh default_namespace = prod.load;
-create user if not exists NNIEMEYER default_role = accountadmin default_warehouse = compute_wh default_namespace = prod.load;
-create user if not exists qstrother default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.load password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
-create user if not exists jocllado default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.load password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
-create user if not exists mclifton default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.load password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
-create user if not exists alissat default_role = admin_read default_warehouse = compute_wh default_namespace = prod.load password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
+create user if not exists NNIEMEYER default_role = accountadmin default_warehouse = compute_wh default_namespace = prod.dimensional;
+create user if not exists qstrother default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.dimensional password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
+create user if not exists jocllado default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.dimensional password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
+create user if not exists mclifton default_role = data_analyst default_warehouse = compute_wh default_namespace = prod.dimensional password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
+create user if not exists alissat default_role = admin_read default_warehouse = compute_wh default_namespace = prod.dimensional password = 'DiFBuyCxFWTIUpw7Y3XU' must_change_password = true;
 
 
 -- create user roles

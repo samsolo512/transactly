@@ -95,18 +95,18 @@ grant role airbyte_owner to role sysadmin;
 
 
 -- tableau_role
-grant role prod_load_read to role tableau_role;
+grant role prod_dimension_read to role tableau_role;
 grant usage on warehouse tableau_wh to role tableau_role;
 
 
 -- PowerBI_role
-grant role prod_load_read to role PowerBI_role;
+grant role prod_dimension_read to role PowerBI_role;
 grant usage on warehouse powerbi_wh to role PowerBI_role;
 
 
 -- admin_read
 grant role fivetran_read to role admin_read;
-grant role prod_load_read to role admin_read;
+grant role prod_dimension_read to role admin_read;
 grant role skyvia_read to role admin_read;
 grant role quickbooks_read to role admin_read;
 grant role hubspot_extract_read to role admin_read;
@@ -115,7 +115,7 @@ grant usage on warehouse compute_wh to role admin_read;
 
 -- data_analyst
 grant role fivetran_read to role admin_read;
-grant role prod_load_read to role admin_read;
+grant role prod_dimension_read to role admin_read;
 grant usage on warehouse compute_wh to role admin_read;
 grant role skyvia_read to role data_analyst;
 
@@ -256,11 +256,11 @@ grant select on future tables in database dev to role dev_read;
 grant usage on future schemas in database dev to role dev_read;
 
 
--- grant privileges to object role prod_load_read
-grant usage on database prod to role prod_load_read;
-grant usage on schema prod.load to role prod_load_read;
-grant select on all tables in schema prod.load to role prod_load_read;
-grant select on future tables in schema prod.load to role prod_load_read;
+-- grant privileges to object role prod_dimension_read
+grant usage on database prod to role prod_dimension_read;
+grant usage on schema prod.dimensional to role prod_dimension_read;
+grant select on all tables in schema prod.dimensional to role prod_dimension_read;
+grant select on future tables in schema prod.dimensional to role prod_dimension_read;
 
 
 -- hubspot_extract_owner
