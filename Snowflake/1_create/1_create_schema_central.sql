@@ -144,7 +144,7 @@ create storage if not exists integration GCP
 -- https://docs.snowflake.com/en/sql-reference/sql/create-file-format.html#usage-notes
 -- https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv
 //create file format if not exists csv_format
-create or replace file format csv_format
+create or replace file format dev.dimensional.csv_format
     type = csv
     empty_field_as_null = false
     escape_unenclosed_field = none
@@ -154,13 +154,37 @@ create or replace file format csv_format
     null_if=('')
 ;
 
+
+create or replace file format prod.dimensional.csv_format
+    type = csv
+    empty_field_as_null = false
+    escape_unenclosed_field = none
+    field_optionally_enclosed_by = none
+    --field_delimiter = '\\011'  -- tab
+    field_delimiter = '^'
+    null_if=('')
+;
+
+
+
+
+
+
 -- step 4b: create a stage
-create stage if not exists dimensional.GCP_stage
--- create or replace stage dimensional.GCP_stage
+create stage if not exists dev.dimensional.GCP_stage
+--create or replace stage dev.dimensional.GCP_stage
 --   url = 'gcs://tc_snowflake_exports/exports/'
     url = 'gcs://transactly-sql-dumps/'
     storage_integration = GCP
-    file_format = csv_format
+    file_format = dev.dimensional.csv_format
 ;
 
+
+create stage if not exists prod.dimensional.GCP_stage
+--create or replace stage prod.dimensional.GCP_stage
+--   url = 'gcs://tc_snowflake_exports/exports/'
+    url = 'gcs://transactly-sql-dumps/'
+    storage_integration = GCP
+    file_format = prod.dimensional.csv_format
+;
 

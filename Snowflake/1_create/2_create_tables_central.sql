@@ -127,6 +127,8 @@ create or replace sequence working.seq_dim_office start=1 increment=1;
 
 create or replace sequence working.seq_dim_order start=1 increment=1;
 
+create or replace sequence working.seq_dim_transaction start=1 increment=1;
+
 
 -- dim_task
 create or replace table dim_task(

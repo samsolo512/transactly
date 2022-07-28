@@ -49,10 +49,14 @@ grant role airbyte_read to role dbt_role;
 grant role fivetran_read to role dbt_role;
 grant role skyvia_read to role dbt_role;
 grant role hubspot_extract_read to role dbt_role;
+grant role dev_owner to role dbt_role;
+grant role prod_owner to role dbt_role;
 grant usage on warehouse dbt_wh to role dbt_role;
 grant usage on integration GCP to role dbt_role;
-grant usage on stage dev.dimensional.GCP_stage to role dbt_role;
 grant usage on file format dev.dimensional.csv_format to role dbt_role;
+grant usage on file format prod.dimensional.csv_format to role dbt_role;
+grant usage on stage dev.dimensional.GCP_stage to role dbt_role;
+grant usage on stage prod.dimensional.gcp_stage to role dbt_role;
 
 
 -- fivetran_role
@@ -187,16 +191,19 @@ grant ownership on all schemas in database prod to role prod_owner;
 grant ownership on all tables in database prod to role prod_owner revoke current grants;
 grant ownership on all procedures in database prod to role prod_owner;
 grant ownership on all sequences in database prod to role prod_owner;
+grant ownership on all views in database prod to role prod_owner;
 revoke ownership on future schemas in database prod from role prod_owner;
 revoke ownership on future tables in database prod from role prod_owner;
 revoke ownership on future procedures in database prod from role prod_owner;
 revoke ownership on future sequences in database prod from role prod_owner;
 revoke ownership on future tables in schema prod.public from role prod_owner;
+revoke ownership on future views in database prod from role prod_owner;
 grant ownership on future schemas in database prod to role prod_owner;
 grant ownership on future tables in database prod to role prod_owner;
 grant ownership on future procedures in database prod to role prod_owner;
 grant ownership on future sequences in database prod to role prod_owner;
-grant ownership on future tables in schema prod.public to role prod_owner
+grant ownership on future tables in schema prod.public to role prod_owner;
+grant ownership on future views in database prod to role prod_owner;
 
 
 -- stage_owner
@@ -223,16 +230,19 @@ grant ownership on all schemas in database dev to role dev_owner;
 grant ownership on all tables in database dev to role dev_owner revoke current grants;
 grant ownership on all procedures in database dev to role dev_owner;
 grant ownership on all sequences in database dev to role dev_owner;
+grant ownership on all views in database dev to role dev_owner;
 revoke ownership on future schemas in database dev from role dev_owner;
 revoke ownership on future tables in database dev from role dev_owner;
 revoke ownership on future procedures in database dev from role dev_owner;
 revoke ownership on future sequences in database dev from role dev_owner;
 revoke ownership on future tables in schema dev.public from role dev_owner;
+revoke ownership on future views in database dev from role dev_owner;
 grant ownership on future schemas in database dev to role dev_owner;
 grant ownership on future tables in database dev to role dev_owner;
 grant ownership on future procedures in database dev to role dev_owner;
 grant ownership on future sequences in database dev to role dev_owner;
 grant ownership on future tables in schema dev.public to role dev_owner;
+grant ownership on future views in database dev to role dev_owner;
 grant create stage on schema dev.working to role dev_owner;
 grant ownership on all stages in database dev to role dev_owner;
 grant ownership on all file formats in database dev to role dev_owner;
