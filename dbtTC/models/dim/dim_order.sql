@@ -48,6 +48,7 @@ select
         end as order_status
     ,o.order_type
     ,a.street as address
+    ,o.city
     ,o.state
     ,case
         when o.order_side_id = 1 then 'buyer'
@@ -72,4 +73,4 @@ from
     left join src_tc_user usr on u.user_id = u.google_user_id
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
 
-union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null

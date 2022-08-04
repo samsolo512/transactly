@@ -71,11 +71,12 @@ select
     ,o.order_status
     ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
     ,user.subscription_level
-    ,user.transaction_coordinator_status
-    ,user.eligible_for_clients
+    ,assigned.transaction_coordinator_status
+    ,assigned.eligible_for_clients
     ,user.hs_start_date
     ,user.days_between_start_date_and_first_order_date
     ,line.total_fees
+    ,o.city
 from
     fact_line_item fact
     join dim_line_item line on fact.line_item_pk = line.line_item_pk
