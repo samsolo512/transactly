@@ -8,6 +8,6 @@ select
     c.contract_id
     ,c.transaction_id
     ,c.contract_amount
-    ,c.closing_date
+    ,c.closing_date as closed_date
 from
     src_tc_contract c
