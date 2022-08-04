@@ -1,17 +1,40 @@
-select value
-from
-    hubspot_extract.v2_daily.object_properties
-where
-    name in('hs_start_date', 'start_date', 'tc_start_date')
-order by name
+select distinct * from(
+
+
+select * from hubspot_extract.v2_daily.object_properties
+where objectid in(
+    select objectid
+    from
+        hubspot_extract.v2_daily.object_properties
+    where
+        name in('lastname')
+        and value = 'Mcdowell'
+--     order by objectid, name
+)
+order by objectid, name
+
+
+)
+where name = 'firstname'
 ;
+
 
 
 select *
 from
     hubspot_extract.v2_daily.object_properties
 where
-    objectid = '9356042278'
+    value in('Crysler')
+order by name
+;
+
+
+
+select *
+from
+    hubspot_extract.v2_daily.object_properties
+where
+    objectid = '25412251'
 order by name
 ;
 
