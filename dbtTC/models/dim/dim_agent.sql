@@ -188,7 +188,7 @@ with
     -- hubspot agents who aren't in the MLS
     ,unique_hb_agents as(
     -- there are about 4 tc_id's that have dups
-    -- looks like the reason is due to there being duplicate intermediate.mls_hubspot_agent.transactly_id - two different agents with the same transactly id
+    -- looks like the reason is due to there being duplicate working.mls_hubspot_agent.transactly_id - two different agents with the same transactly id
     -- in other words it's a source error in Hubspot
         select
             a.*
@@ -245,7 +245,7 @@ with
             ,uast.price as membership_price
             ,uast.end_date as membership_end_date
         from
-            src_tc_user tc  -- desc table dev.intermediate.mls_hubspot_agent
+            src_tc_user tc  -- desc table dev.working.mls_hubspot_agent
             join (select distinct user_id from src_tc_user_role where role_id in(4, 5)) ur on tc.user_id = ur.user_id
             -- user_agent_subscription_tier has dups, this is to find the most recent record
             left join(

@@ -110,7 +110,7 @@ create or replace procedure working.dim_transaction_order_sp()
 
     when not matched then
         insert(transaction_order_pk, transaction_id, order_id, assigned_TC, transaction_created_by, transaction_created_date, transaction_closed_date, order_status, order_type, order_created_date, load_datetime, update_datetime)
-        values(intermediate.seq_dim_transaction_order.nextval, source.transaction_id, source.order_id, source.assigned_TC, source.transaction_created_by, source.transaction_created_date, source.transaction_closed_date, source.order_status, source.order_type, source.order_created_date, current_timestamp(), current_timestamp())
+        values(working.seq_dim_transaction_order.nextval, source.transaction_id, source.order_id, source.assigned_TC, source.transaction_created_by, source.transaction_created_date, source.transaction_closed_date, source.order_status, source.order_type, source.order_created_date, current_timestamp(), current_timestamp())
 
    `;
 
@@ -127,7 +127,7 @@ create or replace procedure working.dim_transaction_order_sp()
 /*
 
 truncate table dimensional.dim_transaction_order;
-call intermediate.dim_transaction_order_sp();
+call working.dim_transaction_order_sp();
 create or replace table load.dim_transaction_order as select * from dimensional.dim_transaction_order;
 select top 100 * from load.dim_transaction_order;
 

@@ -9,7 +9,7 @@ use dev.dimensional;
 
 --Dim_Listing_sp
 
--- create or replace procedure intermediate.dim_listing_sp()
+-- create or replace procedure working.dim_listing_sp()
 --     returns string not null
 --     language javascript
 --     execute as caller
@@ -169,7 +169,7 @@ from
 --
 -- when not matched then
 --     insert(listing_pk, listingkey, status, listprice, closeprice, listingid, streetdirprefix, streetsuffix, streetname, streetnumber, listingContractDate, closeDate, cumulativeDaysOnMarket, update_datetime)
---     values(intermediate.seq_dim_listing.nextval, source.listingkey, source.status, source.listprice, source.closeprice, source.listingid, source.streetdirprefix, source.streetsuffix, source.streetname, source.streetnumber, source.listingContractDate, source.closeDate, source.cumulativeDaysOnMarket, current_timestamp())
+--     values(working.seq_dim_listing.nextval, source.listingkey, source.status, source.listprice, source.closeprice, source.listingid, source.streetdirprefix, source.streetsuffix, source.streetname, source.streetnumber, source.listingContractDate, source.closeDate, source.cumulativeDaysOnMarket, current_timestamp())
 --
 -- `;
 --
@@ -229,7 +229,7 @@ from
 /*
 
 truncate table dimensional.dim_listing;
-call intermediate.dim_listing_sp();
+call working.dim_listing_sp();
 create or replace table load.dim_listing as select * from dimensional.dim_listing;
 select top 100 * from load.dim_listing;
 

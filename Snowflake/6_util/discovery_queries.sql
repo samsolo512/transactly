@@ -35,7 +35,7 @@ order by on_market_date, name desc;
 -- sample table
 
 -- prepare sample table:
--- intermediate.temp_stage_listings
+-- working.temp_stage_listings
 
 create table working.temp_stage_listings as
 select top 10 id, bathroomsfull, streetdirprefix, streetname from fivetran.production_mlsfarm2_public.listings
@@ -47,7 +47,7 @@ insert into working.temp_stage_listings
     (id, bathroomsfull, streetdirprefix, streetname)
     values('9e22415b-c08b-4433-b8d3-62da3713ad3w', 3, 'w', 'kilmington')
 ;
--- delete from intermediate.temp_stage_listings where id = '9e22415b-c08b-4433-b8d3-62da3713ad3w';
+-- delete from working.temp_stage_listings where id = '9e22415b-c08b-4433-b8d3-62da3713ad3w';
 
 update working.temp_stage_listings
 set bathroomsfull = 20

@@ -9,7 +9,7 @@ use dev.dimensional;
 
 --Dim_Agent_sp
 
--- create or replace procedure intermediate.Dim_Agent_sp()
+-- create or replace procedure working.Dim_Agent_sp()
 --     returns string not null
 --     language javascript
 -- 	execute as caller
@@ -255,7 +255,7 @@ use dev.dimensional;
             -- hubspot agents who aren't in the MLS
             ,unique_hb_agents as(
             -- there are about 4 tc_id's that have dups
-            -- looks like the reason is due to there being duplicate intermediate.mls_hubspot_agent.transactly_id - two different agents with the same transactly id
+            -- looks like the reason is due to there being duplicate working.mls_hubspot_agent.transactly_id - two different agents with the same transactly id
             -- in other words it's a source error in Hubspot
                 select
                     a.*
@@ -312,7 +312,7 @@ use dev.dimensional;
                     ,uast.price as membership_price
                     ,uast.end_date as membership_end_date
                 from
-                    FIVETRAN.TRANSACTLY_APP_PRODUCTION_REC_ACCOUNTS.user tc  -- desc table dev.intermediate.mls_hubspot_agent
+                    FIVETRAN.TRANSACTLY_APP_PRODUCTION_REC_ACCOUNTS.user tc  -- desc table dev.working.mls_hubspot_agent
                     join (select distinct user_id from fivetran.transactly_app_production_rec_accounts.user_role where role_id in(4, 5)) ur on tc.id = ur.user_id
                     -- user_agent_subscription_tier has dups, this is to find the most recent record
                     left join(
@@ -531,7 +531,7 @@ use dev.dimensional;
 --
 --     when not matched then
 --         insert(agent_pk, key, agentmlsid, fullname, agentemail, agentcellphone, agentofficephone, agentDirectPhone, agentaddress, agentcity, agentstate, agentzipcode, statelicense, source, aor, mainOfficeMLSID, officeMLSID, brokerMLSID, update_datetime)
---         values(intermediate.seq_dim_agent.nextval, source.key, source.agentmlsid, source.fullname, source.agentemail, source.agentcellphone, source.agentofficephone, source.agentDirectPhone, source.agentaddress, source.agentcity, source.agentstate, source.agentzipcode, source.statelicense, source.source, source.aor, source.mainOfficeMLSID, source.officeMLSID, source.brokerMLSID, current_timestamp)
+--         values(working.seq_dim_agent.nextval, source.key, source.agentmlsid, source.fullname, source.agentemail, source.agentcellphone, source.agentofficephone, source.agentDirectPhone, source.agentaddress, source.agentcity, source.agentstate, source.agentzipcode, source.statelicense, source.source, source.aor, source.mainOfficeMLSID, source.officeMLSID, source.brokerMLSID, current_timestamp)
 --
 --     `;
 --
@@ -548,7 +548,7 @@ use dev.dimensional;
 /*
 
 truncate table dim_agent;
-call intermediate.dim_agent_sp();
+call working.dim_agent_sp();
 create or replace table load.dim_agent as select * from dimensional.dim_agent;
 select top 100 * from load.dim_agent;
 
