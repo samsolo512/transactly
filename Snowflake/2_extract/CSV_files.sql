@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------------
--- working.hubspot_brokerages_csv
+-- intermediate.hubspot_brokerages_csv
 -- from file: 22_04_22_Hubspot_Brokerages
 
 

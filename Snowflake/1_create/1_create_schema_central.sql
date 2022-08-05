@@ -108,7 +108,7 @@ use role sysadmin;
 --use role sysadmin;
 grant create integration on account to role data_engineer;
 --use role securityadmin;
-grant create stage on schema dev.working to role data_engineer;
+grant create stage on schema dev.intermediate to role data_engineer;
 grant usage on integration GCP to role data_engineer;
 */
 

@@ -237,7 +237,7 @@ with
             left join src_hs_owners srn on (case when a.originalsalesrep = '' then null else a.originalsalesrep end) = srn.ownerid
         where
             b.HB_company_id is null
-    )-- desc table dev.working.mls_hubspot_brokerage
+    )-- desc table dev.intermediate.mls_hubspot_brokerage
 
     -- Transactly brokerage who aren't in Hubspot/MLS
     ,unique_tc_brokerage as(

@@ -2,7 +2,7 @@
 -- Brokerage MLS to Hubspot
 
 -- with hubspot_orig as(
--- create or replace table dev.working.mls_hubspot_listing as
+-- create or replace table dev.intermediate.mls_hubspot_listing as
 
 select
     jarowinkler_similarity(
@@ -54,7 +54,7 @@ select
     ,hb.postal_code as Hubspot_zip
 
 from
---     dev.working.hubspot_brokerages hb
+--     dev.intermediate.hubspot_brokerages hb
     dev.working.mls_hubspot_brokerage hb
     left join dev.dimensional.dim_brokerage ofs
 
@@ -119,7 +119,7 @@ order by 1 desc nulls last, 2 desc nulls last
 --
 -- select *
 -- from
---     working.hubspot_brokerages hb
+--     intermediate.hubspot_brokerages hb
 --     left join hubspot_orig ho on hb.company_name = ho.Hubspot_name
 -- where
 --     ho.Hubspot_name is null

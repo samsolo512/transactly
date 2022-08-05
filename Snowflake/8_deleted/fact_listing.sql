@@ -9,7 +9,7 @@ use dev.dimensional;
 
 --Fact_Listing_sp
 
--- create or replace procedure working.fact_listing_sp()
+-- create or replace procedure intermediate.fact_listing_sp()
 --     returns string not null
 --     language javascript
 --     execute as caller
@@ -129,7 +129,7 @@ create or replace table dimensional.fact_listing as
 --     group by l.status
 ;
 
--- select distinct status from working.listings_current
+-- select distinct status from intermediate.listings_current
 
 --     ) as source
 --         on target.listing_pk = source.listing_pk
@@ -168,7 +168,7 @@ create or replace table dimensional.fact_listing as
 /*
 
 truncate table dimensional.fact_listing;
-call working.fact_listing_sp();
+call intermediate.fact_listing_sp();
 create or replace table load.fact_listing as select * from dimensional.fact_listing;
 select count(1) from load.fact_listing;
 

@@ -66,7 +66,7 @@ order by 1
 ------------------------------------------------------------------------------------------------------------------------------
 -- MLS_Hubspot_Agent
 
-create or replace table dev.working.MLS_Hubspot_Agent as  -- select * from dev.working.MLS_Hubspot_Agent
+create or replace table dev.working.MLS_Hubspot_Agent as  -- select * from dev.intermediate.MLS_Hubspot_Agent
 select
     hs_object_id as contact_id
     ,firstname as first_name

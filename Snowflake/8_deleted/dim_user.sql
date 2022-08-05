@@ -158,7 +158,7 @@ create or replace procedure working.dim_user_sp()
 
     when not matched then
         insert(user_pk, user_id, first_name, last_name, full_name, email, license_state, brokerage, user_is_active_flag, valid_email_flag, load_datetime, update_datetime)
-        values(working.seq_dim_user.nextval, source.user_id, source.first_name, source.last_name, source.full_name, source.email, source.license_state, source.brokerage, source.user_is_active_flag, source.valid_email_flag, current_timestamp(), current_timestamp())
+        values(intermediate.seq_dim_user.nextval, source.user_id, source.first_name, source.last_name, source.full_name, source.email, source.license_state, source.brokerage, source.user_is_active_flag, source.valid_email_flag, current_timestamp(), current_timestamp())
 
    `;
 
@@ -175,7 +175,7 @@ create or replace procedure working.dim_user_sp()
 /*
 
 truncate table dimensional.dim_user;
-call working.dim_user_sp();
+call intermediate.dim_user_sp();
 create or replace table load.dim_user as select * from dimensional.dim_user;
 select top 100 * from load.dim_user;
 

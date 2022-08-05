@@ -15,7 +15,7 @@
 -- -- dim_brokerage
 -- -- 59k rows, 50 sec
 -- -- using MLS IDs ~200 dups not counting nulls, 2.3k null dups
--- create or replace procedure working.Dim_Brokerage_sp()
+-- create or replace procedure intermediate.Dim_Brokerage_sp()
 --     returns string not null
 --     language javascript
 --     execute as caller
@@ -297,7 +297,7 @@ from
             left join HUBSPOT_EXTRACT.V2_DAILY.owners srn on (case when a.originalsalesrep = '' then null else a.originalsalesrep end) = srn.ownerid
         where
             b.HB_company_id is null
-    )-- desc table dev.working.mls_hubspot_brokerage
+    )-- desc table dev.intermediate.mls_hubspot_brokerage
 
     -- Transactly brokerage who aren't in Hubspot/MLS
     ,unique_tc_brokerage as(
@@ -518,7 +518,7 @@ from
 --
 -- when not matched then
 --     insert(brokerage_pk, key, officeMLSID, officeName, originatingsystemname, officeaddress, officecity, stateorprovince, postalcode, phone, source, url, mlsid, update_datetime)
---     values(working.seq_dim_brokerage.nextval, source.key, source.officeMLSID, source.officeName, source.originatingsystemname, source.officeaddress, source.officecity, source.stateorprovince, source.postalcode, source.phone, source.source, source.url, source.mlsID, current_timestamp)
+--     values(intermediate.seq_dim_brokerage.nextval, source.key, source.officeMLSID, source.officeName, source.originatingsystemname, source.officeaddress, source.officecity, source.stateorprovince, source.postalcode, source.phone, source.source, source.url, source.mlsID, current_timestamp)
 --
 -- `;
 --
@@ -568,7 +568,7 @@ from
 /*
 
 -- truncate table dim_brokerage;
-call working.dim_brokerage_sp();
+call intermediate.dim_brokerage_sp();
 create or replace table load.dim_brokerage as select * from dimensional.dim_brokerage;
 select * from load.dim_brokerage;
 
