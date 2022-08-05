@@ -56,7 +56,7 @@ select
         else null
         end as order_side
 --     ,iff(try_to_date(cd.closing_date) is not null, to_date(cd.closing_date), null) as closed_date
-    ,cast(c.closing_date as date) as closing_date
+    ,cast(c.closed_date as date) as closed_date
     ,case
         when check_json(order_data) is null
         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
