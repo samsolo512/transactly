@@ -24,11 +24,6 @@ with
         from {{ ref('src_tc_office') }}
     )
 
-    ,dim_contract as(
-        select *
-        from {{ ref('dim_contract') }}
-    )
-
 --     ,close_date as(
 --         select
 --             o.order_id
