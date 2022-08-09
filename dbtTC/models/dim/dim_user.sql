@@ -129,79 +129,101 @@ with
             and o.agent_id is null
     )
 
-select
-    working.seq_dim_user.nextval as user_pk
-    ,user_id
-    ,first_name
-    ,last_name
-    ,fullname
-    ,email
-    ,brokerage
-    ,subscription_level
-    ,pays_at_title
-    ,tc_client_flag
-    ,lead_status as transaction_coordinator_status
-    ,eligible_for_clients
-    ,hs_start_date
-    ,days_between_start_date_and_first_order_date
-    ,tc_agent_flag
-    ,max(last_order_placed) as last_order_placed
-    ,max(last_order_due) as last_order_due
-    ,tier_3
-    ,max(tier_2) as tier_2
-    ,max(tier_1) as tier_1
-    ,max(first_order_placed) as first_order_placed
-    ,max(first_order_closed) as first_order_closed
-    ,max(fifth_order_closed) as fifth_order_closed
-from(
-    select
-        u.user_id
-        ,u.first_name
-        ,u.last_name
-        ,u.fullname
-        ,u.email
-        ,u.brokerage
-        ,sub.subscription_level
-        ,case u.pays_at_title
-            when 'TRUE' then 'yes'
-            when 'FALSE' then 'no'
-            else null
-            end as pays_at_title
-        ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
-        ,case lower(hagent.lead_status)
-            when 'onboarded' then 'Onboarded (TC/Staff)'
-            when 'connected' then 'Closed (TC/Staff)'
-            when 'inactive' then 'Onboarded (TC/Staff)'
-            when 'disqualified' then 'Disqualified (not an agent)'
-            when 'bad' then 'Bad Contact Information'
-            else hagent.lead_status
-            end as lead_status
-        ,hagent.eligible_for_clients
-        ,hagent.created_date as hs_start_date
-        ,datediff(day, hagent.created_date, fp.first_order_placed) as days_between_start_date_and_first_order_date
-        ,case when hagent.type = 'TC Staff' then 1 else 0 end as tc_agent_flag
-        ,fp.first_order_placed as tier_3
---         ,u.created_date as tier_3
-        ,min(li.due_date) as tier_2
-        ,fifth.due_date as tier_1
-        ,loc.last_order_placed
-        ,max(li.due_date) as last_order_due
-        ,fp.first_order_placed
-        ,fc.first_order_closed
-        ,fifth_c.closed_date as fifth_order_closed
-    from
-        src_tc_user u
-        left join client c on u.user_id = c.user_id
-        left join src_tc_line_item li on li.user_id = u.user_id
-        left join hs_agent hagent on u.user_id = hagent.transactly_id
-        left join last_order_placed loc on u.user_id = loc.user_id
-        left join fifth_order fifth on u.user_id = fifth.user_id
-        left join fifth_order_closed fifth_c on u.user_id = fifth_c.user_id
-        left join first_order_placed fp on u.user_id = fp.user_id
-        left join first_order_closed fc on u.user_id = fc.user_id
-        left join src_tc_user_subscription sub on u.user_id = sub.user_id
-    group by u.user_id, u.first_name, u.last_name, u.fullname, u.email, u.brokerage, pays_at_title, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_agent_flag
-)
-group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients, hs_start_date, days_between_start_date_and_first_order_date, tc_agent_flag
+    ,final as(
+        select
+            working.seq_dim_user.nextval as user_pk
+            ,user_id
+            ,first_name
+            ,last_name
+            ,fullname
+            ,email
+            ,brokerage
+            ,subscription_level
+            ,lead_status as transaction_coordinator_status
 
-union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+            --flags
+            ,pays_at_title_flag
+            ,tc_client_flag
+            ,eligible_for_clients_flag
+            ,tc_agent_flag
+            ,diy_flag
+
+            -- dates
+            ,start_date
+            ,days_between_start_date_and_first_order_date
+            ,max(last_order_placed) as last_order_placed
+            ,max(last_order_due) as last_order_due
+            ,tier_3
+            ,max(tier_2) as tier_2
+            ,max(tier_1) as tier_1
+            ,max(first_order_placed) as first_order_placed
+            ,max(first_order_closed) as first_order_closed
+            ,max(fifth_order_closed) as fifth_order_closed
+
+        from(
+            select
+                u.user_id
+                ,replace(u.first_name, '"', '') as first_name
+                ,replace(u.last_name, '"', '') as last_name
+                ,replace(u.fullname, '"', '') as fullname
+                ,replace(u.email, '"', '') as email
+                ,u.brokerage
+                ,sub.subscription_level
+                ,case lower(hagent.lead_status)
+                    when 'onboarded' then 'Onboarded (TC/Staff)'
+                    when 'connected' then 'Closed (TC/Staff)'
+                    when 'inactive' then 'Onboarded (TC/Staff)'
+                    when 'disqualified' then 'Disqualified (not an agent)'
+                    when 'bad' then 'Bad Contact Information'
+                    else hagent.lead_status
+                    end as lead_status
+
+                --flags
+                ,case u.pays_at_title
+                    when 'TRUE' then 1
+                    when 'FALSE' then 0
+                    else null
+                    end as pays_at_title_flag
+                ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
+                ,case lower(hagent.eligible_for_clients)
+                    when 'yes' then 1
+                    when 'no' then 0
+                    else null
+                    end as eligible_for_clients_flag
+                ,case when hagent.type = 'TC Staff' then 1 else 0 end as tc_agent_flag
+                ,case when u.is_tc_client = 'FALSE' then 1 else 0 end as diy_flag
+
+                -- dates
+                ,hagent.created_date as start_date
+                ,datediff(day, hagent.created_date, fp.first_order_placed) as days_between_start_date_and_first_order_date
+                ,fp.first_order_placed as tier_3
+        --         ,u.created_date as tier_3
+                ,min(li.due_date) as tier_2
+                ,fifth.due_date as tier_1
+                ,loc.last_order_placed
+                ,max(li.due_date) as last_order_due
+                ,fp.first_order_placed
+                ,fc.first_order_closed
+                ,fifth_c.closed_date as fifth_order_closed
+
+            from
+                src_tc_user u
+                left join client c on u.user_id = c.user_id
+                left join src_tc_line_item li on li.user_id = u.user_id
+                left join hs_agent hagent on u.user_id = hagent.transactly_id
+                left join last_order_placed loc on u.user_id = loc.user_id
+                left join fifth_order fifth on u.user_id = fifth.user_id
+                left join fifth_order_closed fifth_c on u.user_id = fifth_c.user_id
+                left join first_order_placed fp on u.user_id = fp.user_id
+                left join first_order_closed fc on u.user_id = fc.user_id
+                left join src_tc_user_subscription sub on u.user_id = sub.user_id
+
+            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_agent_flag, diy_flag
+        )
+
+        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, start_date, days_between_start_date_and_first_order_date, tc_agent_flag, diy_flag
+
+        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+    )
+
+select * from final

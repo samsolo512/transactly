@@ -50,7 +50,7 @@ select
     ,o.order_id
     ,o.transaction_id
     ,line.paid
-    ,user.pays_at_title
+    ,user.pays_at_title_flag
     ,line.tc_paid
     ,user.user_id as client_id
     ,user.fullname
@@ -72,8 +72,8 @@ select
     ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
     ,user.subscription_level
     ,assigned.transaction_coordinator_status
-    ,assigned.eligible_for_clients
-    ,user.hs_start_date
+    ,assigned.eligible_for_clients_flag
+    ,user.start_date
     ,user.days_between_start_date_and_first_order_date
     ,line.total_fees
     ,o.city
