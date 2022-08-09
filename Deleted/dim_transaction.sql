@@ -1,10 +1,13 @@
--- dim_transaction (GCP)
-insert into `data-sandbox-343520`.load.dim_transaction
+-- dim_transaction
+
+create or replace table dim_transaction as
+
 select
-    id as transaction_id
-    ,cast(closed_date as date) as closed_date
-    ,cast(price as number) as price
-    ,current_timestamp() as load_datetime
-    ,current_timestamp() as update_datetime
-from business-analytics-337515.transactly_app_production_rec_accounts.transaction
+    working.seq_dim_transaction.nextval as transaction_pk
+    ,id as transaction_id
+    ,created_by_id as user_id
+    ,created as created_date
+from fivetran.transactly_app_production_rec_accounts.transaction
 ;
+
+create or replace sequence working.seq_dim_transaction start=1 increment=1;
