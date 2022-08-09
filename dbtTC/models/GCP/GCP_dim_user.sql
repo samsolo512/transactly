@@ -20,14 +20,15 @@ with
             ,email
             ,brokerage
             ,subscription_level
-            ,transaction_coordinator_status
+            ,transaction_coordinator_status as lead_status
 
             -- flag
             ,pays_at_title_flag
-            ,tc_client_flag
             ,eligible_for_clients_flag
-            ,tc_agent_flag
+            ,tc_staff_flag
+            ,tc_client_flag
             ,diy_flag
+            ,self_procured_flag
 
             -- dates
             ,start_date

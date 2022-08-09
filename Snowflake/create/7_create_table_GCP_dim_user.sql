@@ -8,14 +8,15 @@ create or replace table business-analytics-337515.data_warehouse.dim_user (
     ,email string
     ,brokerage string
     ,subscription_level string
-    ,transaction_coordinator_status string
+    ,lead_status string
 
     -- flags
     ,pays_at_title_flag int
-    ,tc_client_flag int
     ,eligible_for_clients_flag int
-    ,tc_agent_flag int
+    ,tc_staff_flag int
+    ,tc_client_flag int
     ,diy_flag int
+    ,self_procured_flag int
 
     -- dates
     ,start_date date

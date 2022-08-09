@@ -143,10 +143,11 @@ with
 
             --flags
             ,pays_at_title_flag
-            ,tc_client_flag
             ,eligible_for_clients_flag
-            ,tc_agent_flag
+            ,tc_staff_flag
+            ,tc_client_flag
             ,diy_flag
+            ,self_procured_flag
 
             -- dates
             ,start_date
@@ -184,14 +185,19 @@ with
                     when 'FALSE' then 0
                     else null
                     end as pays_at_title_flag
-                ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
                 ,case lower(hagent.eligible_for_clients)
                     when 'yes' then 1
                     when 'no' then 0
                     else null
                     end as eligible_for_clients_flag
-                ,case when hagent.type = 'TC Staff' then 1 else 0 end as tc_agent_flag
+                ,case when hagent.type = 'TC Staff' then 1 else 0 end as tc_staff_flag
+                ,case when c.user_id is not null then 1 else 0 end as tc_client_flag
                 ,case when u.is_tc_client = 'FALSE' then 1 else 0 end as diy_flag
+                ,case
+                    when u.self_procured = 'TRUE' then 1
+                    when u.self_procured = 'FALSE' then 0
+                    else null
+                    end as self_procured_flag
 
                 -- dates
                 ,hagent.created_date as start_date
@@ -218,12 +224,12 @@ with
                 left join first_order_closed fc on u.user_id = fc.user_id
                 left join src_tc_user_subscription sub on u.user_id = sub.user_id
 
-            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_agent_flag, diy_flag
+            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, self_procured_flag, tier_3, loc.last_order_placed, fp.first_order_placed, fc.first_order_closed, fifth_c.closed_date, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag
         )
 
-        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, start_date, days_between_start_date_and_first_order_date, tc_agent_flag, diy_flag
+        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, self_procured_flag, start_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag
 
-        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final
