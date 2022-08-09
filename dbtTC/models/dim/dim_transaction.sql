@@ -11,4 +11,6 @@ select
     ,type_id
     ,side_id
     ,category_id
+    ,created_date
+    ,closed_date
 from src_tc_transaction

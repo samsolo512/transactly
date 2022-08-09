@@ -1,7 +1,7 @@
 
 {{ config(
     post_hook=[
-      "{{unload_data_to_GCP()}}"
+      "{{unload_fact_line_item_to_GCP()}}"
     ]
 ) }}
 
