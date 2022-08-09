@@ -8,7 +8,7 @@ where objectid in(
         hubspot_extract.v2_daily.object_properties
     where
         name in('lastname')
-        and value = 'Mcdowell'
+        and value = 'Diligiro'
 --     order by objectid, name
 )
 order by objectid, name
@@ -24,8 +24,10 @@ select *
 from
     hubspot_extract.v2_daily.object_properties
 where
-    value in('Crysler')
+--     value in('Crysler')
+    objectid = '24085201'
 order by name
+
 ;
 
 
