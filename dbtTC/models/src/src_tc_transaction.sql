@@ -17,4 +17,5 @@ select
     ,t.address_id
     ,t.expiration_date
     ,t.current_contract_id
+    ,t.status_changed_date
 from src_tc_transaction t

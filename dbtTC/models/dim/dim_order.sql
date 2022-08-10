@@ -41,27 +41,32 @@ select
     ,o.agent_id
     ,usr.fullname as assigned_TC
     ,t_create.fullname as created_by
-    ,t.created_date
     ,case
         when t.expiration_date <= getdate() then 'expired'
         else o.order_status
         end as order_status
     ,o.order_type
-    ,a.street as address
-    ,o.city
-    ,o.state
     ,case
         when o.order_side_id = 1 then 'buyer'
         when o.order_side_id = 2 then 'seller'
         else null
         end as order_side
---     ,iff(try_to_date(cd.closing_date) is not null, to_date(cd.closing_date), null) as closed_date
-    ,cast(c.closed_date as date) as closed_date
     ,case
         when check_json(order_data) is null
         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
         end as office_name
     ,o.last_sync
+
+    -- address
+    ,a.street as address
+    ,o.city
+    ,o.state
+
+    -- dates
+    ,cast(t.created_date as date) as created_date
+    ,cast(c.closed_date as date) as closed_date
+    ,cast(t.status_changed_date as date) as status_changed_date
+
 from
     src_tc_transaction t
     left join src_tc_address a on t.address_id = a.address_id
@@ -73,4 +78,4 @@ from
     left join src_tc_user usr on u.user_id = u.google_user_id
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
 
-union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null

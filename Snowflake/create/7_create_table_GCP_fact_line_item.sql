@@ -41,4 +41,5 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,days_between_start_date_and_first_order_date int
     ,total_fees numeric
     ,city string
+    ,status_changed_date date
 )

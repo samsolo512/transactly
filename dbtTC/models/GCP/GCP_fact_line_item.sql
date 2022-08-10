@@ -77,6 +77,7 @@ select
     ,user.days_between_start_date_and_first_order_date
     ,line.total_fees
     ,o.city
+    ,o.status_changed_date
 from
     fact_line_item fact
     join dim_line_item line on fact.line_item_pk = line.line_item_pk
