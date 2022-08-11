@@ -6,7 +6,7 @@ with src_sf_opportunity as(
 select
     o.contact_id
     ,o.account_id
-    ,o.close_date
+    ,cast(o.close_date as date) as close_date
     ,o.name as opportunity_name
     ,o.owner_id
     ,o.id as opportunity_id

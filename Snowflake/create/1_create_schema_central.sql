@@ -162,9 +162,6 @@ create or replace file format prod.dimensional.csv_format
 
 
 
-
-
-
 -- step 4b: create a stage
 create stage if not exists dev.dimensional.GCP_stage
 --create or replace stage dev.dimensional.GCP_stage

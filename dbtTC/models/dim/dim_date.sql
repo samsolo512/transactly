@@ -6,7 +6,7 @@ with cte_my_date AS (
 
 select
     to_char(concat(year(date_id), '-', month(date_id), '-', day(date_id))::date, 'yyyymmdd') as date_pk
-    ,date_id
+    ,cast(date_id as date) as date_id
     ,year(date_id) as year
     ,month(date_id) as month
     ,monthname(date_id) as month_name

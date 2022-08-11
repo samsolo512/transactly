@@ -9,6 +9,21 @@ with
         from {{ ref('src_sf_opportunity_line_item') }}
     )
 
+    ,dim_opportunity as(
+        select *
+        from {{ ref('dim_opportunity') }}
+    )
+
+    ,dim_product as(
+        select *
+        from {{ ref('dim_product') }}
+    )
+
+    ,dim_date as(
+        select *
+        from {{ ref('dim_date') }}
+    )
+
     ,final as(
         select
             o.opportunity_pk
