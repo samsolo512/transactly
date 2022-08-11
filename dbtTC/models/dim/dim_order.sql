@@ -64,7 +64,7 @@ select
 
     -- dates
     ,cast(t.created_date as date) as created_date
-    ,cast(c.closed_date as date) as closed_date
+    ,cast(c.closing_date as date) as closing_date
     ,cast(t.status_changed_date as date) as status_changed_date
 
 from
