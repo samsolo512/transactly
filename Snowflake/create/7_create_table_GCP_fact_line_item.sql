@@ -42,4 +42,7 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,total_fees numeric
     ,city string
     ,status_changed_date date
+    ,second_order_closed_date date
+    ,third_order_closed_date date
+    ,fourth_order_closed_date date
 )

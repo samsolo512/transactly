@@ -79,6 +79,9 @@ with
             ,line.total_fees
             ,o.city
             ,o.status_changed_date
+            ,user.second_order_closed as second_order_closed_date
+            ,user.third_order_closed as third_order_closed_date
+            ,user.fourth_order_closed as fourth_order_closed_date
         from
             fact_line_item fact
             join dim_line_item line on fact.line_item_pk = line.line_item_pk
