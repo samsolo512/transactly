@@ -4,7 +4,7 @@ with src_sf_opportunity_line_item as(
 )
 
 select
-    o.product_revenue_c
-    ,o.product_2_id
+    o.product_revenue_c as revenue
+    ,o.product_2_id as product_id
     ,o.opportunity_id
 from src_sf_opportunity_line_item o

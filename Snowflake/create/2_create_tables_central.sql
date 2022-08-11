@@ -125,7 +125,11 @@ create or replace sequence working.seq_dim_listing start=1 increment=1;
 
 create or replace sequence working.seq_dim_office start=1 increment=1;
 
+create or replace sequence working.seq_dim_opportunity start=1 increment=1;
+
 create or replace sequence working.seq_dim_order start=1 increment=1;
+
+create or replace sequence working.seq_dim_product start=1 increment=1;
 
 create or replace sequence working.seq_dim_transaction start=1 increment=1;
 

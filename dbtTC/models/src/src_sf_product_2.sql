@@ -4,6 +4,7 @@ with src_sf_product_2 as(
 )
 
 select
-    p.name
-    ,p.id
+    p.name as product_name
+    ,p.id as product_id
+    ,family as product_family
 from src_sf_product_2 p

@@ -21,7 +21,9 @@ with
 
     ,final as(
         select
-            opp.opportunity_name
+            working.seq_dim_opportunity.nextval as opportunity_pk
+            ,opp.opportunity_id
+            ,opp.opportunity_name
             ,acc.account_name
             ,c.street
             ,c.state

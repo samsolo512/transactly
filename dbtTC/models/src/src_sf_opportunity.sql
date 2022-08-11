@@ -10,4 +10,6 @@ select
     ,o.name as opportunity_name
     ,o.owner_id
     ,o.id as opportunity_id
+    ,o.stage_name as stage
+    ,o.is_won as is_won_flag
 from src_sf_opportunity o
