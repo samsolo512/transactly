@@ -1,21 +1,16 @@
-select distinct * from(
-
-
-select * from hubspot_extract.v2_daily.object_properties
-where objectid in(
-    select objectid
-    from
-        hubspot_extract.v2_daily.object_properties
-    where
-        name in('lastname')
-        and value = 'Diligiro'
---     order by objectid, name
-)
-order by objectid, name
-
-
-)
-where name = 'firstname'
+select *
+from hubspot_extract.v2_daily.object_properties
+where
+    objectid in(
+        select objectid
+        from
+            hubspot_extract.v2_daily.object_properties
+        where
+            lower(value) like '%donald%payne%'
+            and name = 'full_name'
+    --     order by objectid, name
+    )
+--     and name like '%contact%'
 ;
 
 

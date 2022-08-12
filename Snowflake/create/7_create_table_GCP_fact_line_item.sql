@@ -45,4 +45,5 @@ create or replace table business-analytics-337515.data_warehouse.fact_line_item 
     ,second_order_closed_date date
     ,third_order_closed_date date
     ,fourth_order_closed_date date
+    ,contact_owner string
 )
