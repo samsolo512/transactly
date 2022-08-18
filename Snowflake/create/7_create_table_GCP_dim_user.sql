@@ -1,6 +1,6 @@
 -- dim_user
 
-create or replace table business-analytics-337515.data_warehouse.dim_user (
+create or replace table data_warehouse.dim_user (
     user_id int
     ,first_name string
     ,last_name string

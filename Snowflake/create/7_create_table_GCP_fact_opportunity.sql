@@ -1,6 +1,6 @@
 -- fact_opportunity
 
-create or replace table business-analytics-337515.data_warehouse.fact_opportunity (
+create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
     ,total_revenue numeric
     ,close_date date

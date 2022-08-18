@@ -9,6 +9,7 @@ where table_schema in('V2_DAILY')
 
 --most important
 create or replace table hubspot_extract.v2_daily.OBJECT_PROPERTIES as select * from hubspot.v2_daily.OBJECT_PROPERTIES;
+create or replace table hubspot_extract.v2_daily.OWNERS as select * from hubspot.v2_daily.OWNERS;
 
 --others
 create or replace table hubspot_extract.v2_daily.ASSOCIATIONS as select * from hubspot.v2_daily.ASSOCIATIONS;
@@ -56,7 +57,6 @@ create or replace table hubspot_extract.v2_daily.LIST_MEMBERSHIPS as select * fr
 create or replace table hubspot_extract.v2_daily.OBJECTS as select * from hubspot.v2_daily.OBJECTS;
 create or replace table hubspot_extract.v2_daily.OBJECT_AND_EVENT_TYPE_DEFINITIONS as select * from hubspot.v2_daily.OBJECT_AND_EVENT_TYPE_DEFINITIONS;
 create or replace table hubspot_extract.v2_daily.OBJECT_WITH_OBJECT_PROPERTIES as select * from hubspot.v2_daily.OBJECT_WITH_OBJECT_PROPERTIES;
-create or replace table hubspot_extract.v2_daily.OWNERS as select * from hubspot.v2_daily.OWNERS;
 create or replace table hubspot_extract.v2_daily.PIPELINES as select * from hubspot.v2_daily.PIPELINES;
 create or replace table hubspot_extract.v2_daily.PIPELINE_STAGES as select * from hubspot.v2_daily.PIPELINE_STAGES;
 create or replace table hubspot_extract.v2_daily.PROPERTY_DEFINITIONS as select * from hubspot.v2_daily.PROPERTY_DEFINITIONS;
