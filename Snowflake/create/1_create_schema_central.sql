@@ -105,7 +105,6 @@ use role sysadmin;
 
 -- necessary permissions (located in the permissions file)
 /*
---use role sysadmin;
 grant create integration on account to role data_engineer;
 --use role securityadmin;
 grant create stage on schema dev.working to role data_engineer;
@@ -125,6 +124,10 @@ create or replace storage integration GCP
         'gcs://transactly-sql-dumps-dev/'
     )
 ;
+-- grant usage on integration GCP to role dbt_role;
+-- grant usage on integration GCP to role data_engineer;
+
+
 
 
 -- step 2: get the storage_gcp_service_account
@@ -133,15 +136,22 @@ create or replace storage integration GCP
 -- service acct: dfckwweeuu@gcpuscentral1-1dfa.iam.gserviceaccount.com
 
 
+
+
 -- step 3: grant the service acct permissions to access bucket objects
 -- this is where you create a custom GCP role to access buckets and assign it to the service acct
 -- see the above URL for details
+
+
 
 
 -- step 4: create an external stage
 -- step 4A: create a file format if needed, to be plugged into the stage
 -- https://docs.snowflake.com/en/sql-reference/sql/create-file-format.html#usage-notes
 -- https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-csv
+
+
+
 //create file format if not exists csv_format
 create or replace file format dev.dimensional.csv_format
     type = csv
@@ -166,6 +176,8 @@ create or replace file format prod.dimensional.csv_format
 
 
 
+-- use role sysadmin;
+
 -- step 4b: create a stage
 create stage if not exists dev.dimensional.GCP_stage
 --create or replace stage dev.dimensional.GCP_stage
@@ -183,4 +195,8 @@ create stage if not exists prod.dimensional.GCP_stage
     storage_integration = GCP
     file_format = prod.dimensional.csv_format
 ;
+
+
+-- grant usage on stage dev.dimensional.GCP_stage to role dbt_role;
+-- grant usage on stage prod.dimensional.GCP_stage to role dbt_role;
 
