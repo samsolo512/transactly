@@ -4,7 +4,7 @@ with src_HS_object_properties as(
         ,name
         ,value
         ,objecttypeid
-    from hubspot_extract.v2_daily.object_properties
+    from hubspot.v2_daily.object_properties
 )
 
 select

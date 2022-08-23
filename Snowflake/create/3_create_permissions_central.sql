@@ -48,7 +48,7 @@ grant usage on warehouse airbyte_wh to role airbyte_role;
 grant role airbyte_read to role dbt_role;
 grant role fivetran_read to role dbt_role;
 grant role skyvia_read to role dbt_role;
-grant role hubspot_extract_read to role dbt_role;
+grant role hubspot_read to role dbt_role;
 grant role dev_owner to role dbt_role;
 grant role prod_owner to role dbt_role;
 grant usage on warehouse dbt_wh to role dbt_role;
@@ -109,7 +109,7 @@ grant role fivetran_read to role admin_read;
 grant role prod_dimension_read to role admin_read;
 grant role skyvia_read to role admin_read;
 grant role quickbooks_read to role admin_read;
-grant role hubspot_extract_read to role admin_read;
+grant role hubspot_read to role admin_read;
 grant usage on warehouse compute_wh to role admin_read;
 
 
@@ -263,21 +263,12 @@ grant select on all tables in schema prod.dimensional to role prod_dimension_rea
 grant select on future tables in schema prod.dimensional to role prod_dimension_read;
 
 
--- hubspot_extract_owner
-grant ownership on database hubspot_extract to role hubspot_extract_owner;
-grant ownership on all schemas in database hubspot_extract to role hubspot_extract_owner;
-grant ownership on future schemas in database hubspot_extract to role hubspot_extract_owner;
-grant ownership on all tables in database hubspot_extract to role hubspot_extract_owner;
-grant ownership on future tables in database hubspot_extract to role hubspot_extract_owner;
-grant ownership on all views in database hubspot_extract to role hubspot_extract_owner;
-grant ownership on future views in database hubspot_extract to role hubspot_extract_owner;
+-- hubspot_owner
+grant imported privileges on database hubspot to role hubspot_owner;
 
 
--- hubspot_extract_read
-grant usage on database hubspot_extract to role hubspot_extract_read;
-grant usage on all schemas in database hubspot_extract to role hubspot_extract_read;
-grant select on all tables in database hubspot_extract to role hubspot_extract_read;
-grant select on future tables in database hubspot_extract to role hubspot_extract_read;
+-- hubspot_read
+grant imported privileges on database hubspot to role hubspot_read;
 
 
 -- skyvia_read
