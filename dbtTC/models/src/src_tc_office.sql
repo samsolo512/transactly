@@ -1,6 +1,6 @@
 with src_tc_office as(
     select *
-    from {{ source('fivetran', 'office') }}
+    from {{ source('tc', 'office') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

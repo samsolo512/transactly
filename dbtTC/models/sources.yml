@@ -1,7 +1,9 @@
 version: 2
 
 sources:
-  - name: fivetran
+  - name: tc
+    description: "Transactly data sources"
+    database: fivetran
     schema: transactly_app_production_rec_accounts
     tables:
       - name: address
@@ -54,3 +56,77 @@ sources:
 
       - name: user_transactly_vendor_opt_out
         identifier: user_transactly_vendor_opt_out
+
+  - name: mls
+    description: "mls data sources"
+    database: airbyte
+    schema: PRODUCTION_MLSFARM2_PUBLIC
+    tables:
+      - name: ags
+        identifier: ags
+
+      - name: listings
+        identifier: listings
+
+      - name: ofs
+        identifier: ofs
+
+  - name: hs
+    description: "hubspot data sources"
+    database: fivetran
+    schema: v2_daily
+    tables:
+      - name: object_properties
+        identifier: object_properties
+
+      - name: owners
+        identifier: owners
+
+  - name: Sugar
+    description: "SugarCRM data sources"
+    database: Skyvia
+    schema: sugarcrm
+    tables:
+      - name: accounts
+        identifier: accounts
+
+      - name: contacts
+        identifier: contacts
+
+      - name: opportunities
+        identifier: opportunities
+
+      - name: rc360_referrer
+        identifier: rc360_referrer
+
+      - name: revenuelineitems
+        identifier: revenuelineitems
+
+  - name: sf
+    description: "Salesforce data sources"
+    database: fivetran
+    schema: salesforce
+    tables:
+      - name: account
+        identifier: account
+
+      - name: contact
+        identifier: contact
+
+      - name: opportunity
+        identifier: opportunity
+
+      - name: opportunity_line_item
+        identifier: opportunity_line_item
+
+      - name: partner_payout_c
+        identifier: partner_payout_c
+
+      - name: product_2
+        identifier: product_2
+
+      - name: user
+        identifier: user
+
+      - name: vendor_payout_c
+        identifier: vendor_payout_c

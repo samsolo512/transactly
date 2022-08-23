@@ -1,6 +1,6 @@
 with src_Sugar_opportunities as(
     select *
-    from skyvia.sugarcrm."Opportunities"
+    from {{ source('Sugar', 'opportunities') }}
 )
 
 select

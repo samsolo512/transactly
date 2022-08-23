@@ -1,6 +1,6 @@
 with src_tc_transaction_transactly_vendor_member_notified as(
     select *
-    from {{ source('fivetran', 'transaction_transactly_vendor_member_notified') }}
+    from {{ source('tc', 'transaction_transactly_vendor_member_notified') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

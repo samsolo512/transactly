@@ -1,6 +1,6 @@
 with src_Sugar_RC360_referrer as(
     select *
-    from skyvia.sugarcrm."RC360_Referrer"
+    from {{ source('Sugar', 'rc360_referrer') }}
 )
 
 select

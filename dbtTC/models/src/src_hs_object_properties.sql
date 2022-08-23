@@ -4,7 +4,7 @@ with src_HS_object_properties as(
         ,name
         ,value
         ,objecttypeid
-    from hubspot.v2_daily.object_properties
+    from {{ source('hs', 'object_properties') }}
 )
 
 select

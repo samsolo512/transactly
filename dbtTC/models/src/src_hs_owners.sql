@@ -1,6 +1,6 @@
 with src_HS_owners as(
     select *
-    from hubspot.v2_daily.owners
+    from {{ source('hs', 'owners') }}
 )
 
 select

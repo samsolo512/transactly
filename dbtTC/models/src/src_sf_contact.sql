@@ -1,6 +1,6 @@
 with src_sf_contact as(
     select *
-    from fivetran.salesforce.contact
+    from {{ source('sf', 'contact') }}
 )
 
 select

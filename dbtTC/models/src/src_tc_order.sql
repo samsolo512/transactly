@@ -1,6 +1,6 @@
 with src_tc_order as(
     select *
-    from {{ source('fivetran', 'order') }}
+    from {{ source('tc', 'order') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

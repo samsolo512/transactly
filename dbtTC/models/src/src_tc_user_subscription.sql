@@ -1,6 +1,6 @@
 with src_tc_user_subscription as(
     select *
-    from {{ source('fivetran', 'user_subscription') }}
+    from {{ source('tc', 'user_subscription') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

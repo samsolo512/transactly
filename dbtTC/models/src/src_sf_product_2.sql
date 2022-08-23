@@ -1,6 +1,6 @@
 with src_sf_product_2 as(
     select *
-    from fivetran.salesforce.product_2
+    from {{ source('sf', 'product_2') }}
 )
 
 select

@@ -1,6 +1,6 @@
 with src_sf_partner_payout_c as(
     select *
-    from fivetran.salesforce.partner_payout_c
+    from {{ source('sf', 'partner_payout_c') }}
 )
 
 select

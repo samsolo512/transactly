@@ -1,6 +1,6 @@
 with src_tc_line_item as(
     select *
-    from {{ source('fivetran', 'line_item') }}
+    from {{ source('tc', 'line_item') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

@@ -1,6 +1,6 @@
 with src_tc_user as(
     select *
-    from {{ source('fivetran', 'user') }}
+    from {{ source('tc', 'user') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

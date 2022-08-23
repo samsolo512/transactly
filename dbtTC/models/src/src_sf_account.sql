@@ -1,6 +1,6 @@
 with src_sf_account as(
     select *
-    from fivetran.salesforce.account
+    from {{ source('sf', 'account') }}
 )
 
 select

@@ -1,6 +1,6 @@
 with src_MLS_ags as(
     select *
-    from airbyte.postgresql.ags
+    from {{ source('mls', 'ags') }}
 )
 
 select

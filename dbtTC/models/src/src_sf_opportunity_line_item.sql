@@ -1,6 +1,6 @@
 with src_sf_opportunity_line_item as(
     select *
-    from fivetran.salesforce.opportunity_line_item
+    from {{ source('sf', 'opportunity_line_item') }}
 )
 
 select

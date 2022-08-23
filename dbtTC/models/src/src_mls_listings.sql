@@ -1,7 +1,7 @@
 with
     src_mls_listings as(
         select *
-        from airbyte.postgresql.listings
+        from {{ source('mls', 'listings') }}
     )
 
     ,unique_listing as(
