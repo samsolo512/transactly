@@ -1,6 +1,6 @@
 with src_tc_user as(
     select *
-    from fivetran.transactly_app_production_rec_accounts.user
+    from {{ source('fivetran', 'user') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

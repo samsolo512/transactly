@@ -1,6 +1,6 @@
 with src_tc_user_role as(
     select *
-    from fivetran.transactly_app_production_rec_accounts.user_role
+    from {{ source('fivetran', 'user_role') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

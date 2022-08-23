@@ -1,6 +1,6 @@
 with src_tc_user_agent_subscription_tier as(
     select *
-    from fivetran.transactly_app_production_rec_accounts.user_agent_subscription_tier
+    from {{ source('fivetran', 'user_agent_subscription_tier') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

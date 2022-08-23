@@ -1,6 +1,6 @@
 with src_tc_office_user as(
     select *
-    from fivetran.transactly_app_production_rec_accounts.office_user
+    from {{ source('fivetran', 'office_user') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

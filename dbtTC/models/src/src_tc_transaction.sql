@@ -1,6 +1,6 @@
 with src_tc_transaction as(
     select *
-    from fivetran.transactly_app_production_rec_accounts.transaction
+    from {{ source('fivetran', 'transaction') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

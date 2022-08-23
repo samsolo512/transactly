@@ -4,8 +4,53 @@ sources:
   - name: fivetran
     schema: transactly_app_production_rec_accounts
     tables:
+      - name: address
+        identifier: address
+
+      - name: agent_subscription_tier
+        identifier: agent_subscription_tier
+
+      - name: contract
+        identifier: contract
+
       - name: line_item
         identifier: line_item
 
+      - name: member
+        identifier: member
+
+      - name: office
+        identifier: order
+
+      - name: office_user
+        identifier: order
+
       - name: order
         identifier: order
+
+      - name: transaction
+        identifier: transaction
+
+      - name: transaction_transactly_vendor
+        identifier: transaction_transactly_vendor
+
+      - name: transaction_transactly_vendor_member_notified
+        identifier: transaction_transactly_vendor_member_notified
+
+      - name: transactly_vendor
+        identifier: transactly_vendor
+
+      - name: user
+        identifier: user
+
+      - name: user_agent_subscription_tier
+        identifier: user_agent_subscription_tier
+
+      - name: user_role
+        identifier: user_role
+
+      - name: user_subscription
+        identifier: user_subscription
+
+      - name: user_transactly_vendor_opt_out
+        identifier: user_transactly_vendor_opt_out
