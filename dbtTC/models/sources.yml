@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: fivetran
+    schema: transactly_app_production_rec_accounts
+    tables:
+      - name: line_item
+        identifier: line_item
+
+      - name: order
+        identifier: order
