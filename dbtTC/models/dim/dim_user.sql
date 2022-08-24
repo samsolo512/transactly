@@ -231,6 +231,8 @@ with
             ,subscription_level
             ,lead_status as transaction_coordinator_status
             ,contact_owner
+            ,address
+            ,address2
 
             --flags
             ,pays_at_title_flag
@@ -277,6 +279,8 @@ with
                     else hagent.lead_status
                     end as lead_status
                 ,concat(firstname, ' ', lastname) as contact_owner
+                ,hagent.address
+                ,hagent.address2
 
                 --flags
                 ,case u.pays_at_title
@@ -337,12 +341,12 @@ with
                 left join fourth_order_closed c4 on u.user_id = c4.user_id
                 left join fifth_order_closed c5 on u.user_id = c5.user_id
 
-            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, self_procured_flag, tier_3, loc.last_order_placed, fp.first_order_placed, c1.first_order_closed, c2.second_order_closed, c3.third_order_closed, c4.fourth_order_closed, c5.fifth_order_closed, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag, concat(firstname, ' ', lastname)
+            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, self_procured_flag, tier_3, loc.last_order_placed, fp.first_order_placed, c1.first_order_closed, c2.second_order_closed, c3.third_order_closed, c4.fourth_order_closed, c5.fifth_order_closed, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag, concat(firstname, ' ', lastname), hagent.address, hagent.address2
         )
 
-        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, self_procured_flag, start_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag, contact_owner
+        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, self_procured_flag, start_date, days_between_start_date_and_first_order_date, tc_staff_flag, diy_flag, contact_owner, address, address2
 
-        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final
