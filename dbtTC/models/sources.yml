@@ -22,13 +22,13 @@ sources:
         identifier: member
 
       - name: office
-        identifier: order
+        identifier: office
 
       - name: office_user
-        identifier: order
+        identifier: office_user
 
       - name: order
-        identifier: order
+        identifier: tc_order
 
       - name: transaction
         identifier: transaction
@@ -60,7 +60,7 @@ sources:
   - name: mls
     description: "mls data sources"
     database: airbyte
-    schema: PRODUCTION_MLSFARM2_PUBLIC
+    schema: postgresql
     tables:
       - name: ags
         identifier: ags
@@ -73,7 +73,7 @@ sources:
 
   - name: hs
     description: "hubspot data sources"
-    database: fivetran
+    database: hubspot
     schema: v2_daily
     tables:
       - name: object_properties
@@ -88,19 +88,19 @@ sources:
     schema: sugarcrm
     tables:
       - name: accounts
-        identifier: accounts
+        identifier: '"Accounts"'
 
       - name: contacts
-        identifier: contacts
+        identifier: '"Contacts"'
 
       - name: opportunities
-        identifier: opportunities
+        identifier: '"Opportunities"'
 
       - name: rc360_referrer
-        identifier: rc360_referrer
+        identifier: '"RC360_Referrer"'
 
       - name: revenuelineitems
-        identifier: revenuelineitems
+        identifier: '"RevenueLineItems"'
 
   - name: sf
     description: "Salesforce data sources"
