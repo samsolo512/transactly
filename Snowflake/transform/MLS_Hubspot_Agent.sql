@@ -1,14 +1,14 @@
 select *
-from hubspot_extract.v2_daily.object_properties
+from hubspot.v2_daily.object_properties
 where
     objectid in(
-        select objectid
+        select distinct name
         from
-            hubspot_extract.v2_daily.object_properties
+            hubspot.v2_daily.object_properties
         where
-            lower(value) like '%donald%payne%'
-            and name = 'full_name'
-    --     order by objectid, name
+--             lower(value) like '%donald%payne%'
+            lower(name) like '%address%'
+        order by name
     )
 --     and name like '%contact%'
 ;

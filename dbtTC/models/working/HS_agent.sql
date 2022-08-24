@@ -18,6 +18,8 @@ select
     ,renewal_date
     ,case when mobilephone = '' then null else mobilephone end as mobile_phone_number
     ,case when phone = '' then null else phone end as phone_number
+    ,address
+    ,address2
     ,city
     ,state_province
     ,zip
@@ -35,7 +37,7 @@ from(
         objectid
         ,name
         ,value
-    from src_hs_object_properties
+    from object_properties
     where
         objecttypeid = '0-1'
         and name in(
@@ -64,8 +66,8 @@ from(
             ,'mobilephone'  -- mobile phone number
             ,'phone'  -- phone number
             -- secondary phone number
-            -- office address - street address 1
-            -- office address - street address 2
+            ,'address'
+            ,'address2'
             ,'city'  -- city
             ,'state_province'  -- State / Province
             ,'zip'  -- postal code
@@ -98,6 +100,8 @@ pivot(
         ,'renewal_date'
         ,'mobilephone'
         ,'phone'
+        ,'address'
+        ,'address2'
         ,'city'
         ,'state_province'
         ,'zip'
@@ -125,6 +129,8 @@ as p(
     ,renewal_date
     ,mobilephone
     ,phone
+    ,address
+    ,address2
     ,city
     ,state_province
     ,zip
