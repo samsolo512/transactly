@@ -30,6 +30,7 @@ select
     ord.order_pk
 
     ,assigned_tc.user_pk as assigned_tc_pk
+    ,agent.user_pk as user_pk
 
     -- dates
     ,closed_date.date_pk as closed_date_pk
@@ -48,3 +49,4 @@ from
     left join dim_order ord on o.order_id = ord.order_id
     left join dim_user assigned_tc on o.assigned_tc_id = assigned_tc.user_id
     left join dim_date closed_date on cast(t.closed_date as date) = closed_date.date_id
+    left join dim_user agent on o.agent_id = agent.user_id

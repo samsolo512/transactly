@@ -15,7 +15,7 @@ create or replace table data_warehouse.dim_user (
     ,eligible_for_clients_flag int
     ,tc_staff_flag int
     ,tc_client_flag int
-    ,diy_flag int
+--     ,diy_flag int
     ,self_procured_flag int
 
     -- dates

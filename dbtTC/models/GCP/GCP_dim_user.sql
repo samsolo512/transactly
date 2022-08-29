@@ -27,7 +27,7 @@ with
             ,eligible_for_clients_flag
             ,tc_staff_flag
             ,tc_client_flag
-            ,diy_flag
+--             ,diy_flag
             ,self_procured_flag
 
             -- dates
