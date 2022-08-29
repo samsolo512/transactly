@@ -113,6 +113,9 @@ sources:
       - name: contact
         identifier: contact
 
+      - name: lead
+        identifier: lead
+
       - name: opportunity
         identifier: opportunity
 

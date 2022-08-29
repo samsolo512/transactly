@@ -1,4 +1,4 @@
---fact_transaction
+-- fact_transaction
 
 create or replace table data_warehouse.fact_transaction (
     user_id int

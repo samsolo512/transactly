@@ -1,4 +1,4 @@
---fact_line_item
+-- fact_line_item
 
 create or replace table data_warehouse.fact_line_item (
     address string
