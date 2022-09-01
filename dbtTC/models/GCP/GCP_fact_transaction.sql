@@ -1,8 +1,7 @@
--- GCP_fact_transaction
 
 {{ config(
     post_hook=[
-      "{{unload_fact_transaction_to_GCP()}}"
+      "{{unload_to_GCP('GCP_fact_transaction')}}"
     ]
 ) }}
 

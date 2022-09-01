@@ -1,7 +1,7 @@
 
 {{ config(
     post_hook=[
-      "{{unload_dim_user_to_GCP()}}"
+      "{{unload_to_GCP('GCP_dim_user')}}"
     ]
 ) }}
 
