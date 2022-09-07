@@ -52,6 +52,11 @@ select
         else null
         end as order_side
     ,case
+        when t.side_id = 1 then 'buyer'
+        when t.side_id = 2 then 'seller'
+        else null
+        end as transaction_side
+    ,case
         when check_json(order_data) is null
         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
         end as office_name
@@ -78,4 +83,4 @@ from
     left join src_tc_user usr on u.user_id = u.google_user_id
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
 
-union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null
