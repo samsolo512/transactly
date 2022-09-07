@@ -9,13 +9,23 @@ with
         from {{ ref('src_tc_address') }}
     )
 
+    ,src_tc_address as(
+        select *
+        from {{ ref('src_tc_address') }}
+    )
+
+    ,src_tc_party as(
+        select *
+        from {{ ref('src_tc_party') }}
+    )
+
 select
     working.seq_dim_transaction.nextval as transaction_pk
     ,t.transaction_id
     ,t.user_id
     ,t.status_id
     ,t.type_id
-    ,t.side_id
+    ,p.party_name as side_id
     ,t.category_id
     ,t.created_date
     ,t.closed_date
@@ -27,3 +37,4 @@ select
 from
     src_tc_transaction t
     left join src_tc_address a on t.address_id = a.address_id
+    left join src_tc_party p on t.side_id = p.party_id

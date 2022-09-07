@@ -30,6 +30,9 @@ sources:
       - name: order
         identifier: tc_order
 
+      - name: party
+        identifier: party
+
       - name: transaction
         identifier: transaction
 
