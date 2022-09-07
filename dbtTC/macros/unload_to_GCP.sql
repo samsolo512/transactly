@@ -6,7 +6,7 @@
 
     -- begin;
         copy into @GCP_stage/{{table_name}}
-        from GCP_dim_lead
+        from {{table_name}}
         overwrite = true
         single = true;
     -- commit;

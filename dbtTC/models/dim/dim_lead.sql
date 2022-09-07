@@ -20,6 +20,13 @@ with
             ,l.state
             ,l.postal_code
             ,l.country
+            ,concat(
+                regexp_replace(l.street, '[\r\n]', ' ')
+                ,case when l.city is not null then ', ' || l.city else '' end
+                ,case when l.state is not null then ', ' || l.state else '' end
+                ,case when l.postal_code is not null then ', ' || l.postal_code else '' end
+                ,case when l.country is not null then ', ' || l.country else '' end
+            ) as full_address
             ,l.mobile_phone
             ,l.email
             ,l.lead_source
