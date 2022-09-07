@@ -47,23 +47,28 @@ with
             )
     )
 
-    select
-        nvl(user.user_pk, (select user_pk from dim_user where user_id = 0)) as user_pk
-        ,transaction.transaction_pk
-        ,case when trans.status_id = 3 then 1 else 0 end as closed_flag
-        ,case when trans.status_id in (1, 2, 4) then 1 else 0 end as active_flag
-        ,case when trans.side_id = 1 then 1 else 0 end as buy_flag
-        ,case when trans.side_id <> 1 then 1 else 0 end as sell_flag
-        ,case when diy.transaction_id is not null then 1 else 0 end as diy_flag
-        ,case when c.transaction_id is not null then 1 else 0 end as cancelled_flag
-        ,trans.created_date as created_date
-    from
-        src_tc_transaction trans
-        left join dim_user user on trans.created_by_id = user.user_id
-        join dim_transaction transaction on trans.transaction_id = transaction.transaction_id
-        left join diy
-            on trans.transaction_id = diy.transaction_id
-            and trans.created_by_id = diy.agent_id
-        left join cancelled c
-            on trans.transaction_id = c.transaction_id
-            and trans.created_by_id = c.agent_id
+    ,final as(
+        select
+            nvl(user.user_pk, (select user_pk from dim_user where user_id = 0)) as user_pk
+            ,transaction.transaction_pk
+            ,case when trans.status_id = 3 then 1 else 0 end as closed_flag
+            ,case when trans.status_id in (1, 2, 4) then 1 else 0 end as active_flag
+            ,case when trans.side_id = 1 then 1 else 0 end as buy_flag
+            ,case when trans.side_id <> 1 then 1 else 0 end as sell_flag
+            ,case when diy.transaction_id is not null then 1 else 0 end as diy_flag
+            ,case when c.transaction_id is not null then 1 else 0 end as cancelled_flag
+            ,trans.created_date as created_date
+            ,trans.status_changed_date
+        from
+            src_tc_transaction trans
+            left join dim_user user on trans.created_by_id = user.user_id
+            join dim_transaction transaction on trans.transaction_id = transaction.transaction_id
+            left join diy
+                on trans.transaction_id = diy.transaction_id
+                and trans.created_by_id = diy.agent_id
+            left join cancelled c
+                on trans.transaction_id = c.transaction_id
+                and trans.created_by_id = c.agent_id
+    )
+
+select * from final
