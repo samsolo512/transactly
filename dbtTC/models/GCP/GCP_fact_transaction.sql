@@ -28,7 +28,7 @@ select
     ,usr.brokerage
     ,tran.created_date
     ,tran.closed_date
-    ,fact.diy_flag
+    ,tran.diy_flag
 from
     fact_transaction fact
     left join dim_transaction tran on fact.transaction_pk = tran.transaction_pk

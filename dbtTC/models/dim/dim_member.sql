@@ -19,7 +19,7 @@ with
             working.seq_dim_member.nextval as member_pk
             ,m.member_id
             ,tr.role_name
-            ,p.party_name
+            ,p.party_name as side_id
 
         from
             src_tc_member m
