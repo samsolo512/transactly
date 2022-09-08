@@ -8,3 +8,4 @@ select
     user_id
     ,created as created_date
 from src_tc_user_transactly_vendor_opt_out
+where _fivetran_deleted = 'FALSE'

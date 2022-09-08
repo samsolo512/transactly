@@ -20,4 +20,5 @@ select
     ,l.owner_id
     ,l.is_deleted
 from src_sf_lead l
-where l.is_deleted = 'FALSE'
+where
+    is_deleted = 'FALSE'

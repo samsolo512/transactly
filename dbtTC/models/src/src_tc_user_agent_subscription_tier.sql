@@ -12,3 +12,4 @@ select
     ,u.price
     ,u.end_date
 from src_tc_user_agent_subscription_tier u
+where _fivetran_deleted = 'FALSE'

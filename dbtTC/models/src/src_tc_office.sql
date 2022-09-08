@@ -9,3 +9,4 @@ select
     ,o.name as office_name
     ,o.parent_office_id
 from src_tc_office o
+where _fivetran_deleted = 'FALSE'

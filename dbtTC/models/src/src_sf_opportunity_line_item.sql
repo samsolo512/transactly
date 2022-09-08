@@ -8,4 +8,5 @@ select
     ,o.product_2_id as product_id
     ,o.opportunity_id
 from src_sf_opportunity_line_item o
-where o.is_deleted = 'FALSE'
+where
+    is_deleted = 'FALSE'

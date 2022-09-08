@@ -18,4 +18,5 @@ select
     ) as street
     ,c.mailing_state as state
 from src_sf_contact c
-where c.is_deleted = 'FALSE'
+where
+    is_deleted = 'FALSE'

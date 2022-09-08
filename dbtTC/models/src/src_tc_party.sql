@@ -8,3 +8,4 @@ select
     p.id as party_id
     ,p.name as party_name
 from src_tc_party p
+where _fivetran_deleted = 'FALSE'

@@ -7,4 +7,5 @@ select
     p.name
     ,p.amount_c
 from src_sf_vendor_payout_c p
-where p.is_deleted = 'FALSE'
+where
+    is_deleted = 'FALSE'

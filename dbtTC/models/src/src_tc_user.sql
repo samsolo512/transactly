@@ -23,3 +23,4 @@ select
     ,u.brokerage
     ,u.self_procured
 from src_tc_user u
+where _fivetran_deleted = 'FALSE'

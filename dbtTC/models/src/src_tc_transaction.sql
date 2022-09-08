@@ -19,3 +19,4 @@ select
     ,t.current_contract_id
     ,t.status_changed_date
 from src_tc_transaction t
+where _fivetran_deleted = 'FALSE'

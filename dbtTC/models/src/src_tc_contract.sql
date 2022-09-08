@@ -10,3 +10,4 @@ select
     ,c.amount as contract_amount
     ,c.closing_date
 from src_tc_contract c
+where _fivetran_deleted = 'FALSE'

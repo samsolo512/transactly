@@ -19,3 +19,4 @@ select
     ,l.office_pays
     ,l._fivetran_synced as last_sync
 from src_tc_line_item l
+where _fivetran_deleted = 'FALSE'

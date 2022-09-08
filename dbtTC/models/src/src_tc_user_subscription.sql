@@ -8,4 +8,4 @@ select
     u.user_id
     ,u.level as subscription_level
 from src_tc_user_subscription u
-
+where _fivetran_deleted = 'FALSE'

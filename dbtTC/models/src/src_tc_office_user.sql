@@ -9,3 +9,4 @@ select
     ,o.user_id
     ,o.office_id
 from src_tc_office_user o
+where _fivetran_deleted = 'FALSE'

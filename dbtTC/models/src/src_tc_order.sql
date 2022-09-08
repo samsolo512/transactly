@@ -21,3 +21,4 @@ select
     ,o.agent_office_id
     ,o.city
 from src_tc_order o
+where _fivetran_deleted = 'FALSE'

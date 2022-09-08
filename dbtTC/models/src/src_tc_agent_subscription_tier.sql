@@ -8,3 +8,4 @@ select
     u.id
     ,u.name
 from src_tc_agent_subscription_tier u
+where _fivetran_deleted = 'FALSE'

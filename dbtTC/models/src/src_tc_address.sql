@@ -11,3 +11,4 @@ select
     ,a.state
     ,a.zip
 from src_tc_address a
+where _fivetran_deleted = 'FALSE'

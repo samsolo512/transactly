@@ -8,4 +8,4 @@ select
     ur.user_id
     ,ur.role_id
 from src_tc_user_role ur
-
+where _fivetran_deleted = 'FALSE'

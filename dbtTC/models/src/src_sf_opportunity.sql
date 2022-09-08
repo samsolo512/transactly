@@ -13,4 +13,5 @@ select
     ,o.stage_name as stage
     ,o.is_won as is_won_flag
 from src_sf_opportunity o
-where o.is_deleted = 'FALSE'
+where
+    is_deleted = 'FALSE'
