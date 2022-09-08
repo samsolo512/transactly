@@ -8,3 +8,4 @@ select
     ,p.id as product_id
     ,family as product_family
 from src_sf_product_2 p
+where p.is_deleted = 'FALSE'

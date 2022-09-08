@@ -8,3 +8,4 @@ select
     ,a.id as account_id
     ,a.name as account_name
 from src_sf_account a
+where a.is_deleted = 'FALSE'
