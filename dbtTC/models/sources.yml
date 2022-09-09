@@ -39,6 +39,9 @@ sources:
       - name: transaction_role
         identifier: transaction_role
 
+      - name: transaction_status
+        identifier: transaction_status
+
       - name: transaction_transactly_vendor
         identifier: transaction_transactly_vendor
 

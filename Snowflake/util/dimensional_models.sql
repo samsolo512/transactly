@@ -67,6 +67,40 @@ from
 
 
 
+
+---------------------------------------------------------------------------------------------------------------
+-- fact_transaction_member
+-- 1 row/transaction_member
+
+select
+    t.street
+    ,t.city
+    ,t.state
+    ,t.zip
+
+    ,m.role_name as role
+    ,u.first_name as member_first_name
+    ,u.last_name as member_last_name
+    ,u.email as member_email
+
+    ,t.side_id as transaction_side
+    ,m.side_id as member_side
+
+from
+    fact_transaction_member fact
+    join dim_user u on fact.user_pk = u.user_pk
+    join dim_member m on fact.member_pk = m.member_pk
+    join dim_transaction t on fact.transaction_pk = t.transaction_pk
+
+where
+    m.role_name in('Seller Transaction Coordinator','Buyer Transaction Coordinator')
+    and t.diy_flag = 1
+    and t.side_id = m.side_id
+;
+
+
+
+
 ---------------------------------------------------------------------------------------------------------------
 -- fact_member_connection
 -- 1 row/agent

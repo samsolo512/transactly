@@ -26,6 +26,7 @@ with
             join src_tc_transaction_role tr on m.role_id = tr.role_id
             join src_tc_party p on m.party_id = p.party_id
 
+
         union select 0, 0, null, null
     )
 

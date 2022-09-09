@@ -7,9 +7,10 @@ with src_tc_member as(
 select
     id as member_id
     ,transaction_id
-    ,is_active
     ,user_id
     ,party_id
     ,role_id
 from src_tc_member
-where _fivetran_deleted = 'FALSE'
+where
+    _fivetran_deleted = 'FALSE'
+    and is_active = 'TRUE'
