@@ -70,21 +70,19 @@ select
     ,case when closed_date.date_id is not null then 1 else 0 end as closed_date_flag
     ,case when o.assigned_tc_id is not null then 1 else 0 end as assigned_tc_flag
     ,case when create_date.date_id is not null then 1 else 0 end as first_order_placed_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(line.status) = 'in progress' then 1 else 0 end as in_progress_order_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as placed_order_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as canceled_order_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) in ('complete', 'closed', 'tc paid', 'agent paid') then 1 else 0 end as closed_order_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) not in ('complete', 'closed', 'tc paid', 'agent paid', 'canceled', 'withdrawn', 'cancelled') then 1 else 0 end as active_order_flag
+    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and l.paid = 0 and lower(l.status) not in('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as order_not_paid_flag
+    ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as lc_order_flag
+    ,case when l.description = 'Transaction Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as tc_order_flag
+//    max(case when 0 <> l.created and lower(l.status) not in ('canceled', 'withdrawn','cancelled') then ) as last_order_created
 
     -- misc
     ,datediff(day, o.created_date, t.created_date) as order_transact_start_lag
     ,case when l.description in ('Listing Coordination Fee','Transaction Coordination Fee') and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then datediff(day, create_date.date_id, due_date.date_id) else null end as days_to_close
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(line.status) = 'in progress' then 1 else 0 end as in_progress_orders
-
-    -- orders
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as placed_orders
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as canceled_orders
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) in ('complete', 'closed', 'tc paid', 'agent paid') then 1 else 0 end as closed_orders
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and lower(l.status) not in ('complete', 'closed', 'tc paid', 'agent paid', 'canceled', 'withdrawn', 'cancelled') then 1 else 0 end as active_orders
-    ,case when l.description in ('Listing Coordination Fee', 'Transaction Coordination Fee') and l.paid = 0 and lower(l.status) not in('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as orders_not_paid
-    ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as lc_orders
-    ,case when l.description = 'Transaction Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as tc_orders
-//    max(case when 0 <> l.created and lower(l.status) not in ('canceled', 'withdrawn','cancelled') then ) as last_order_created
 
     -- revenue
     ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as nbr_lc_orders

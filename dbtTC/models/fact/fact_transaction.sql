@@ -38,17 +38,17 @@ with
             )
     )
 
-    ,no_dups as(
-        select
-            a.street
-            ,a.city
-            ,a.state
-            ,max(t.status_changed_date) as status_changed_date
-        from
-            src_tc_transaction t
-            join src_tc_address a on t.address_id = a.address_id
-        group by street, city, state
-    )
+--     ,no_dups as(
+--         select
+--             a.street
+--             ,a.city
+--             ,a.state
+--             ,max(t.status_changed_date) as status_changed_date
+--         from
+--             src_tc_transaction t
+--             join src_tc_address a on t.address_id = a.address_id
+--         group by street, city, state
+--     )
 
     ,final as(
         select
@@ -64,11 +64,11 @@ with
         from
             src_tc_transaction trans
             join src_tc_address a on trans.address_id = a.address_id
-            join no_dups nd
-                on a.street = nd.street
-                and a.city = nd.city
-                and a.state = nd.state
-                and trans.status_changed_date = nd.status_changed_date
+--             join no_dups nd
+--                 on a.street = nd.street
+--                 and a.city = nd.city
+--                 and a.state = nd.state
+--                 and trans.status_changed_date = nd.status_changed_date
             join dim_transaction transaction on trans.transaction_id = transaction.transaction_id
             left join dim_user user on trans.created_by_id = user.user_id
             left join cancelled c

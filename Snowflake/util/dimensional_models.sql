@@ -47,7 +47,7 @@ from
     left join dim_date closed_date on fact.closed_date_pk = closed_date.date_pk
 
 where
-    uc.user_pk <> ua.user_pk
+    u.user_pk <> uc.user_pk
 ;
 
 

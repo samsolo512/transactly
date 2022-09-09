@@ -29,6 +29,6 @@ from cte_my_date
 --     ,dayofyear(to_date('1900-01-01')) as day_of_year
 
 
-union select '0', '0', null, null, null, null, null, null, null
+union select '0', null, null, null, null, null, null, null, null
 
 
