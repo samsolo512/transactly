@@ -6,11 +6,11 @@ where
         from
             hubspot.v2_daily.object_properties
         where
---             lower(value) like '%donald%payne%'
-            lower(name) like '%address%'
-        order by name
+--             lower(name) = 'original_sales_rep' and
+            lower(value) like '%133080485%'
+--         order by name
     )
---     and name like '%contact%'
+order by objectid
 ;
 
 
