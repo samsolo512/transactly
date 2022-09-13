@@ -17,7 +17,5 @@ create or replace table data_warehouse.fact_order (
     ,order_status string
     ,status_changed_date date
     ,closed_date date
-    ,closed_sequence int
     ,created_date date
-    ,placed_sequence int
 )

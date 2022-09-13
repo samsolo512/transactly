@@ -30,22 +30,22 @@ with
         from {{ ref('dim_transaction')}}
     )
 
-    ,order_sequence as(
-        select
-            o.order_id
-            ,user.user_id
-            ,t.created_date
-            ,t.closed_date
-            ,case
-                when t.closed_date is not null then row_number() over (partition by user.user_id order by t.closed_date, t.transaction_id)
-                else null end as closed_sequence
-            ,row_number() over (partition by user.user_id order by t.created_date, t.transaction_id) as placed_sequence
-        from
-            src_tc_transaction t
-            join src_tc_order o on t.transaction_id = o.transaction_id
-            left join dim_user user on o.agent_id = user.user_id
-        --order by user.user_id, t.created_date, t.transaction_id
-    )
+--     ,order_sequence as(
+--         select
+--             o.order_id
+--             ,user.user_id
+--             ,t.created_date
+--             ,t.closed_date
+--             ,case
+--                 when t.closed_date is not null then row_number() over (partition by user.user_id order by t.closed_date, t.transaction_id)
+--                 else null end as closed_sequence
+--             ,row_number() over (partition by user.user_id order by t.created_date, t.transaction_id) as placed_sequence
+--         from
+--             src_tc_transaction t
+--             join src_tc_order o on t.transaction_id = o.transaction_id
+--             left join dim_user user on o.agent_id = user.user_id
+--         --order by user.user_id, t.created_date, t.transaction_id
+--     )
 
     ,final as(
         -- transaction.user_id = order.assigned_tc_id
@@ -70,14 +70,14 @@ with
 
             -- misc
             ,datediff(day, o.created_date, t.created_date) as order_transact_start_lag
-            ,os.closed_sequence
-            ,os.placed_sequence
+--             ,os.closed_sequence
+--             ,os.placed_sequence
 
         from
             src_tc_transaction t
             join src_tc_order o on t.transaction_id = o.transaction_id
             join dim_transaction ta on t.transaction_id = ta.transaction_id
-            left join order_sequence os on o.order_id = os.order_id
+--             left join order_sequence os on o.order_id = os.order_id
             left join dim_order ord on o.order_id = ord.order_id
             left join dim_date created_date on cast(t.created_date as date) = created_date.date_id
             left join dim_date closed_date on cast(t.closed_date as date) = closed_date.date_id

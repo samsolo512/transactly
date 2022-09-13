@@ -49,9 +49,7 @@ with
             ,o.order_status
             ,o.status_changed_date
             ,cldate.date_id as closed_date
-            ,fact.closed_sequence
             ,crdate.date_id as created_date
-            ,fact.placed_sequence
 
         from
             fact_order fact

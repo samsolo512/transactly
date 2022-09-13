@@ -83,6 +83,8 @@ with
             ,user.third_order_closed as third_order_closed_date
             ,user.fourth_order_closed as fourth_order_closed_date
             ,user.contact_owner
+            ,fact.placed_sequence
+            ,fact.closed_sequence
         from
             fact_line_item fact
             join dim_line_item line on fact.line_item_pk = line.line_item_pk

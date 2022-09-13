@@ -46,4 +46,6 @@ create or replace table data_warehouse.fact_line_item (
     ,third_order_closed_date date
     ,fourth_order_closed_date date
     ,contact_owner string
+    ,placed_sequence int
+    ,closed_sequence int
 )
