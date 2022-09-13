@@ -27,6 +27,7 @@ with
             ,mobile_phone
             ,email
             ,lead_source
+            ,partner_name
             ,created_date
             ,owner_name
 

@@ -14,6 +14,7 @@ create or replace table data_warehouse.dim_lead (
     ,mobile_phone string
     ,email string
     ,lead_source string
+    ,partner_name string
     ,created_date date
     ,owner_name string
 )

@@ -131,6 +131,9 @@ sources:
       - name: opportunity_line_item
         identifier: opportunity_line_item
 
+      - name: partner_lead_c
+        identifier: partner_lead_c
+
       - name: partner_payout_c
         identifier: partner_payout_c
 

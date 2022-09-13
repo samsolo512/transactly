@@ -4,11 +4,12 @@ with src_sf_lead as(
 )
 
 select
-    l.first_name
+    l.id as lead_id
+    ,l.first_name
     ,l.last_name
     ,l.name
     ,l.company
-    ,l.street
+    ,regexp_replace(l.street, '[\r\n]', ' ') as street
     ,l.city
     ,l.state
     ,l.postal_code
