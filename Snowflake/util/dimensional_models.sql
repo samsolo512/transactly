@@ -91,6 +91,7 @@ from
     join dim_user u on fact.user_pk = u.user_pk
     join dim_member m on fact.member_pk = m.member_pk
     join dim_transaction t on fact.transaction_pk = t.transaction_pk
+    join dim_date dt on fact.created_date = dt.date_id
 
 where
     m.role_name in('Seller Transaction Coordinator','Buyer Transaction Coordinator')

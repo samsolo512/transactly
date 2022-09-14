@@ -29,7 +29,7 @@ with
     ,final as(
         select
             opp.opportunity_name
-            ,sum(fact.revenue) as total_revenue
+            ,sum(fact.revenue) as revenue
             ,dt.date_id as close_date
             ,product.product_name
             ,product.product_family
@@ -38,6 +38,8 @@ with
             ,opp.account_name
             ,fact.stage
             ,fact.is_won_flag
+            ,revenue_connection_flag
+            ,unpaid_connection_flag
         from
             fact_opportunity fact
             join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
@@ -48,7 +50,7 @@ with
         --     and opp.account_name = 'Transactly'
         --     and fact.is_won_flag = 1
         group by
-            opp.opportunity_name, dt.date_id, product.product_name, product.product_family, opp.state, opp.street, opp.account_name, fact.stage, fact.is_won_flag
+            opp.opportunity_name, dt.date_id, product.product_name, product.product_family, opp.state, opp.street, opp.account_name, fact.stage, fact.is_won_flag, revenue_connection_flag, unpaid_connection_flag
     )
 
 select * from final

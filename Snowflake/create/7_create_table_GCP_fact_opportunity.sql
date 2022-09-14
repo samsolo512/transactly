@@ -2,7 +2,7 @@
 
 create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
-    ,total_revenue numeric
+    ,revenue numeric(18,2)
     ,close_date date
     ,product_name string
     ,product_family string
@@ -11,4 +11,6 @@ create or replace table data_warehouse.fact_opportunity (
     ,account_name string
     ,stage string
     ,is_won_flag int
+    ,revenue_connection_flag int
+    ,unpaid_connection_flag int
 )

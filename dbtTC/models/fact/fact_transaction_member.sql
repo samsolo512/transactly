@@ -35,6 +35,10 @@ with
             ,tc_u.user_pk
             ,dt.transaction_pk
 
+            ,case when memb.role_name in('Buyer') and dl.email is not null then c.date_pk else 0 end as connect_lead_created_date_pk
+
+            ,case when memb.role_name in('Buyer') and dl.email is not null then 1 else 0 end as TC_buyer_as_Connect_lead_flag
+
         from
             src_tc_member m
 --             join src_tc_transaction_role tr on m.role_id = tr.role_id
@@ -42,6 +46,8 @@ with
 --             join src_tc_party p on m.party_id = p.party_id
             join dim_member memb on m.member_id = memb.member_id
             join dim_transaction dt on m.transaction_id = dt.transaction_id
+            left join dim_lead dl on tc_u.email = dl.email
+            left join dim_date c on dl.created_date = c.date_id
     )
 
 select * from final

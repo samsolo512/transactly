@@ -36,6 +36,9 @@ with
                 end as is_won_flag
             ,opp.stage
             ,line.revenue
+            ,case when line.revenue >= 1 then 1 else 0 end as revenue_connection_flag
+            ,case when line.revenue > 0 and line.revenue < 1 then 1 else 0 end as unpaid_connection_flag
+
         from
             src_sf_opportunity opp
             left join src_sf_opportunity_line_item line on opp.opportunity_id = line.opportunity_id
