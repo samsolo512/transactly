@@ -6,9 +6,11 @@ with src_tc_address as(
 
 select
     a.id as address_id
-    ,regexp_replace(a.address_line_1, '[\r\n]', ' ') as street
-    ,regexp_replace(a.city, '[\r\n]', ' ') as city
-    ,regexp_replace(a.state, '[\r\n]', ' ') as state
+    ,{{ field_clean('a.address_line_1') }} as street
+    ,{{ field_clean('a.city') }} as city
+    ,a.state
     ,a.zip
+
 from src_tc_address a
+
 where _fivetran_deleted = 'FALSE'

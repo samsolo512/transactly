@@ -33,13 +33,6 @@ with
 
     ,final as (
         select
---                 top 10000
---                 top 1000
---                 top 500
---                 top 250
---                 top 350
---                 top 300  -- failed
---                 top 294  -- worked
             t.street
             ,t.city
             ,t.state
@@ -57,10 +50,6 @@ with
             join dim_transaction t on fact.transaction_pk = t.transaction_pk
             join dim_date dt on fact.connect_lead_created_date_pk = dt.date_pk
 
-        where
-            street not like '%><img src=x onerror=prompt(1)>%'
-        
-        order by t.street, u.email
     )
 
 select * from final
