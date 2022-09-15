@@ -233,6 +233,7 @@ with
             ,contact_owner
             ,address
             ,address2
+            ,original_sales_rep_name
 
             --flags
             ,pays_at_title_flag
@@ -281,6 +282,7 @@ with
                 ,concat(c_owner.firstname, ' ', c_owner.lastname) as contact_owner
                 ,hagent.address
                 ,hagent.address2
+                ,concat(orig_agent.firstname, ' ', orig_agent.lastname) as original_sales_rep_name
 
                 --flags
                 ,case u.pays_at_title
@@ -329,6 +331,7 @@ with
                 left join src_tc_user_subscription sub on u.user_id = sub.user_id
                 left join fifth_order fifth on u.user_id = fifth.user_id
                 left join src_hs_owners c_owner on hagent.contact_owner = c_owner.ownerid
+                left join src_hs_owners orig_agent on hagent.original_sales_rep = cast(orig_agent.ownerid as varchar)
 
                 -- placed orders
                 left join first_order_placed fp on u.user_id = fp.user_id
@@ -341,12 +344,12 @@ with
                 left join fourth_order_closed c4 on u.user_id = c4.user_id
                 left join fifth_order_closed c5 on u.user_id = c5.user_id
 
-            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, self_procured_flag, tier_3, loc.last_order_placed, fp.first_order_placed, c1.first_order_closed, c2.second_order_closed, c3.third_order_closed, c4.fourth_order_closed, c5.fifth_order_closed, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_staff_flag, concat(c_owner.firstname, ' ', c_owner.lastname), hagent.address, hagent.address2
+            group by u.user_id, replace(u.first_name, '"', ''), replace(u.last_name, '"', ''), replace(u.fullname, '"', ''), replace(u.email, '"', ''), u.brokerage, pays_at_title_flag, tc_client_flag, self_procured_flag, tier_3, loc.last_order_placed, fp.first_order_placed, c1.first_order_closed, c2.second_order_closed, c3.third_order_closed, c4.fourth_order_closed, c5.fifth_order_closed, fifth.due_date, sub.subscription_level, hagent.lead_status, hagent.eligible_for_clients, hagent.created_date, days_between_start_date_and_first_order_date, tc_staff_flag, concat(c_owner.firstname, ' ', c_owner.lastname), hagent.address, hagent.address2, orig_agent.firstname, orig_agent.lastname
         )
 
-        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, self_procured_flag, start_date, days_between_start_date_and_first_order_date, tc_staff_flag, contact_owner, address, address2
+        group by user_pk, user_id, first_name, last_name, fullname, email, brokerage, pays_at_title_flag, tc_client_flag, tier_3, subscription_level, lead_status, eligible_for_clients_flag, self_procured_flag, start_date, days_between_start_date_and_first_order_date, tc_staff_flag, contact_owner, address, address2, original_sales_rep_name
 
-        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

@@ -6,9 +6,9 @@ with src_tc_address as(
 
 select
     a.id as address_id
-    ,a.address_line_1 as street
-    ,a.city
-    ,a.state
+    ,regexp_replace(a.address_line_1, '[\r\n]', ' ') as street
+    ,regexp_replace(a.city, '[\r\n]', ' ') as city
+    ,regexp_replace(a.state, '[\r\n]', ' ') as state
     ,a.zip
 from src_tc_address a
 where _fivetran_deleted = 'FALSE'

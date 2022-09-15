@@ -85,6 +85,8 @@ with
             ,user.contact_owner
             ,fact.placed_sequence
             ,fact.closed_sequence
+            ,user.original_sales_rep_name
+
         from
             fact_line_item fact
             join dim_line_item line on fact.line_item_pk = line.line_item_pk

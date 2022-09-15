@@ -48,4 +48,5 @@ create or replace table data_warehouse.fact_line_item (
     ,contact_owner string
     ,placed_sequence int
     ,closed_sequence int
+    ,original_sales_rep_name string
 )
