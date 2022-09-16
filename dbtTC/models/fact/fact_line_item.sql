@@ -56,6 +56,7 @@ with
             ,o.order_id
             ,l.created_date
             ,l.due_date as closed_date
+            ,l.id as line_item_id
             ,case
                 when l.due_date is not null then row_number() over (partition by user.user_id order by l.due_date, o.order_id)
                 else null end as closed_sequence
@@ -110,6 +111,7 @@ select
     ,case when l.description in ('Listing Coordination Fee','Transaction Coordination Fee') and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then datediff(day, create_date.date_id, due_date.date_id) else null end as days_to_close
     ,os.placed_sequence
     ,os.closed_sequence
+    ,l.id as line_item_id
 
     -- revenue
     ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as nbr_lc_orders
@@ -134,7 +136,7 @@ from
     left join src_tc_line_item l
         join dim_line_item line on l.id = line.line_item_id
     on o.order_id = l.order_id
-    left join order_sequence os on o.order_id = os.order_id
+    left join order_sequence os on l.id = os.line_item_id
     left join dim_office ofc on o.agent_office_id = ofc.office_id
     left join dim_user user on l.user_id = user.user_id
     left join dim_order ord on o.order_id = ord.order_id
