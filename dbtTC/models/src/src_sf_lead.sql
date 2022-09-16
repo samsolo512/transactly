@@ -9,7 +9,7 @@ select
     ,l.last_name
     ,l.name
     ,l.company
-    ,regexp_replace(l.street, '[\r\n]', ' ') as street
+    ,{{ field_clean('l.street') }} as street
     ,l.city
     ,l.state
     ,l.postal_code
