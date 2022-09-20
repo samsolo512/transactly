@@ -69,7 +69,7 @@ with
 --                 and a.city = nd.city
 --                 and a.state = nd.state
 --                 and trans.status_changed_date = nd.status_changed_date
-            join dim_transaction transaction on trans.transaction_id = transaction.transaction_id
+            left join dim_transaction transaction on trans.transaction_id = transaction.transaction_id
             left join dim_user user on trans.created_by_id = user.user_id
             left join cancelled c
                 on trans.transaction_id = c.transaction_id

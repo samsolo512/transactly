@@ -60,7 +60,7 @@ with
             ,user.tier_2 as tier_2_date  -- due date of 1st sale
             ,user.tier_3 as tier_3_date  -- user created date
             ,line.created_date
-            ,line.due_date
+            ,fact.due_date
             ,o.closing_date
             ,line.cancelled_date as cancelled_date
             ,user.last_order_placed as last_order_placed_date
@@ -86,6 +86,7 @@ with
             ,fact.placed_sequence
             ,fact.closed_sequence
             ,user.original_sales_rep_name
+            ,line.line_item_id
 
         from
             fact_line_item fact

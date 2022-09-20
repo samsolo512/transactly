@@ -22,10 +22,10 @@ create or replace table data_warehouse.dim_user (
     ,start_date date
     ,days_between_start_date_and_first_order_date int
     ,last_order_placed date
-    ,last_order_due date
+    ,last_order_due datetime
     ,tier_3 date
-    ,tier_2 date
-    ,tier_1 date
+    ,tier_2 datetime
+    ,tier_1 datetime
     ,first_order_placed date
     ,first_order_closed date
     ,fifth_order_closed date

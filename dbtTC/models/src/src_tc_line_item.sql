@@ -9,7 +9,8 @@ select
     ,l.status
     ,l.user_id
     ,cast(l.created as date) as created_date
-    ,cast(l.due_date as date) as due_date
+--     ,cast(l.due_date as date) as due_date
+    ,l.due_date
     ,l.order_id
     ,l.id
     ,cast(l.cancelled_date as date) as cancelled_date

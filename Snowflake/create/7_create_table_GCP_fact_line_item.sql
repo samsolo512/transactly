@@ -19,15 +19,15 @@ create or replace table data_warehouse.fact_line_item (
     ,client_id string
     ,client_fullname string
     ,client_brokerage string
-    ,tier_1_date date
-    ,tier_2_date date
+    ,tier_1_date datetime
+    ,tier_2_date datetime
     ,tier_3_date date
     ,created_date date
-    ,due_date date
+    ,due_date datetime
     ,closing_date date
     ,cancelled_date date
     ,last_order_placed_date date
-    ,last_order_due_date date
+    ,last_order_due_date datetime
     ,first_order_placed_date date
     ,first_order_closed_date date
     ,fifth_order_closed_date date
@@ -49,4 +49,5 @@ create or replace table data_warehouse.fact_line_item (
     ,placed_sequence int
     ,closed_sequence int
     ,original_sales_rep_name string
+    ,line_item_id int
 )

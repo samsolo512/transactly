@@ -91,6 +91,7 @@ select
     ,nvl(due_date.date_pk, (select date_pk from dim_date where date_id = '0')) as due_date_pk
     ,nvl(cancel_date.date_pk, (select date_pk from dim_date where date_id = '0')) as cancelled_date_pk
     ,nvl(closed_date.date_pk, (select date_pk from dim_date where date_id = '0')) as closed_date_pk
+    ,l.due_date
 
     -- flags
     ,case when closed_date.date_id is not null then 1 else 0 end as closed_date_flag
