@@ -10,6 +10,7 @@ select
     ,user_id
     ,party_id
     ,role_id
+    ,is_active
 from src_tc_member
 where
     _fivetran_deleted = 'FALSE'

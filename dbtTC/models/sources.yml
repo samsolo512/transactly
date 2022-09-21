@@ -12,6 +12,9 @@ sources:
       - name: agent_subscription_tier
         identifier: agent_subscription_tier
 
+      - name: contact
+        identifier: contact
+
       - name: contract
         identifier: contract
 
@@ -20,6 +23,9 @@ sources:
 
       - name: member
         identifier: member
+
+      - name: offer_group
+        identifier: offer_group
 
       - name: office
         identifier: office

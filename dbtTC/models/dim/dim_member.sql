@@ -20,13 +20,22 @@ with
             ,m.member_id
             ,tr.role_name
             ,p.party_name as side_id
+            ,case
+                when m.is_active = 'TRUE' then 1
+                when m.is_active = 'FALSE' then 0
+                else null
+                end as active_flag
+            ,u.first_name
+            ,u.last_name
+            ,u.email
 
         from
             src_tc_member m
+            left join dim_user u on m.user_id = u.user_id
             join src_tc_transaction_role tr on m.role_id = tr.role_id
             join src_tc_party p on m.party_id = p.party_id
 
-        union select 0, 0, null, null
+        union select 0, 0, null, null, null, null, null, null
     )
 
 select * from final

@@ -19,12 +19,17 @@ with
         from {{ ref('dim_member') }}
     )
 
+    ,dim_contact as(
+        select *
+        from {{ ref('dim_contact') }}
+    )
+
     ,final as(
         select
             dt.transaction_pk
             ,nvl(u.user_pk, 0) as user_pk
             ,nvl(memb.member_pk, 0) as member_pk
-            ,nvl(tc_u.user_pk, 0) as tc_user_pk
+            ,nvl(cont.contact_pk, 0) as contact_pk
 
             ,case
                 when memb.role_name in('Buyer') and dl.email is not null then c.date_pk
@@ -41,14 +46,14 @@ with
             left join dim_user u on trans.created_by_id = u.user_id
             left join src_tc_member m on trans.transaction_id = m.transaction_id
             left join dim_member memb on m.member_id = memb.member_id
-            left join dim_user tc_u on m.user_id = tc_u.user_id
             left join(
                 select top 1
                     created_date
                     ,email
                 from dim_lead
-            ) dl on tc_u.email = dl.email
+            ) dl on memb.email = dl.email
             left join dim_date c on dl.created_date = c.date_id
+            left join dim_contact cont on trans.transaction_id = cont.transaction_id
 
     )
 

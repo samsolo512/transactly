@@ -2,12 +2,12 @@ select *
 from hubspot.v2_daily.object_properties
 where
     objectid in(
-        select distinct name
+        select distinct objectid
         from
             hubspot.v2_daily.object_properties
         where
 --             lower(name) = 'original_sales_rep' and
-            lower(value) like '%133080485%'
+            lower(value) like '%piecukonis%'
 --         order by name
     )
 order by objectid
