@@ -1,4 +1,4 @@
-with object_properties as(
+with src_hs_object_properties as(
     select *
     from {{ ref('src_hs_object_properties') }}
 )
@@ -27,6 +27,9 @@ select
     ,brokerage_growth_manager
     ,type
     ,eligible_for_clients
+    ,transactly_home_insurance_vendor_status
+    ,transactly_utility_connection_vendor_status
+
 --     ,cast(hs_start_date as date) as hs_start_date
 --     ,cast(start_date as date) as start_date
 --     ,cast(tc_start_date as date) as tc_start_date
@@ -37,7 +40,7 @@ from(
         objectid
         ,name
         ,value
-    from object_properties
+    from src_hs_object_properties
     where
         objecttypeid = '0-1'
         and name in(
@@ -77,11 +80,13 @@ from(
             ,'brokerage_growth_manager'
             ,'type'
             ,'eligible_for_clients'
+            ,'transactly_home_insurance_vendor_status'
+            ,'transactly_utility_connection_vendor_status'
+
             ,'hs_start_date'
             ,'start_date'
             ,'tc_start_date'
         )
-//        and objectid = '30163801'
 
 )
 
@@ -109,6 +114,9 @@ pivot(
         ,'brokerage_growth_manager'
         ,'type'
         ,'eligible_for_clients'
+        ,'transactly_home_insurance_vendor_status'
+        ,'transactly_utility_connection_vendor_status'
+
         ,'hs_start_date'
         ,'start_date'
         ,'tc_start_date'
@@ -138,6 +146,9 @@ as p(
     ,brokerage_growth_manager
     ,type
     ,eligible_for_clients
+    ,transactly_home_insurance_vendor_status
+    ,transactly_utility_connection_vendor_status
+
     ,hs_start_date
     ,start_date
     ,tc_start_date

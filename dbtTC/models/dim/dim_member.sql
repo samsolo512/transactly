@@ -25,9 +25,12 @@ with
                 when m.is_active = 'FALSE' then 0
                 else null
                 end as active_flag
+            ,u.user_id
             ,u.first_name
             ,u.last_name
             ,u.email
+            ,u.transactly_home_insurance_vendor_status
+            ,u.transactly_utility_connection_vendor_status
 
         from
             src_tc_member m
@@ -35,7 +38,7 @@ with
             join src_tc_transaction_role tr on m.role_id = tr.role_id
             join src_tc_party p on m.party_id = p.party_id
 
-        union select 0, 0, null, null, null, null, null, null
+        union select 0, 0, null, null, null, null, null, null, null, null, null
     )
 
 select * from final
