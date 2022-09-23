@@ -12,6 +12,9 @@ select
     ,o.id as opportunity_id
     ,o.stage_name as stage
     ,o.is_won as is_won_flag
-from src_sf_opportunity o
+
+from
+    src_sf_opportunity o
+
 where
     is_deleted = 'FALSE'

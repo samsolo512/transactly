@@ -17,6 +17,10 @@ select
         ' '
     ) as street
     ,c.mailing_state as state
-from src_sf_contact c
+    ,c.email
+
+from
+    src_sf_contact c
+
 where
     is_deleted = 'FALSE'

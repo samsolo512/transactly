@@ -14,6 +14,11 @@ with
         from {{ ref('src_tc_party') }}
     )
 
+    ,dim_user as(
+        select *
+        from {{ ref('dim_user') }}
+    )
+
     ,final as(
         select
             working.seq_dim_member.nextval as member_pk

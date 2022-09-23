@@ -40,6 +40,10 @@ with
             ,fact.is_won_flag
             ,revenue_connection_flag
             ,unpaid_connection_flag
+            ,opp.opportunity_owner
+            ,opp.contact_id
+            ,opp.email
+
         from
             fact_opportunity fact
             join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
@@ -49,8 +53,9 @@ with
         --     dt.date_id between '8/9/2022' and '8/9/2022'
         --     and opp.account_name = 'Transactly'
         --     and fact.is_won_flag = 1
+
         group by
-            opp.opportunity_name, dt.date_id, product.product_name, product.product_family, opp.state, opp.street, opp.account_name, fact.stage, fact.is_won_flag, revenue_connection_flag, unpaid_connection_flag
+            opp.opportunity_name, dt.date_id, product.product_name, product.product_family, opp.state, opp.street, opp.account_name, fact.stage, fact.is_won_flag, revenue_connection_flag, unpaid_connection_flag, opp.opportunity_owner, opp.contact_id, opp.email
     )
 
 select * from final

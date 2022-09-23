@@ -19,6 +19,11 @@ with
         from {{ ref('src_sf_contact')}}
     )
 
+    ,src_sf_user as(
+        select *
+        from {{ ref('src_sf_user')}}
+    )
+
     ,final as(
         select
             working.seq_dim_opportunity.nextval as opportunity_pk
@@ -27,11 +32,16 @@ with
             ,acc.account_name
             ,c.street
             ,c.state
+            ,u.name as opportunity_owner
+            ,c.contact_id
+            ,c.email
+
         from
             src_sf_opportunity opp
             left join src_sf_opportunity_line_item line on opp.opportunity_id = line.opportunity_id
             left join src_sf_account acc on opp.account_id = acc.account_id
             left join src_sf_contact c on opp.contact_id = c.contact_id
+            left join src_sf_user u on opp.owner_id = u.user_id
     )
 
 select * from final

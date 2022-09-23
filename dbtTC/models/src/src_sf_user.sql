@@ -4,7 +4,7 @@ with src_sf_user as(
 )
 
 select
-    u.id
+    u.id as user_id
     ,u.first_name
     ,u.last_name
     ,u.name
@@ -17,4 +17,6 @@ select
     ,u.phone
     ,u.mobile_phone
     ,u.is_active
-from src_sf_user u
+
+from
+    src_sf_user u
