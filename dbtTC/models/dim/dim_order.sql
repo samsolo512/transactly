@@ -56,10 +56,11 @@ select
         when t.side_id = 2 then 'seller'
         else null
         end as transaction_side
-    ,case
-        when check_json(order_data) is null
-        then json_extract_path_text(order_data, 'agentUser.offices[0].name')
-        end as office_name
+--     ,case
+--         when check_json(order_data) is null
+--         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
+--         end as office_name
+    ,o.office_name
     ,o.last_sync
 
     -- address
