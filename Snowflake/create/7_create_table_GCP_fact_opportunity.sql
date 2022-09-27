@@ -13,4 +13,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,is_won_flag int
     ,revenue_connection_flag int
     ,unpaid_connection_flag int
+    ,opportunity_owner string
+    ,contact_id string
+    ,email string
 )
