@@ -60,7 +60,7 @@ select
 --         when check_json(order_data) is null
 --         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
 --         end as office_name
-    ,o.office_name
+    ,offc.office_name
     ,o.last_sync
 
     -- address
