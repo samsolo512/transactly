@@ -29,7 +29,7 @@ with
             dt.transaction_pk
             ,nvl(u.user_pk, 0) as user_pk
             ,nvl(memb.member_pk, 0) as member_pk
-            ,nvl(cont.contact_pk, 0) as contact_pk
+--             ,nvl(cont.contact_pk, 0) as contact_pk
 
             ,case
                 when memb.role_name in('Buyer') and dl.email is not null then c.date_pk
@@ -53,7 +53,7 @@ with
                 from dim_lead
             ) dl on memb.email = dl.email
             left join dim_date c on dl.created_date = c.date_id
-            left join dim_contact cont on trans.transaction_id = cont.transaction_id
+--             left join dim_contact cont on trans.transaction_id = cont.transaction_id
 
     )
 
