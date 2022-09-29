@@ -21,10 +21,10 @@ with
             ,street
             ,city
             ,state
-            ,postal_code
+            ,zip
             ,country
             ,full_address
-            ,mobile_phone
+            ,phone
             ,email
             ,lead_source
             ,partner_name

@@ -12,11 +12,12 @@ select
     ,{{ field_clean('l.street') }} as street
     ,l.city
     ,l.state
-    ,l.postal_code
+    ,l.postal_code as zip
     ,l.country
-    ,l.mobile_phone
+    ,l.mobile_phone as phone
     ,l.email
     ,l.lead_source
+    ,l.created_date as created_date_time
     ,cast(l.created_date as date) as created_date
     ,l.owner_id
     ,l.is_deleted

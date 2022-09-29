@@ -154,16 +154,16 @@ with
                 else l.state
                 end as state
 
-            ,l.postal_code
+            ,l.zip
             ,l.country
             ,concat(
                 l.street
                 ,case when l.city is not null then ', ' || l.city else '' end
                 ,case when l.state is not null then ', ' || l.state else '' end
-                ,case when l.postal_code is not null then ', ' || l.postal_code else '' end
+                ,case when l.zip is not null then ', ' || l.zip else '' end
                 ,case when l.country is not null then ', ' || l.country else '' end
             ) as full_address
-            ,l.mobile_phone
+            ,l.phone
             ,l.email
             ,l.lead_source
             ,a.account_name as partner_name
@@ -176,8 +176,6 @@ with
             left join src_sf_partner_lead_c c on l.lead_id = c.lead_c
             left join src_sf_account a on c.partner_c = a.account_id
 
-        where
-            l.is_deleted = 'FALSE'
     )
 
 select * from final
