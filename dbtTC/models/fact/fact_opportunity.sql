@@ -29,11 +29,7 @@ with
             o.opportunity_pk
             ,p.product_pk
             ,d.date_pk as close_date_pk
-            ,case
-                when opp.is_won_flag = 'TRUE' then 1
-                when opp.is_won_flag = 'FALSE' then 0
-                else 0
-                end as is_won_flag
+            ,opp.is_won_flag
             ,opp.stage
             ,line.revenue
             ,case when line.revenue >= 1 then 1 else 0 end as revenue_connection_flag
