@@ -19,6 +19,92 @@ with
         from {{ ref('src_sf_account')}}
     )
 
+    ,src_sf_contact as(
+        select *
+        from {{ ref('src_sf_contact')}}
+    )
+
+    ,src_sf_opportunity as(
+        select *
+        from {{ ref('src_sf_opportunity')}}
+    )
+
+    ,contact as(
+        select distinct
+            c.agent_c
+            ,c.agent_brokerage_c
+            ,c.street
+            ,c.zip
+            ,c.email
+            ,c.last_name
+            ,c.first_name
+            ,c.full_name
+            ,c.phone
+            ,c.owner_id
+            ,c.created_date as contact_created_date
+
+            ,ac.account_name as contact_account_name
+            ,a.account_name as opportunity_account_name
+
+            ,o.close_date as opportunity_close_date
+            ,o.created_date_time
+            ,o.opportunity_name
+            ,o.owner_id
+            ,o.stage
+
+        from
+            src_sf_contact c
+            left join src_sf_account ac on c.account_id = ac.account_id
+            left join src_sf_opportunity o on c.contact_id = o.contact_id
+            left join src_sf_account a on o.account_id = a.account_id
+    )
+
+    ,max_close as(
+        select
+            c.email
+            ,c.street
+            ,c.opportunity_name
+            ,max(c.opportunity_close_date) as opportunity_close_date
+
+        from
+            contact c
+
+        group by c.email, c.street, c.opportunity_name
+    )
+
+    ,max_created as(
+        select
+            c.email
+            ,c.street
+            ,c.opportunity_name
+            ,c.opportunity_close_date
+            ,max(created_date_time) as created_date_time
+
+        from
+            contact c
+            join max_close mc
+                on c.email = mc.email
+                and c.street = mc.street
+                and c.opportunity_name = mc.opportunity_name
+                and c.opportunity_close_date = mc.opportunity_close_date
+
+        group by c.email, c.street, c.opportunity_name, c.opportunity_close_date
+    )
+
+    ,lead_max as(
+        select
+            l.email
+            ,max(l.created_date_time) as created_date_time
+
+        from
+            src_sf_lead l
+            left join contact cont
+                on l.email = cont.email
+                and jarowinkler_similarity(l.street, cont.street) >= 80
+
+        group by l.email
+    )
+
     ,final as(
         select
             l.first_name
@@ -27,6 +113,7 @@ with
             ,l.company
             ,l.street
             ,l.city
+
             ,case
 
                 when l.state is null and(lower(l.city) like '%atlanta%') then 'GA'
@@ -147,9 +234,26 @@ with
                         or lower(l.city) like '%prosper%'
                         or lower(l.city) like '%kilgore%'
 
-                        or (l.city is null and l.street is not null and a.account_name like '2TIO%')
+                        or (l.city is null and l.street is not null and c.lead_account_name like '2TIO%')
                     )
                 then 'TX'
+
+                when lower(l.state) = 'texas' then 'TX'
+                when lower(l.state) = 'tx' then 'TX'
+                when lower(l.state) = 'tx 75495' then 'TX'
+                when lower(l.state) = 'north carolina' then 'NC'
+                when lower(l.state) = 'arizona' then 'AZ'
+                when lower(l.state) = 'georgia' then 'GA'
+                when lower(l.state) = 'massachusetts' then 'MA'
+                when lower(l.state) = 'colorado' then 'CO'
+                when lower(l.state) = 'co' then 'CO'
+                when lower(l.state) = 'alabama' then 'AL'
+                when lower(l.state) = 'california' then 'CA'
+                when lower(l.state) = 'connecticut' then 'CA'
+                when lower(l.state) = 'louisiana' then 'LA'
+                when lower(l.state) = 'arkansas' then 'AR'
+                when lower(l.state) = 'florida' then 'FL'
+                when lower(l.state) = 'new york' then 'NY'
 
                 else l.state
                 end as state
@@ -166,16 +270,39 @@ with
             ,l.phone
             ,l.email
             ,l.lead_source
-            ,a.account_name as partner_name
-            ,l.created_date
             ,u.name as owner_name
+            ,c.lead_account_name as lead_partner_name
+            ,cont.contact_account_name as contact_partner_name
+            ,cont.opportunity_account_name as opportunity_partner_name
+            ,l.created_date as lead_created_date
+            ,cont.contact_created_date
+            ,cont.opportunity_close_date
+            ,cont.opportunity_name
+            ,cont.stage
 
         from
             src_sf_lead l
+            join lead_max lm
+                on l.email = lm.email
+                and l.created_date_time = lm.created_date_time
             join src_sf_user u on l.owner_id = u.user_id
-            left join src_sf_partner_lead_c c on l.lead_id = c.lead_c
-            left join src_sf_account a on c.partner_c = a.account_id
-
+            left join(
+                select distinct
+                    c.lead_c
+                    ,a.account_name as lead_account_name
+                from
+                    src_sf_partner_lead_c c
+                    left join src_sf_account a on c.partner_c = a.account_id
+            ) c on l.lead_id = c.lead_c
+            left join contact cont
+                join max_created mc
+                    on cont.email = mc.email
+                    and cont.street = mc.street
+                    and cont.opportunity_name = mc.opportunity_name
+                    and cont.opportunity_close_date = mc.opportunity_close_date
+                    and cont.created_date_time = mc.created_date_time
+                on l.email = cont.email
+                and jarowinkler_similarity(l.street, cont.street) >= 80
     )
 
 select * from final

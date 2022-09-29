@@ -8,13 +8,19 @@ create or replace table data_warehouse.dim_lead (
     ,street string
     ,city string
     ,state string
-    ,postal_code string
+    ,zip string
     ,country string
     ,full_address string
-    ,mobile_phone string
+    ,phone string
     ,email string
     ,lead_source string
-    ,partner_name string
-    ,created_date date
     ,owner_name string
+    ,lead_partner_name string
+    ,contact_partner_name string
+    ,opportunity_partner_name string
+    ,lead_created_date date
+    ,contact_created_date date
+    ,opportunity_close_date date
+    ,opportunity_name string
+    ,stage string
 )

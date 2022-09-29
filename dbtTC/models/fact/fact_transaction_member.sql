@@ -48,11 +48,11 @@ with
             left join dim_member memb on m.member_id = memb.member_id
             left join(
                 select top 1
-                    created_date
+                    lead_created_date
                     ,email
                 from dim_lead
             ) dl on memb.email = dl.email
-            left join dim_date c on dl.created_date = c.date_id
+            left join dim_date c on dl.lead_created_date = c.date_id
 --             left join dim_contact cont on trans.transaction_id = cont.transaction_id
 
     )
