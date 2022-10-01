@@ -29,20 +29,23 @@ with
     ,final as(
         select
             opp.opportunity_name
-            ,sum(fact.revenue) as revenue
-            ,dt.date_id as close_date
-            ,product.product_name
-            ,product.product_family
             ,opp.state
             ,opp.street
             ,opp.account_name
-            ,fact.stage
-            ,fact.is_won_flag
-            ,revenue_connection_flag
-            ,unpaid_connection_flag
             ,opp.opportunity_owner
             ,opp.contact_id
             ,opp.email
+
+            ,dt.date_id as close_date
+
+            ,product.product_name
+            ,product.product_family
+
+            ,fact.revenue_connection_flag
+            ,fact.unpaid_connection_flag
+            ,fact.stage
+            ,fact.is_won_flag
+            ,sum(fact.revenue) as revenue
 
         from
             fact_opportunity fact
@@ -59,4 +62,4 @@ with
     )
 
 select * from final
-order by close_date, opportunity_name
+-- order by close_date, opportunity_name

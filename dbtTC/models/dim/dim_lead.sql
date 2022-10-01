@@ -48,15 +48,20 @@ with
 
             ,o.close_date as opportunity_close_date
             ,o.created_date_time
+            ,o.created_date as opportunity_created_date
             ,o.opportunity_name
             ,o.owner_id
             ,o.stage
+
+            ,u.name as agent_name
+            ,u.email as agent_email
 
         from
             src_sf_contact c
             left join src_sf_account ac on c.account_id = ac.account_id
             left join src_sf_opportunity o on c.contact_id = o.contact_id
             left join src_sf_account a on o.account_id = a.account_id
+            left join src_sf_user u on o.owner_id = u.user_id
     )
 
     ,max_close as(
@@ -79,7 +84,6 @@ with
             ,c.opportunity_name
             ,c.opportunity_close_date
             ,max(created_date_time) as created_date_time
-
         from
             contact c
             join max_close mc
@@ -87,7 +91,6 @@ with
                 and c.street = mc.street
                 and c.opportunity_name = mc.opportunity_name
                 and c.opportunity_close_date = mc.opportunity_close_date
-
         group by c.email, c.street, c.opportunity_name, c.opportunity_close_date
     )
 
@@ -107,7 +110,9 @@ with
 
     ,final as(
         select
-            l.first_name
+            working.seq_dim_lead.nextval as lead_pk
+            ,l.lead_id
+            ,l.first_name
             ,l.last_name
             ,l.name
             ,l.company
@@ -249,7 +254,7 @@ with
                 when lower(l.state) = 'co' then 'CO'
                 when lower(l.state) = 'alabama' then 'AL'
                 when lower(l.state) = 'california' then 'CA'
-                when lower(l.state) = 'connecticut' then 'CA'
+                when lower(l.state) = 'connecticut' then 'CT'
                 when lower(l.state) = 'louisiana' then 'LA'
                 when lower(l.state) = 'arkansas' then 'AR'
                 when lower(l.state) = 'florida' then 'FL'
@@ -276,9 +281,12 @@ with
             ,cont.opportunity_account_name as opportunity_partner_name
             ,l.created_date as lead_created_date
             ,cont.contact_created_date
+            ,cont.opportunity_created_date
             ,cont.opportunity_close_date
             ,cont.opportunity_name
             ,cont.stage
+            ,cont.agent_name
+            ,cont.agent_email
 
         from
             src_sf_lead l
@@ -303,6 +311,10 @@ with
                     and cont.created_date_time = mc.created_date_time
                 on l.email = cont.email
                 and jarowinkler_similarity(l.street, cont.street) >= 80
+
+        -- where
+        --     cont.email = 'properez214@gmail.com'
+        --     and cont.opportunity_name = 'From Endpoint: Angel Perez null 2022'
     )
 
 select * from final
