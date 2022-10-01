@@ -11,9 +11,9 @@ with
         from {{ ref('fact_opportunity') }}
     )
 
-    ,dim_opportunity as(
+    ,dim_lead as(
         select *
-        from {{ ref('dim_opportunity') }}
+        from {{ ref('dim_lead') }}
     )
 
     ,dim_product as(
@@ -21,22 +21,15 @@ with
         from {{ ref('dim_product') }}
     )
 
-    ,dim_date as(
-        select *
-        from {{ ref('dim_date') }}
-    )
-
     ,final as(
         select
-            opp.opportunity_name
-            ,opp.state
-            ,opp.street
-            ,opp.account_name
-            ,opp.opportunity_owner
-            ,opp.contact_id
-            ,opp.email
-
-            ,dt.date_id as close_date
+            lead.opportunity_name
+            ,lead.state
+            ,lead.street
+            ,lead.opportunity_partner_name as account_name
+            ,lead.owner_name as opportunity_owner
+            ,lead.email
+            ,lead.opportunity_close_date as close_date
 
             ,product.product_name
             ,product.product_family
@@ -49,16 +42,23 @@ with
 
         from
             fact_opportunity fact
-            join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
             join dim_product product on fact.product_pk = product.product_pk
-            join dim_date dt on fact.close_date_pk = dt.date_pk
-        -- where
-        --     dt.date_id between '8/9/2022' and '8/9/2022'
-        --     and opp.account_name = 'Transactly'
-        --     and fact.is_won_flag = 1
+            join dim_lead lead on fact.lead_pk = lead.lead_pk
 
         group by
-            opp.opportunity_name, dt.date_id, product.product_name, product.product_family, opp.state, opp.street, opp.account_name, fact.stage, fact.is_won_flag, revenue_connection_flag, unpaid_connection_flag, opp.opportunity_owner, opp.contact_id, opp.email
+            lead.opportunity_name
+            ,lead.state
+            ,lead.street
+            ,lead.opportunity_partner_name
+            ,lead.owner_name
+            ,lead.email
+            ,lead.opportunity_close_date
+            ,product.product_name
+            ,product.product_family
+            ,fact.revenue_connection_flag
+            ,fact.unpaid_connection_flag
+            ,fact.stage
+            ,fact.is_won_flag
     )
 
 select * from final

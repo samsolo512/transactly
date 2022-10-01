@@ -9,26 +9,21 @@ with
         from {{ ref('src_sf_opportunity_line_item') }}
     )
 
-    ,dim_opportunity as(
-        select *
-        from {{ ref('dim_opportunity') }}
-    )
-
     ,dim_product as(
         select *
         from {{ ref('dim_product') }}
     )
 
-    ,dim_date as(
+    ,src_sf_contact as(
         select *
-        from {{ ref('dim_date') }}
+        from {{ ref('src_sf_contact') }}
     )
 
     ,final as(
         select
-            o.opportunity_pk
+            l.lead_pk
             ,p.product_pk
-            ,d.date_pk as close_date_pk
+
             ,opp.is_won_flag
             ,opp.stage
             ,line.revenue
@@ -37,10 +32,15 @@ with
 
         from
             src_sf_opportunity opp
+            left join src_sf_contact c on c.contact_id = opp.contact_id
             left join src_sf_opportunity_line_item line on opp.opportunity_id = line.opportunity_id
-            left join dim_opportunity o on opp.opportunity_id = o.opportunity_id
             left join dim_product p on line.product_id = p.product_id
-            left join dim_date d on opp.close_date = d.date_id
+            left join dim_lead l
+                on c.email = l.email
+                and c.street = l.street
+                and opp.opportunity_name = l.opportunity_name
+                and opp.close_date = l.opportunity_close_date
+                and opp.created_date = l.opportunity_created_date
     )
 
 select * from final

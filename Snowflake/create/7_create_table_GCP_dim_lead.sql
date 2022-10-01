@@ -1,7 +1,9 @@
 -- dim_lead
 
 create or replace table data_warehouse.dim_lead (
-    first_name string
+    lead_pk int
+    ,lead_id int
+    ,first_name string
     ,last_name string
     ,name string
     ,company string
@@ -20,7 +22,10 @@ create or replace table data_warehouse.dim_lead (
     ,opportunity_partner_name string
     ,lead_created_date date
     ,contact_created_date date
+    ,opportunity_created_date date
     ,opportunity_close_date date
     ,opportunity_name string
     ,stage string
+    ,agent_name string
+    ,agent_email string
 )
