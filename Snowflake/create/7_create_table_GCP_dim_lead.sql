@@ -1,8 +1,7 @@
 -- dim_lead
 
 create or replace table data_warehouse.dim_lead (
-    lead_pk int
-    ,lead_id int
+    lead_id string
     ,first_name string
     ,last_name string
     ,name string

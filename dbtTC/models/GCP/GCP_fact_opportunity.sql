@@ -30,6 +30,8 @@ with
             ,lead.owner_name as opportunity_owner
             ,lead.email
             ,lead.opportunity_close_date as close_date
+            ,lead.agent_name
+            ,lead.agent_email
 
             ,product.product_name
             ,product.product_family
@@ -53,6 +55,8 @@ with
             ,lead.owner_name
             ,lead.email
             ,lead.opportunity_close_date
+            ,lead.agent_name
+            ,lead.agent_email
             ,product.product_name
             ,product.product_family
             ,fact.revenue_connection_flag
@@ -62,4 +66,4 @@ with
     )
 
 select * from final
--- order by close_date, opportunity_name
+

@@ -14,7 +14,8 @@ with
 
     ,final as(
         select
-            first_name
+            lead_id
+            ,first_name
             ,last_name
             ,name
             ,company
@@ -33,9 +34,12 @@ with
             ,opportunity_partner_name
             ,lead_created_date
             ,contact_created_date
+            ,opportunity_created_date
             ,opportunity_close_date
             ,opportunity_name
             ,stage
+            ,agent_name
+            ,agent_email
 
         from dim_lead
     )
