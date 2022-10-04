@@ -42,6 +42,7 @@ with
             ,c.phone
             ,c.owner_id
             ,c.created_date as contact_created_date
+            ,c.converted_lead_c
 
             ,ac.account_name as contact_account_name
             ,a.account_name as opportunity_account_name
@@ -52,9 +53,6 @@ with
             ,o.opportunity_name
             ,o.owner_id
             ,o.stage
-
-            ,u.name as agent_name
-            ,u.email as agent_email
 
         from
             src_sf_contact c
@@ -285,8 +283,8 @@ with
             ,cont.opportunity_close_date
             ,cont.opportunity_name
             ,cont.stage
-            ,cont.agent_name
-            ,cont.agent_email
+            ,l.agent_name
+            ,nvl(l.agent_email, a.agent_email) agent_email
 
         from
             src_sf_lead l
@@ -309,12 +307,11 @@ with
                     and cont.opportunity_name = mc.opportunity_name
                     and cont.opportunity_close_date = mc.opportunity_close_date
                     and cont.created_date_time = mc.created_date_time
-                on l.email = cont.email
-                and jarowinkler_similarity(l.street, cont.street) >= 80
+                on l.lead_id = cont.converted_lead_c
+                -- on l.email = cont.email
+                -- and jarowinkler_similarity(l.street, cont.street) >= 80
+            left join src_sf_lead a on l.agent_name = a.name
 
-        -- where
-        --     cont.email = 'properez214@gmail.com'
-        --     and cont.opportunity_name = 'From Endpoint: Angel Perez null 2022'
     )
 
 select * from final

@@ -21,6 +21,8 @@ select
     ,cast(l.created_date as date) as created_date
     ,l.owner_id
     ,l.is_deleted
+    ,l.agent_c as agent_name
+    ,l.agent_email_c as agent_email
 from src_sf_lead l
 where
     is_deleted = 'FALSE'

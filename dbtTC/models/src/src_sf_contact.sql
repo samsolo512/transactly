@@ -28,6 +28,7 @@ select
     ,c.owner_id
     ,c.created_date as created_date_time
     ,cast(c.created_date as date) as created_date
+    ,converted_lead_c
 
 from
     src_sf_contact c

@@ -19,6 +19,11 @@ with
         from {{ ref('src_sf_contact') }}
     )
 
+    ,dim_lead as(
+        select *
+        from {{ ref('dim_lead') }}
+    )
+
     ,final as(
         select
             l.lead_pk
