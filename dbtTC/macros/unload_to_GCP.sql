@@ -8,7 +8,9 @@
         copy into @GCP_stage/{{table_name}}
         from {{table_name}}
         overwrite = true
-        single = true;
+        single = true
+        max_file_size=4900000000;
+
     -- commit;
 
 {% endcall %}
