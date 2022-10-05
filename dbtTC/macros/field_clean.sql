@@ -12,4 +12,4 @@
 
 {% endmacro %}
 
--- a.address_line_1 regexp '.*[^a-zA-Z0-9 \.()#,\-\/\'{}:&\*_@`].*'
+-- a.address_line_1 regexp '.*[^a-zA-Z0-9 \.()#,\-\/\'{}:&\*\_\^\"@`].*'
