@@ -1,4 +1,3 @@
-
 {{ config(
     post_hook=[
       "{{unload_to_GCP('GCP_dim_lead')}}"

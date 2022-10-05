@@ -43,7 +43,7 @@ models:
     GCP:
       +materialized: table
     custom:
-      +materialized: ephemeral
+      +materialized: table #ephemeral
 
 
 #hooks
