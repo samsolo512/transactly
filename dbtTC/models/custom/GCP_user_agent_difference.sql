@@ -1,3 +1,12 @@
+-- GCP_user_agent_difference
+-- GCP_Transaction_created_user_different_than_transaction_agent
+
+{{ config(
+    post_hook=[
+      "{{unload_to_GCP('GCP_user_agent_difference')}}"
+    ]
+) }}
+
 with
     fact_order as(
         select *
