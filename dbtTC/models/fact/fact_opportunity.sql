@@ -42,7 +42,6 @@ with
             ,nvl(do.opportunity_pk, 0) as opportunity_pk
 
             ,opp.close_date
-            ,opp.is_won_flag
             ,opp.created_date
             ,case when itm.revenue >= 1 then 1 else 0 end as revenue_connection_flag
             ,case when itm.revenue > 0 and itm.revenue < 1 then 1 else 0 end as unpaid_connection_flag

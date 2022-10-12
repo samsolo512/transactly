@@ -15,7 +15,6 @@ create or replace table data_warehouse.fact_opportunity (
     ,revenue_connection_flag int
     ,unpaid_connection_flag int
     ,stage string
-    ,is_won_flag int
     ,revenue numeric(18,2)
 )
 

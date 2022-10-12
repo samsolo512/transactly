@@ -37,7 +37,6 @@ with
             ,fact.revenue_connection_flag
             ,fact.unpaid_connection_flag
             ,o.stage
-            ,fact.is_won_flag
             ,sum(fact.revenue) as revenue
 
         from
@@ -61,7 +60,6 @@ with
             ,fact.revenue_connection_flag
             ,fact.unpaid_connection_flag
             ,o.stage
-            ,fact.is_won_flag
     )
 
 select * from final
