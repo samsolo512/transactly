@@ -16,6 +16,7 @@ grant role dbt_role to user dbt_svc;
 grant role data_analyst to user qstrother;
 grant role data_analyst to user mclifton;
 grant role data_analyst to user jcollado;
+grant role data_engineer to user datagrip_svc;
 grant usage on warehouse PowerBI_WH to role PowerBI_role;
 
 

@@ -37,13 +37,13 @@ models:
     dim:
       +materialized: table
     working:
-      +materialized: table #ephemeral
+      +materialized: ephemeral
+      dim_agent: table
     fact:
       +materialized: table
     GCP:
       +materialized: table
-    custom:
-      +materialized: table #ephemeral
+
 
 
 #hooks

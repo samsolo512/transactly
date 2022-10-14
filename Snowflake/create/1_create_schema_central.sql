@@ -45,7 +45,7 @@ create user if not exists airbyte_svc default_role = airbyte_role default_wareho
 create user if not exists powerbi_svc default_role = powerbi_role default_warehouse = powerbi_wh default_namespace = prod.dimensional password = '' must_change_password = false;
 create user if not exists dbt_svc default_role = dbt_role default_warehouse = dbt_WH default_namespace = dev.models password = '' must_change_password = false;
 create user if not exists fivetran_user default_role = fivetran_role default_warehouse = fivetran_wh password = '' must_change_password = false;
-
+create user if not exists datagrip_svc default_role = data_engineeer default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
 
 -- create or modify users
 create user if not exists sbrown default_role = data_engineer default_warehouse = compute_wh default_namespace = dev.dimensional;

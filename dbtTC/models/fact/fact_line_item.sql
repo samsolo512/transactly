@@ -35,11 +35,6 @@ with
         from {{ ref('dim_line_item')}}
     )
 
-    ,dim_agent as(
-        select *
-        from {{ ref('dim_agent')}}
-    )
-
     ,dim_date as(
         select *
         from {{ ref('dim_date')}}

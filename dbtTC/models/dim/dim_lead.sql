@@ -261,7 +261,10 @@ with
                 else l.state
                 end as state
 
-            ,l.zip
+            ,case
+                when l.zip is null then regexp_substr(l.street, '[0-9]{5}', 2)
+                else l.zip
+                end as zip
             ,l.country
             ,concat(
                 l.street
