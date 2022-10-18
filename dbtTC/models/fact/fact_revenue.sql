@@ -22,18 +22,19 @@ with
         from {{ ref('dim_line_item')}}
     )
 
+    ,src_sf_vendor_payout_c as(
+        select *
+        from {{ ref('src_sf_vendor_payout_c')}}
+    )
+
     -- opportunity revenue
     ,opp as(
         select
             u.user_pk
-            -- u.lead_id
-            -- null as user_id
-            -- ,u.fullname
             ,fact.close_date as date
-            -- ,u.lead_flag
-            -- ,u.tc_client_flag
             ,sum(fact.revenue) as opportunity_revenue
             ,0 as transactly_revenue
+            ,0 as payout_revenue
 
         from
             fact_opportunity fact
@@ -50,14 +51,10 @@ with
     ,TC as(
         select
             u.user_pk
-            -- null as lead_id
-            -- ,u.user_id
-            -- ,u.fullname
             ,line.due_date as date
-            -- ,u.lead_flag
-            -- ,u.tc_client_flag
             ,0 as opportunity_revenue
             ,sum(line.total_fees) as transactly_revenue
+            ,0 as payout_revenue
 
         from
             fact_line_item fact
@@ -67,23 +64,55 @@ with
         group by u.user_pk, line.due_date
     )
 
+    -- vendor payout revenue
+    ,vendor_revenue as(
+        select
+            u.user_pk
+            ,v.payout_date as date
+            ,0 as opportunity_revenue
+            ,0 as transactly_revenue
+            ,sum(v.amount_c) as payout_revenue
+
+        from
+            fact_opportunity fact
+            join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
+            join dim_user u on fact.user_pk = u.user_pk
+            left join src_sf_vendor_payout_c v on opp.opportunity_id = v.opportunity_id
+
+        where v.amount_c is not null
+
+        group by u.user_pk, v.payout_date
+    )
+
     ,combine as(
         select
             user_pk
-            ,date
+            ,cast(date as date) as date
             ,sum(opportunity_revenue) as opportunity_revenue
             ,sum(transactly_revenue) as transactly_revenue
+            ,sum(payout_revenue) as payout_revenue
         from opp
         group by user_pk, date
 
         union
         select
             user_pk
-            ,date
-            ,opportunity_revenue
-            ,transactly_revenue
+            ,cast(date as date) as date
+            ,sum(opportunity_revenue) as opportunity_revenue
+            ,sum(transactly_revenue) as transactly_revenue
+            ,sum(payout_revenue) as payout_revenue
         from TC
-        group by user_pk, date, opportunity_revenue, transactly_revenue
+        group by user_pk, date
+
+        union
+        select
+            user_pk
+            ,cast(date as date) as date
+            ,sum(opportunity_revenue) as opportunity_revenue
+            ,sum(transactly_revenue) as transactly_revenue
+            ,sum(payout_revenue) as payout_revenue
+        from vendor_revenue
+        group by user_pk, date
     )
 
     ,final as(
@@ -104,7 +133,8 @@ with
                 end as client_type
             ,combine.opportunity_revenue
             ,combine.transactly_revenue
-            ,combine.opportunity_revenue + combine.transactly_revenue as total_revenue
+            ,combine.payout_revenue
+            ,combine.opportunity_revenue + combine.transactly_revenue + combine.payout_revenue as total_revenue
 
         from
             combine
@@ -112,4 +142,3 @@ with
     )
 
 select * from final
-
