@@ -26,12 +26,12 @@ with
             ,fact.client_type
             ,fact.opportunity_revenue
             ,fact.transactly_revenue
-            ,(fact.opportunity_revenue + fact.transactly_revenue) as total_revenue
+            ,fact.payout_revenue
+            ,total_revenue
 
         from
             fact_revenue fact
             join dim_user u on fact.user_pk = u.user_pk
-
     )
 
 select * from final
