@@ -13,6 +13,7 @@ select
     ,last_name
     ,first_name
     ,transaction_id
+    ,phone
 
 from
     src_tc_contact c

@@ -22,5 +22,6 @@ select
     ,u.pays_at_title
     ,u.brokerage
     ,u.self_procured
+    ,u.phone
 from src_tc_user u
 where _fivetran_deleted = 'FALSE'

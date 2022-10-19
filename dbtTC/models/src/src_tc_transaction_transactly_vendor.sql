@@ -7,5 +7,7 @@ with src_tc_transaction_transactly_vendor as(
 select
     id as transaction_transactly_vendor_id
     ,transactly_vendor_id
+    ,transaction_id
+    ,notified_date
 from src_tc_transaction_transactly_vendor
 where _fivetran_deleted = 'FALSE'
