@@ -122,15 +122,7 @@ with
             ,combine.date
             ,u.lead_flag
             ,u.tc_client_flag
-            ,case
-                when u.lead_flag = 0 and u.tc_client_flag = 1 then 'TC client only'
-                when u.lead_flag = 1 and u.tc_client_flag = 0 then 'SF lead only'
-                when u.lead_flag = 1 and u.tc_client_flag = 1 then 'TC client and SF lead'
-                when u.lead_flag = 0 and u.tc_client_flag = 0  then 'TC client only'
-                when u.lead_flag = 0 and u.tc_client_flag = 0  and user_id is not null and user_id <> 0 then 'TC client only'
-                when u.lead_flag is null and u.tc_client_flag is null and combine.opportunity_revenue > 0 then 'SF lead only'
-                else null
-                end as client_type
+            ,u.client_type
             ,combine.opportunity_revenue
             ,combine.transactly_revenue
             ,combine.payout_revenue
