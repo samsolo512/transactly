@@ -6,6 +6,7 @@ create or replace table data_warehouse.fact_revenue (
     ,fullname string
     ,lead_flag int
     ,tc_client_flag int
+    ,agent_name string
     ,date datetime
     ,client_type string
     ,opportunity_revenue numeric(10,2)

@@ -22,6 +22,7 @@ with
             ,u.fullname
             ,u.lead_flag
             ,u.tc_client_flag
+            ,u.agent_name
             ,fact.date
             ,fact.client_type
             ,fact.opportunity_revenue
