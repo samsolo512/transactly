@@ -10,6 +10,6 @@ create or replace table data_warehouse.fact_revenue (
     ,client_type string
     ,opportunity_revenue numeric(10,2)
     ,transactly_revenue numeric(10,2)
-    ,payout_revenue numeric(10,2)
+    ,vendor_payout_amount numeric(10,2)
     ,total_revenue numeric(10,2)
 )
