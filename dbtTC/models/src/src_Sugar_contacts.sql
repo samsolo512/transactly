@@ -5,9 +5,58 @@ with
     )
 
 select
+    {{ field_clean('"date_entered"') }} as date_entered
+    ,{{ field_clean('"primary_address_street"') }} as primary_address_street
+    ,{{ field_clean('"primary_address_street_2"') }} as primary_address_street_2
+    ,{{ field_clean('"primary_address_street_3"') }} as primary_address_street_3
+    ,{{ field_clean('"primary_address_city"') }} as primary_address_city
+    ,{{ field_clean('"primary_address_state"') }} as primary_address_state
+    ,{{ field_clean('"primary_address_postalcode"') }} as primary_address_postalcode
+    ,{{ field_clean('"primary_address_country"') }} as primary_address_country
+    ,{{ field_clean('"alt_address_street"') }} as alt_address_street
+    ,{{ field_clean('"alt_address_street_2"') }} as alt_address_street_2
+    ,{{ field_clean('"alt_address_street_3"') }} as alt_address_street_3
+    ,{{ field_clean('"alt_address_city"') }} as alt_address_city
+    ,{{ field_clean('"alt_address_state"') }} as alt_address_state
+    ,{{ field_clean('"alt_address_postalcode"') }} as alt_address_postalcode
+    ,{{ field_clean('"alt_address_country"') }} as alt_address_country
+    ,{{ field_clean('"otherelectricprovider_c"') }} as otherelectricprovider_c
+    ,{{ field_clean('"othergasprovider_c"') }} as othergasprovider_c
+    ,{{ field_clean('"wirelessreceivers_c"') }} as wirelessreceivers_c
+    ,{{ field_clean('"internetmodem_c"') }} as internetmodem_c
+    ,{{ field_clean('"internetrouter_c"') }} as internetrouter_c
+    ,{{ field_clean('"othertvprovider_c"') }} as othertvprovider_c
+    ,{{ field_clean('"subdivision_c"') }} as subdivision_c
+    ,{{ field_clean('"trashcomments_c"') }} as trashcomments_c
+    ,{{ field_clean('"availableinternetphoneoption_c"') }} as availableinternetphoneoption_c
+    ,{{ field_clean('"availableelectricoption_c"') }} as availableelectricoption_c
+    ,{{ field_clean('"availablegasoption_c"') }} as availablegasoption_c
+    ,{{ field_clean('"availablewatertrashoptions_c"') }} as availablewatertrashoptions_c
+    ,{{ field_clean('"tv_options_c"') }} as tv_options_c
+    ,{{ field_clean('"internet_phone_options_c"') }} as internet_phone_options_c
+    ,{{ field_clean('"availabletvoptions_c"') }} as availabletvoptions_c
+    ,{{ field_clean('"electric_options_c"') }} as electric_options_c
+    ,{{ field_clean('"googlemaps_c"') }} as googlemaps_c
+    ,{{ field_clean('"gas_options_c"') }} as gas_options_c
+    ,{{ field_clean('"securityproviderorderform_c"') }} as securityproviderorderform_c
+    ,{{ field_clean('"electricprovider_c"') }} as electricprovider_c
+    ,{{ field_clean('"gasprovider_c"') }} as gasprovider_c
+    ,{{ field_clean('"waterprovider_c"') }} as waterprovider_c
+    ,{{ field_clean('"internetproviderorderform_c"') }} as internetproviderorderform_c
+    ,{{ field_clean('"phoneproviderorderform_c"') }} as phoneproviderorderform_c
+    ,{{ field_clean('"water_setup_process_c"') }} as water_setup_process_c
+    ,{{ field_clean('"gas_setup_process_c"') }} as gas_setup_process_c
+    ,{{ field_clean('"electric_setup_process_c"') }} as electric_setup_process_c
+    ,{{ field_clean('"sewer_provider_c"') }} as sewer_provider_c
+    ,{{ field_clean('"water_trash_options_c"') }} as water_trash_options_c
+    ,{{ field_clean('"sewer_options_c"') }} as sewer_options_c
+    ,{{ field_clean('"trash_options_c"') }} as trash_options_c
+
+from src_Sugar_contacts
+
+/*
     {{ field_clean('"id"') }} as id
     ,{{ field_clean('"name"') }} as name
-    ,{{ field_clean('"date_entered"') }} as date_entered
     ,{{ field_clean('"date_modified"') }} as date_modified
     ,{{ field_clean('"modified_user_id"') }} as modified_user_id
     ,{{ field_clean('"modified_by_name"') }} as modified_by_name
@@ -30,20 +79,6 @@ select
     ,{{ field_clean('"phone_work"') }} as phone_work
     ,{{ field_clean('"phone_other"') }} as phone_other
     ,{{ field_clean('"phone_fax"') }} as phone_fax
-    ,{{ field_clean('"primary_address_street"') }} as primary_address_street
-    ,{{ field_clean('"primary_address_street_2"') }} as primary_address_street_2
-    ,{{ field_clean('"primary_address_street_3"') }} as primary_address_street_3
-    ,{{ field_clean('"primary_address_city"') }} as primary_address_city
-    ,{{ field_clean('"primary_address_state"') }} as primary_address_state
-    ,{{ field_clean('"primary_address_postalcode"') }} as primary_address_postalcode
-    ,{{ field_clean('"primary_address_country"') }} as primary_address_country
-    ,{{ field_clean('"alt_address_street"') }} as alt_address_street
-    ,{{ field_clean('"alt_address_street_2"') }} as alt_address_street_2
-    ,{{ field_clean('"alt_address_street_3"') }} as alt_address_street_3
-    ,{{ field_clean('"alt_address_city"') }} as alt_address_city
-    ,{{ field_clean('"alt_address_state"') }} as alt_address_state
-    ,{{ field_clean('"alt_address_postalcode"') }} as alt_address_postalcode
-    ,{{ field_clean('"alt_address_country"') }} as alt_address_country
     ,{{ field_clean('"assistant"') }} as assistant
     ,{{ field_clean('"assistant_phone"') }} as assistant_phone
     ,{{ field_clean('"picture"') }} as picture
@@ -140,17 +175,12 @@ select
     ,{{ field_clean('"current_trash_c"') }} as current_trash_c
     ,{{ field_clean('"current_gas_c"') }} as current_gas_c
     ,{{ field_clean('"gasstatusorderform_c"') }} as gasstatusorderform_c
-    ,{{ field_clean('"otherelectricprovider_c"') }} as otherelectricprovider_c
-    ,{{ field_clean('"othergasprovider_c"') }} as othergasprovider_c
     ,{{ field_clean('"gasrequestedactivationdate_c"') }} as gasrequestedactivationdate_c
     ,{{ field_clean('"gascommentsorderform_c"') }} as gascommentsorderform_c
     ,{{ field_clean('"watercommentsorderform_c"') }} as watercommentsorderform_c
     ,{{ field_clean('"trashrequestedactivationdate_c"') }} as trashrequestedactivationdate_c
     ,{{ field_clean('"tvdvr_c"') }} as tvdvr_c
     ,{{ field_clean('"tvrequestedinstalldate_c"') }} as tvrequestedinstalldate_c
-    ,{{ field_clean('"wirelessreceivers_c"') }} as wirelessreceivers_c
-    ,{{ field_clean('"internetmodem_c"') }} as internetmodem_c
-    ,{{ field_clean('"internetrouter_c"') }} as internetrouter_c
     ,{{ field_clean('"internetrequestedinstalldate_c"') }} as internetrequestedinstalldate_c
     ,{{ field_clean('"phoneplanorderform_c"') }} as phoneplanorderform_c
     ,{{ field_clean('"phonestatusorderform_c"') }} as phonestatusorderform_c
@@ -164,45 +194,26 @@ select
     ,{{ field_clean('"internetotherprovider_c"') }} as internetotherprovider_c
     ,{{ field_clean('"otherphoneprovider_c"') }} as otherphoneprovider_c
     ,{{ field_clean('"squarecowmooversorderform_c"') }} as squarecowmooversorderform_c
-    ,{{ field_clean('"othertvprovider_c"') }} as othertvprovider_c
     ,{{ field_clean('"trashproviderorderform_c"') }} as trashproviderorderform_c
     ,{{ field_clean('"whiteknightpestcontrolorder_c"') }} as whiteknightpestcontrolorder_c
     ,{{ field_clean('"mrrekeyorderform_c"') }} as mrrekeyorderform_c
     ,{{ field_clean('"delicatemoving_c"') }} as delicatemoving_c
-    ,{{ field_clean('"subdivision_c"') }} as subdivision_c
     ,{{ field_clean('"adt_c"') }} as adt_c
-    ,{{ field_clean('"trashcomments_c"') }} as trashcomments_c
-    ,{{ field_clean('"availableinternetphoneoption_c"') }} as availableinternetphoneoption_c
     ,{{ field_clean('"middle_name_c"') }} as middle_name_c
     ,{{ field_clean('"electriccommentsorderform_c"') }} as electriccommentsorderform_c
     ,{{ field_clean('"other_options_c"') }} as other_options_c
     ,{{ field_clean('"referralname_c"') }} as referralname_c
     ,{{ field_clean('"numberoftvsorderform_c"') }} as numberoftvsorderform_c
-    ,{{ field_clean('"availableelectricoption_c"') }} as availableelectricoption_c
-    ,{{ field_clean('"availablegasoption_c"') }} as availablegasoption_c
-    ,{{ field_clean('"availablewatertrashoptions_c"') }} as availablewatertrashoptions_c
-    ,{{ field_clean('"tv_options_c"') }} as tv_options_c
     ,{{ field_clean('"email_2_c"') }} as email_2_c
-    ,{{ field_clean('"internet_phone_options_c"') }} as internet_phone_options_c
-    ,{{ field_clean('"availabletvoptions_c"') }} as availabletvoptions_c
-    ,{{ field_clean('"electric_options_c"') }} as electric_options_c
     ,{{ field_clean('"numberoflines_c"') }} as numberoflines_c
     ,{{ field_clean('"qafudate_c"') }} as qafudate_c
     ,{{ field_clean('"dateassignedtooe_c"') }} as dateassignedtooe_c
     ,{{ field_clean('"status_c"') }} as status_c
-    ,{{ field_clean('"googlemaps_c"') }} as googlemaps_c
     ,{{ field_clean('"typeofphone_c"') }} as typeofphone_c
-    ,{{ field_clean('"gas_options_c"') }} as gas_options_c
     ,{{ field_clean('"agreedtotext_c"') }} as agreedtotext_c
     ,{{ field_clean('"consultant_qa_date_c"') }} as consultant_qa_date_c
     ,{{ field_clean('"secondary_install_date_c"') }} as secondary_install_date_c
     ,{{ field_clean('"int_secondary_install_date_c"') }} as int_secondary_install_date_c
-    ,{{ field_clean('"securityproviderorderform_c"') }} as securityproviderorderform_c
-    ,{{ field_clean('"electricprovider_c"') }} as electricprovider_c
-    ,{{ field_clean('"gasprovider_c"') }} as gasprovider_c
-    ,{{ field_clean('"waterprovider_c"') }} as waterprovider_c
-    ,{{ field_clean('"internetproviderorderform_c"') }} as internetproviderorderform_c
-    ,{{ field_clean('"phoneproviderorderform_c"') }} as phoneproviderorderform_c
     ,{{ field_clean('"rc360_referrer_contacts_name"') }} as rc360_referrer_contacts_name
     ,{{ field_clean('"rc360_referrer_contactsrc360_referrer_ida"') }} as rc360_referrer_contactsrc360_referrer_ida
     ,{{ field_clean('"rc360_teams_contacts_name"') }} as rc360_teams_contacts_name
@@ -230,20 +241,13 @@ select
     ,{{ field_clean('"telecomofferprice_c"') }} as telecomofferprice_c
     ,{{ field_clean('"why_no_service_c"') }} as why_no_service_c
     ,{{ field_clean('"atx_firefighter_moving_c"') }} as atx_firefighter_moving_c
-    ,{{ field_clean('"water_setup_process_c"') }} as water_setup_process_c
-    ,{{ field_clean('"gas_setup_process_c"') }} as gas_setup_process_c
     ,{{ field_clean('"adsorderform_c"') }} as adsorderform_c
     ,{{ field_clean('"c1_insurance_c"') }} as c1_insurance_c
     ,{{ field_clean('"firefightings_finest_moving_c"') }} as firefightings_finest_moving_c
-    ,{{ field_clean('"electric_setup_process_c"') }} as electric_setup_process_c
     ,{{ field_clean('"vivint_c"') }} as vivint_c
     ,{{ field_clean('"coaching_opportunity_c"') }} as coaching_opportunity_c
-    ,{{ field_clean('"sewer_provider_c"') }} as sewer_provider_c
     ,{{ field_clean('"sewer_activation_date_c"') }} as sewer_activation_date_c
     ,{{ field_clean('"sewer_comments_c"') }} as sewer_comments_c
-    ,{{ field_clean('"water_trash_options_c"') }} as water_trash_options_c
-    ,{{ field_clean('"sewer_options_c"') }} as sewer_options_c
-    ,{{ field_clean('"trash_options_c"') }} as trash_options_c
     ,{{ field_clean('"security_rep_c"') }} as security_rep_c
     ,{{ field_clean('"transferredcalldate_c"') }} as transferredcalldate_c
     ,{{ field_clean('"qualifier_c"') }} as qualifier_c
@@ -320,5 +324,4 @@ select
     ,{{ field_clean('"freedom_solar_c"') }} as freedom_solar_c
     ,{{ field_clean('"base_rate"') }} as base_rate
     ,{{ field_clean('"currency_id"') }} as currency_id
-
-from src_Sugar_contacts
+*/
