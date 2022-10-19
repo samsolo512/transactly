@@ -26,7 +26,7 @@ with
             ,fact.client_type
             ,fact.opportunity_revenue
             ,fact.transactly_revenue
-            ,fact.payout_revenue
+            ,fact.vendor_payout_amount
             ,total_revenue
 
         from

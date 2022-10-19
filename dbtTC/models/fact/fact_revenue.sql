@@ -90,7 +90,7 @@ with
             ,cast(date as date) as date
             ,sum(opportunity_revenue) as opportunity_revenue
             ,sum(transactly_revenue) as transactly_revenue
-            ,sum(payout_revenue) as payout_revenue
+            ,sum(payout_revenue) as vendor_payout_amount
         from opp
         group by user_pk, date
 
@@ -100,7 +100,7 @@ with
             ,cast(date as date) as date
             ,sum(opportunity_revenue) as opportunity_revenue
             ,sum(transactly_revenue) as transactly_revenue
-            ,sum(payout_revenue) as payout_revenue
+            ,sum(payout_revenue) as vendor_payout_amount
         from TC
         group by user_pk, date
 
@@ -110,7 +110,7 @@ with
             ,cast(date as date) as date
             ,sum(opportunity_revenue) as opportunity_revenue
             ,sum(transactly_revenue) as transactly_revenue
-            ,sum(payout_revenue) as payout_revenue
+            ,sum(payout_revenue) as vendor_payout_amount
         from vendor_revenue
         group by user_pk, date
     )
@@ -125,8 +125,8 @@ with
             ,u.client_type
             ,combine.opportunity_revenue
             ,combine.transactly_revenue
-            ,combine.payout_revenue
-            ,combine.opportunity_revenue + combine.transactly_revenue + combine.payout_revenue as total_revenue
+            ,combine.vendor_payout_amount
+            ,combine.opportunity_revenue + combine.transactly_revenue + combine.vendor_payout_amount as total_revenue
 
         from
             combine
