@@ -5,7 +5,7 @@ with src_tc_line_item as (
 
 select
     working.seq_dim_line_item.nextval as line_item_pk
-    ,l.id as line_item_id
+    ,l.line_item_id
     ,l.status
     ,l.description
     ,l.agent_pays

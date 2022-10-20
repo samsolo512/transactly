@@ -47,14 +47,14 @@ with
             left join src_tc_member m on trans.transaction_id = m.transaction_id
             left join dim_member memb on m.member_id = memb.member_id
             left join(
-                select top 1
-                    lead_created_date
+                select
+                    max(lead_created_date) as lead_created_date
                     ,email
                 from dim_lead
+                group by email
             ) dl on memb.email = dl.email
             left join dim_date c on dl.lead_created_date = c.date_id
 --             left join dim_contact cont on trans.transaction_id = cont.transaction_id
-
     )
 
 select * from final

@@ -76,6 +76,7 @@ with
             ,a.state
             ,a.zip
             ,case when diy.transaction_id is not null then 1 else 0 end as diy_flag
+            ,t.current_contract_id
         from
             src_tc_transaction t
             join src_tc_address a on t.address_id = a.address_id

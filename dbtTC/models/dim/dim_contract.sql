@@ -5,7 +5,8 @@ with
     )
 
 select
-    c.contract_id
+    working.seq_dim_contract.nextval as contract_pk
+    ,c.contract_id
     ,c.transaction_id
     ,c.contract_amount
     ,c.closing_date

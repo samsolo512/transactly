@@ -8,6 +8,8 @@ select
     working.seq_dim_office.nextval as office_pk
     ,o.office_id
     ,o.office_name
-from src_tc_office o
+    ,o.referral_amount
+from
+    src_tc_office o
 
-union select 0, 0, null
+union select 0, 0, null, null
