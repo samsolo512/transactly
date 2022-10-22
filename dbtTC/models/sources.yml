@@ -39,6 +39,9 @@ sources:
       - name: party
         identifier: party
 
+      - name: role
+        identifier: role
+
       - name: transaction
         identifier: transaction
 
