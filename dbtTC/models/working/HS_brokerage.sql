@@ -1,7 +1,8 @@
-with object_properties as(
-    select *
-    from {{ ref('src_hs_object_properties') }}
-)
+with
+    src_hs_object_properties as(
+        select *
+        from {{ source('hs', 'object_properties') }}
+    )
 
 select
     orderid as company_id
@@ -39,7 +40,7 @@ from(
         ,name
         ,value
     from
-        object_properties p
+        src_hs_object_properties p
     where
         objecttypeid = '0-2'
         and name in(

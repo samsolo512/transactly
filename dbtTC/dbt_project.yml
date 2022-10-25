@@ -37,8 +37,7 @@ models:
     dim:
       +materialized: table
     working:
-      +materialized: ephemeral
-      dim_agent: table
+      +materialized: table
     fact:
       +materialized: table
     GCP:
