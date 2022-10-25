@@ -52,11 +52,14 @@ select
     ,{{ field_clean('"sewer_options_c"') }} as sewer_options_c
     ,{{ field_clean('"trash_options_c"') }} as trash_options_c
 
+    -- so Eric Minish can look for Reshop customers
+    ,{{ field_clean('"name"') }} as name
+    ,{{ field_clean('"rent_buy_c"') }} as rent_buy_c
+
 from src_Sugar_contacts
 
 /*
     {{ field_clean('"id"') }} as id
-    ,{{ field_clean('"name"') }} as name
     ,{{ field_clean('"date_modified"') }} as date_modified
     ,{{ field_clean('"modified_user_id"') }} as modified_user_id
     ,{{ field_clean('"modified_by_name"') }} as modified_by_name
@@ -231,7 +234,6 @@ from src_Sugar_contacts
     ,{{ field_clean('"tv_am_or_pm_c"') }} as tv_am_or_pm_c
     ,{{ field_clean('"internet_am_or_pm_c"') }} as internet_am_or_pm_c
     ,{{ field_clean('"electricstatus_c"') }} as electricstatus_c
-    ,{{ field_clean('"rent_buy_c"') }} as rent_buy_c
     ,{{ field_clean('"gas_username_c"') }} as gas_username_c
     ,{{ field_clean('"gas_disconnect_date_c"') }} as gas_disconnect_date_c
     ,{{ field_clean('"gas_password_c"') }} as gas_password_c
