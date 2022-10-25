@@ -49,6 +49,13 @@ with
             ,p.product_name
             ,p.product_family
             ,a.account_name
+            ,cont.contact_id
+            ,cont.email
+            ,cont.full_name
+            ,cont.city
+            ,cont.state
+            ,cont.created_date
+            ,cont.water
 
         from
             src_sf_opportunity opp
@@ -59,7 +66,7 @@ with
             left join src_sf_product_2 p on itm.product_id = p.product_id
             left join src_sf_account a on opp.account_id = a.account_id
 
-        union select 0, '0', '0', null, null, null, null, null, null, null
+        union select 0, '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

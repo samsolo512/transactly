@@ -8,6 +8,7 @@ select
     ,c.agent_brokerage_c
     ,c.id as contact_id
     ,{{ field_clean('c.mailing_street') }} as street
+    ,c.mailing_city as city
     ,c.mailing_state as state
     ,c.mailing_postal_code as zip
     ,c.email

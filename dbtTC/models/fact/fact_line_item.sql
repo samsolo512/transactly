@@ -45,6 +45,10 @@ with
         from {{ ref('dim_user')}}
     )
 
+    ,dim_agent as(
+        select *
+        from {{ ref('dim_agent')}}
+    )
     ,order_sequence as(
         select
             user.user_id
@@ -76,10 +80,11 @@ select
     nvl(line.line_item_pk, 0) as line_item_pk
 
     -- dims
-    ,nvl(user.user_pk, 0) as user_pk
+    ,nvl(agt.agent_pk, 0) as agent_pk
     ,nvl(ord.order_pk, 0) as order_pk
     ,nvl(assigned_tc.user_pk, 0) as assigned_tc_pk
     ,nvl(ofc.office_pk, 0) as office_pk
+    ,nvl(u.user_pk, 0) as user_pk
 
     -- dates
     ,nvl(create_date.date_pk, (select date_pk from dim_date where date_id = '0')) as created_date_pk
@@ -134,7 +139,8 @@ from
     on o.order_id = l.order_id
     left join order_sequence os on l.id = os.line_item_id
     left join dim_office ofc on o.agent_office_id = ofc.office_id
-    left join dim_user user on l.user_id = user.user_id
+    left join dim_agent agt on l.user_id = agt.user_id
+    left join dim_user u on l.user_id = u.user_id
     left join dim_order ord on o.order_id = ord.order_id
     left join dim_user assigned_tc on o.assigned_tc_id = assigned_tc.user_id
     left join dim_date create_date on cast(l.created_date as date) = create_date.date_id

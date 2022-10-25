@@ -16,22 +16,22 @@ with
         from {{ ref('dim_opportunity') }}
     )
 
-    ,dim_user as(
+    ,dim_lead as(
         select *
-        from {{ ref('dim_user') }}
+        from {{ ref('dim_lead') }}
     )
 
     ,final as(
         select
             o.opportunity_line_item_name as opportunity_name
-            ,u.lead_state as state
-            ,u.lead_street as street
+            ,l.state
+            ,l.street
             ,o.account_name
             ,o.opportunity_name as opportunity_owner
-            ,u.email
+            ,l.email
             ,fact.close_date
-            ,u.agent_name
-            ,u.agent_email
+            ,l.agent_name
+            ,l.agent_email
             ,o.product_name
             ,o.product_family
             ,fact.revenue_connection_flag
@@ -42,19 +42,19 @@ with
         from
             fact_opportunity fact
             join dim_opportunity o on fact.opportunity_pk = o.opportunity_pk
-            join dim_user u on fact.user_pk = u.user_pk
+            join dim_lead l on fact.lead_pk = l.lead_pk
 
         group by
             o.opportunity_line_item_name
-            ,u.lead_state
-            ,u.lead_street
+            ,l.state
+            ,l.street
             ,o.account_name
             ,o.opportunity_name
             ,o.opportunity_name
-            ,u.email
+            ,l.email
             ,fact.close_date
-            ,u.agent_name
-            ,u.agent_email
+            ,l.agent_name
+            ,l.agent_email
             ,o.product_name
             ,o.product_family
             ,fact.revenue_connection_flag

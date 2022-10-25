@@ -5,11 +5,12 @@ create or replace table data_warehouse.fact_revenue (
     ,vendor_payout_id string
     ,lead_id string
     ,user_id string
-    ,fullname string
-    ,lead_flag int
-    ,tc_client_flag int
-    ,client_type string
     ,agent_name string
+    ,lead_agent_flag int
+    ,tc_agent_flag int
+    ,tc_created_date date
+    ,lead_created_date date
+    ,agent_type string
     ,account_name string
     ,revenue_type string
     ,date datetime

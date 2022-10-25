@@ -10,9 +10,9 @@ with
         from {{ ref('fact_revenue')}}
     )
 
-    ,dim_user as(
+    ,dim_agent as(
         select *
-        from {{ ref('dim_user')}}
+        from {{ ref('dim_agent')}}
     )
 
     ,dim_opportunity as(
@@ -24,13 +24,12 @@ with
         select
             o.opportunity_id
             ,fact.vendor_payout_id
-            ,u.lead_id
-            ,u.user_id
-            ,u.fullname
-            ,u.lead_flag
-            ,u.tc_client_flag
-            ,u.client_type
-            ,u.agent_name
+            ,a.user_id
+            ,a.agent_name
+            ,a.lead_agent_flag
+            ,a.tc_agent_flag
+            ,a.tc_created_date
+            ,a.lead_created_date
             ,o.account_name
             ,fact.revenue_type
             ,fact.date
@@ -41,7 +40,7 @@ with
 
         from
             fact_revenue fact
-            join dim_user u on fact.user_pk = u.user_pk
+            join dim_agent a on fact.agent_pk = a.agent_pk
             join dim_opportunity o on fact.opportunity_pk = o.opportunity_pk
     )
 

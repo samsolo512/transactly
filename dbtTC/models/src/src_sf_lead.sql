@@ -23,6 +23,11 @@ select
     ,l.is_deleted
     ,l.agent_c as agent_name
     ,l.agent_email_c as agent_email
+    ,regulated_electricity_c as electricity
+    ,regulated_sewer_c as sewer
+    ,regulated_trash_c as trash
+    ,regulated_water_c as water
+    ,regulated_gas_c as gas
 from src_sf_lead l
 where
     is_deleted = 'FALSE'
