@@ -11,9 +11,9 @@ select
     ,u.is_tc_client
     ,u.assigned_transactly_tc_id
     ,cast(u.last_online_date as date) as last_online_date
-    ,u.first_name
-    ,u.last_name
-    ,concat(u.first_name, ' ', u.last_name) as fullname
+    ,{{ field_clean('u.first_name') }} as first_name
+    ,{{ field_clean('u.last_name') }} as last_name
+    ,concat({{ field_clean('u.first_name') }}, ' ', {{ field_clean('u.last_name') }}) as fullname
     ,u.email
     ,u.first_login
     ,cast(u.autopay_date as date) as autopay_date

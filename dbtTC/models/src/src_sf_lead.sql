@@ -21,7 +21,7 @@ select
     ,cast(l.created_date as date) as created_date
     ,l.owner_id
     ,l.is_deleted
-    ,l.agent_c as agent_name
+    ,{{ field_clean('l.agent_c') }} as agent_name
     ,l.agent_email_c as agent_email
     ,regulated_electricity_c as electricity
     ,regulated_sewer_c as sewer

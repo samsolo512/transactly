@@ -7,9 +7,9 @@ with
         from {{ ref('fact_opportunity')}}
     )
 
-    ,dim_user as(
+    ,dim_agent as(
         select *
-        from {{ ref('dim_user')}}
+        from {{ ref('dim_agent')}}
     )
 
     ,fact_line_item as(
