@@ -27,18 +27,19 @@ with
             ,phone
             ,email
             ,lead_source
-            ,owner_name
-            ,lead_partner_name
-            ,contact_partner_name
-            ,opportunity_partner_name
             ,lead_created_date
-            ,contact_created_date
-            ,opportunity_created_date
-            ,opportunity_close_date
-            ,opportunity_name
-            ,stage
             ,agent_name
             ,agent_email
+
+--             ,owner_name
+--             ,lead_partner_name
+--             ,contact_partner_name
+--             ,opportunity_partner_name
+--             ,contact_created_date
+--             ,opportunity_created_date
+--             ,opportunity_close_date
+--             ,opportunity_name
+--             ,stage
 
         from dim_lead
     )
