@@ -9,5 +9,8 @@ select
     ,o.name as office_name
     ,o.parent_office_id
     ,o.referral_amount
-from src_tc_office o
-where _fivetran_deleted = 'FALSE'
+    ,o.agreement_type
+from
+    src_tc_office o
+where
+    _fivetran_deleted = 'FALSE'

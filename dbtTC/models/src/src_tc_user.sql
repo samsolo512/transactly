@@ -23,6 +23,7 @@ select
     ,u.brokerage
     ,u.self_procured
     ,u.phone
+    ,u.stripe_account_id
 from
     src_tc_user u
 where

@@ -113,6 +113,7 @@ select
     ,os.placed_sequence
     ,os.closed_sequence
     ,l.id as line_item_id
+    ,l.stripe_paid
 
     -- revenue
     ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as nbr_lc_orders
@@ -147,5 +148,6 @@ from
     left join dim_date due_date on cast(l.due_date as date) = due_date.date_id
     left join dim_date cancel_date on cast(l.cancelled_date as date) = cancel_date.date_id
     left join dim_date closed_date on cast(t.closed_date as date) = closed_date.date_id
+
 where
     l.id is not null

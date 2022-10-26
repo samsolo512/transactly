@@ -9,7 +9,8 @@ select
     ,o.office_id
     ,o.office_name
     ,o.referral_amount
+    ,o.agreement_type
 from
     src_tc_office o
 
-union select 0, 0, null, null
+union select 0, 0, null, null, null

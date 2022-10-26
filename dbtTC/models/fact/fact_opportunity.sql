@@ -1,4 +1,5 @@
 -- fact_opportunity
+-- 1 row/opportunity line item
 
 with
     src_sf_lead as(
@@ -70,4 +71,6 @@ with
     )
 
 select * from final
+
+-- select opportunity_id, count(1) from final group by opportunity_id order by count(1) desc
 

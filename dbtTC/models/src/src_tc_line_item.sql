@@ -21,6 +21,7 @@ select
     ,l._fivetran_synced as last_sync
     ,l.agent_paid_date
     ,l.id as line_item_id
+    ,l.stripe_paid
 from
     src_tc_line_item l
 where

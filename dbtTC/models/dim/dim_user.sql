@@ -627,6 +627,7 @@ with
             ,concat(orig_agent.firstname, ' ', orig_agent.lastname) as original_sales_rep_name
             ,ul.lead_source
             ,cont.contact_id
+            ,u.stripe_account_id
 
             -- roles
             ,rc.role_super_admin as role_super_admin_flag
@@ -758,6 +759,7 @@ with
             ,concat(cont.first_name, ' ', cont.last_name)
             ,ul.lead_source
             ,cont.contact_id
+            ,u.stripe_account_id
             ,rc.role_super_admin
             ,rc.role_user
             ,rc.role_staff
@@ -818,6 +820,7 @@ with
             ,lead_status as transaction_coordinator_status
             ,contact_owner
             ,contact_id
+            ,stripe_account_id
 
             -- roles
             ,role_super_admin_flag
@@ -894,6 +897,7 @@ with
             ,lead_status
             ,contact_owner
             ,contact_id
+            ,stripe_account_id
             ,role_super_admin_flag
             ,role_user_flag
             ,role_staff_flag
@@ -938,7 +942,7 @@ with
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null
+            null, null, null, null, null, null, null
     )
 
 select * from final
