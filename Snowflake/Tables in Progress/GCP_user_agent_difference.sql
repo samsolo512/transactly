@@ -1,5 +1,5 @@
 -- GCP_user_agent_difference
--- GCP_Transaction_created_user_different_than_transaction_agent
+-- this is just a version of GCP_fact_order using 'where' statements and fewer 'select' columns
 
 {{ config(
     post_hook=[

@@ -37,10 +37,22 @@ with
             ,t.city
             ,t.state
             ,t.zip
-            ,u.first_name as member_first_name
-            ,u.last_name as member_last_name
-            ,u.email as member_email
+
+            ,m.first_name as member_first_name
+            ,m.last_name as member_last_name
+            ,m.email as member_email
+            ,m.role_name as member_role
+            ,m.office_name as member_office_name
+
+            ,u.first_name as assigned_tc_first_name
+            ,u.last_name as assigned_tc_last_name
+            ,u.email as assigned_tc_email
+
+            ,t.side_id as transaction_side
+            ,m.side_id as member_side
+
             ,fact.tc_buyer_as_connect_lead_flag
+            ,t.diy_flag
             ,dt.date_id as connect_lead_created_date
 
         from

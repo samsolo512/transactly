@@ -35,19 +35,32 @@ with
         select
             o.order_id
             ,o.transaction_id
-            ,t.street
-            ,t.city
-            ,t.state
-            ,t.zip
-            ,u.user_id
-            ,u.first_name
-            ,u.last_name
-            ,ua.first_name as assigned_tc_first_name
-            ,ua.last_name as assigned_tc_last_name
+            ,o.office_name
             ,o.order_type
             ,o.order_side
             ,o.order_status
             ,o.status_changed_date
+
+            ,t.street
+            ,t.city
+            ,t.state
+            ,t.zip
+
+            ,u.user_id
+            ,u.first_name as user_first_name
+            ,u.last_name as user_last_name
+            ,u.email as user_email
+
+            ,ua.user_id as assigned_tc_user_id
+            ,ua.first_name as assigned_tc_first_name
+            ,ua.last_name as assigned_tc_last_name
+            ,ua.email as assigned_tc_email
+               
+            ,uc.user_id as created_by_user_id
+            ,uc.first_name as created_by_first_name
+            ,uc.last_name as created_by_last_name
+            ,uc.email as created_by_email
+
             ,cldate.date_id as closed_date
             ,crdate.date_id as created_date
 

@@ -1,3 +1,5 @@
+-- GCP_Sugar_contacts
+
 {{ config(
     post_hook=[
       "{{unload_to_GCP('GCP_Sugar_contacts')}}"

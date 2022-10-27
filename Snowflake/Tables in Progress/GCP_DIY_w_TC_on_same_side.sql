@@ -1,3 +1,6 @@
+-- GCP_DIY_w_TC_on_same_side
+-- this is just a version of GCP_fact_transaction_member but with 'where' statements and fewer 'select' columns
+
 with
     fact_transaction_member as(
         select *
