@@ -30,6 +30,7 @@ with
             ,lead_created_date
             ,agent_name
             ,agent_email
+            ,partner
 
 --             ,owner_name
 --             ,lead_partner_name

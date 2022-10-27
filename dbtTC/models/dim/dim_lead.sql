@@ -175,6 +175,28 @@ with
         group by l.email
     )
 
+    -- partner
+    ,recent_partner as(
+        select
+            lead_c as lead_id
+            ,max(created_date) as created_date
+        from src_sf_partner_lead_c
+        group by lead_c
+    )  -- select * from FIVETRAN.SALESFORCE.PARTNER_LEAD_C where lead_c = '00Q5w0000236cCtEAI'
+
+    ,partner as(
+        select
+            c.lead_c as lead_id
+            ,min(a.account_name) as partner
+        from
+            src_sf_partner_lead_c c
+            join recent_partner p
+                on c.lead_c = p.lead_id
+                and c.created_date = p.created_date
+            left join src_sf_account a on c.partner_c = a.account_id
+        group by c.lead_c
+    )
+
     ,final as(
         select
             working.seq_dim_lead.nextval as lead_pk
@@ -204,6 +226,7 @@ with
             ,l.created_date as lead_created_date
             ,l.agent_name
             ,l.agent_email
+            ,p.partner
 
         from
             lead_id ul
@@ -211,11 +234,13 @@ with
                 on ul.email = l.email
                 and ul.lead_id = l.lead_id
             left join states on l.lead_id = states.lead_id
+            left join partner p on l.lead_id = p.lead_id
     )
 
 select * from final
 
 -- select lead_id, count(1) from final group by lead_id order by count(1) desc
+
 
 
 

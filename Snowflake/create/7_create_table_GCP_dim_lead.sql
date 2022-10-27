@@ -18,6 +18,7 @@ create or replace table data_warehouse.dim_lead (
     ,lead_created_date date
     ,agent_name string
     ,agent_email string
+    ,partner string
 
 --     ,owner_name string
 --     ,lead_partner_name string
