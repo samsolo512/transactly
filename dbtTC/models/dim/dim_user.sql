@@ -614,6 +614,7 @@ with
             ,nvl(replace(u.fullname, '"', ''), ul.fullname) as fullname
             ,nvl(replace(u.email, '"', ''), ul.email) as email
             ,u.brokerage
+            ,ofc.office_id
             ,st.tier as subscription_level
             ,case lower(hagent.lead_status)
                 when 'onboarded' then 'Onboarded (TC/Staff)'
@@ -732,6 +733,7 @@ with
             left join src_hs_owners orig_agent on hagent.original_sales_rep = cast(orig_agent.ownerid as varchar)
             left join subscrip_tier st on u.user_id = st.user_id
             left join role_combine rc on ul.user_id = rc.user_id
+            left join src_tc_office ofc on u.brokerage = ofc.office_name
 
             -- orders
             left join first_order_placed fp on u.user_id = fp.user_id
@@ -754,6 +756,7 @@ with
             ,nvl(replace(u.fullname, '"', ''), ul.fullname)
             ,nvl(replace(u.email, '"', ''), ul.email)
             ,u.brokerage
+            ,ofc.office_id
             ,st.tier
             ,hagent.lead_status
             ,concat(cont.first_name, ' ', cont.last_name)
@@ -816,6 +819,7 @@ with
             ,fullname
             ,email
             ,brokerage
+            ,office_id
             ,subscription_level
             ,lead_status as transaction_coordinator_status
             ,contact_owner
@@ -893,6 +897,7 @@ with
             ,fullname
             ,email
             ,brokerage
+            ,office_id
             ,subscription_level
             ,lead_status
             ,contact_owner
@@ -942,7 +947,7 @@ with
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null
     )
 
 select * from final

@@ -29,15 +29,15 @@ with
             ,t.state
             ,t.zip
 
-            ,m.first_name as member_first_name
-            ,m.last_name as member_last_name
-            ,m.email as member_email
-            ,m.role_name as member_role
-            ,m.office_name as member_office_name
+            ,m.first_name as assigned_tc_first_name
+            ,m.last_name as assigned_tc_last_name
+            ,m.email as assigned_tc_email
+            ,m.role_name as assigned_tc_role
+            ,m.office_name as assigned_tc_office_name
 
-            ,u.first_name as assigned_tc_first_name
-            ,u.last_name as assigned_tc_last_name
-            ,u.email as assigned_tc_email
+            ,u.first_name as member_first_name
+            ,u.last_name as member_last_name
+            ,u.email as member_email
 
             ,t.side_id as transaction_side
             ,m.side_id as member_side

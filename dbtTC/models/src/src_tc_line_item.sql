@@ -6,7 +6,7 @@ with src_tc_line_item as(
 
 select
     l.description
-    ,l.status
+    ,lower(l.status) as status
     ,l.user_id
     ,cast(l.created as date) as created_date
 --     ,cast(l.due_date as date) as due_date

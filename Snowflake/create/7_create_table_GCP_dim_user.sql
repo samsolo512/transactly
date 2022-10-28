@@ -9,6 +9,7 @@ create or replace table data_warehouse.dim_user (
     ,fullname string
     ,email string
     ,brokerage string
+    ,office_id int
     ,subscription_level string
     ,transaction_coordinator_status string
     ,contact_owner string

@@ -21,6 +21,7 @@ with
             ,fullname
             ,email
             ,brokerage
+            ,office_id
             ,subscription_level
             ,transaction_coordinator_status
             ,contact_owner

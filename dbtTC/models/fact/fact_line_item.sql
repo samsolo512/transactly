@@ -20,11 +20,6 @@ with
         from {{ ref('src_tc_line_item')}}
     )
 
-    ,dim_office as(
-        select *
-        from {{ ref('dim_office')}}
-    )
-
     ,dim_order as(
         select *
         from {{ ref('dim_order')}}
@@ -83,14 +78,14 @@ select
     ,nvl(agt.agent_pk, 0) as agent_pk
     ,nvl(ord.order_pk, 0) as order_pk
     ,nvl(assigned_tc.user_pk, 0) as assigned_tc_pk
-    ,nvl(ofc.office_pk, 0) as office_pk
     ,nvl(u.user_pk, 0) as user_pk
 
     -- dates
-    ,nvl(create_date.date_pk, (select date_pk from dim_date where date_id = '0')) as created_date_pk
-    ,nvl(due_date.date_pk, (select date_pk from dim_date where date_id = '0')) as due_date_pk
-    ,nvl(cancel_date.date_pk, (select date_pk from dim_date where date_id = '0')) as cancelled_date_pk
-    ,nvl(closed_date.date_pk, (select date_pk from dim_date where date_id = '0')) as closed_date_pk
+    ,nvl(create_date.date_pk, (select date_pk from dim_date where date_pk = '0')) as created_date_pk
+    ,nvl(due_date.date_pk, (select date_pk from dim_date where date_pk = '0')) as due_date_pk
+    ,nvl(cancel_date.date_pk, (select date_pk from dim_date where date_pk = '0')) as cancelled_date_pk
+    ,nvl(closed_date.date_pk, (select date_pk from dim_date where date_pk = '0')) as closed_date_pk
+    ,nvl(agt_pd_dt.date_pk, (select date_pk from dim_date where date_pk = '0')) as agent_paid_date_pk
     ,l.due_date
 
     -- flags
@@ -139,7 +134,7 @@ from
         join dim_line_item line on l.id = line.line_item_id
     on o.order_id = l.order_id
     left join order_sequence os on l.id = os.line_item_id
-    left join dim_office ofc on o.agent_office_id = ofc.office_id
+--     left join dim_office ofc on o.agent_office_id = ofc.office_id
     left join dim_agent agt on l.user_id = agt.user_id
     left join dim_user u on l.user_id = u.user_id
     left join dim_order ord on o.order_id = ord.order_id
@@ -148,6 +143,7 @@ from
     left join dim_date due_date on cast(l.due_date as date) = due_date.date_id
     left join dim_date cancel_date on cast(l.cancelled_date as date) = cancel_date.date_id
     left join dim_date closed_date on cast(t.closed_date as date) = closed_date.date_id
+    left join dim_date agt_pd_dt on cast(l.agent_paid_date as date) = agt_pd_dt.date_id
 
 where
     l.id is not null

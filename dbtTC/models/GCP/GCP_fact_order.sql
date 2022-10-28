@@ -35,7 +35,7 @@ with
         select
             o.order_id
             ,o.transaction_id
-            ,o.office_name
+            ,o.agent_office as office_name
             ,o.order_type
             ,o.order_side
             ,o.order_status

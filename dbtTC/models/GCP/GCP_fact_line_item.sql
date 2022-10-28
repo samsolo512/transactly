@@ -21,16 +21,6 @@ with
         from {{ ref('dim_user') }}
     )
 
-    ,dim_order as(
-        select *
-        from {{ ref('dim_order') }}
-    )
-
-    ,dim_office as(
-        select *
-        from {{ ref('dim_office') }}
-    )
-
     ,dim_date as(
         select *
         from {{ ref('dim_date') }}
@@ -56,6 +46,8 @@ with
             ,user.user_id as client_id
             ,user.fullname
             ,user.brokerage as client_brokerage
+            ,user.office_id as client_brokerage_id
+
             ,user.tier_1 as tier_1_date  -- due date of 5th sale
             ,user.tier_2 as tier_2_date  -- due date of 1st sale
             ,user.tier_3 as tier_3_date  -- user created date
@@ -68,7 +60,9 @@ with
             ,user.first_order_placed as first_order_placed_date
             ,user.first_order_closed as first_order_closed_date
             ,user.fifth_order_closed as fifth_order_closed_date
-            ,ofc.office_name
+            ,o.agent_office as office_name
+            ,o.agent_office_id as office_id
+
             ,o.order_status
             ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
             ,user.subscription_level
@@ -94,7 +88,7 @@ with
             left join dim_user user on fact.user_pk = user.user_pk
             left join dim_order o on fact.order_pk = o.order_pk
             left join dim_user assigned on fact.assigned_tc_pk = assigned.user_pk
-            left join dim_office ofc on fact.office_pk = ofc.office_pk
+--             left join dim_office ofc on fact.office_pk = ofc.office_pk
             left join dim_date line_item_created_date on fact.created_date_pk = line_item_created_date.date_pk
             left join dim_date line_item_due_date on fact.created_date_pk = line_item_due_date.date_pk
             left join dim_date line_item_cancelled_date on fact.created_date_pk = line_item_cancelled_date.date_pk

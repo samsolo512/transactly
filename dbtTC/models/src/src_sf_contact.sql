@@ -22,11 +22,12 @@ select
     ,cast(c.created_date as date) as created_date
     ,converted_lead_c
     ,converted_lead_c as lead_id
-    ,regulated_electricity_c as electricity
-    ,regulated_sewer_c as sewer
-    ,regulated_trash_c as trash
-    ,regulated_water_c as water
-    ,regulated_gas_c as gas
+    ,{{ field_clean('c.regulated_electricity_c') }} as electricity
+    ,{{ field_clean('c.regulated_sewer_c') }} as sewer
+    ,{{ field_clean('c.regulated_trash_c') }} as trash
+    ,{{ field_clean('c.regulated_water_c') }} as water
+    ,{{ field_clean('c.regulated_gas_c') }} as gas
+    ,{{ field_clean('c.internet_aux_c') }} as internet
 
 from
     src_sf_contact c

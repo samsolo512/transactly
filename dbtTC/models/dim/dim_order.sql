@@ -39,6 +39,7 @@ select
     ,t.transaction_id
     ,o.order_id
     ,o.agent_id
+    ,agt.fullname as agent
     ,usr.fullname as assigned_TC
     ,t_create.fullname as created_by
     ,case
@@ -60,7 +61,11 @@ select
 --         when check_json(order_data) is null
 --         then json_extract_path_text(order_data, 'agentUser.offices[0].name')
 --         end as office_name
-    ,offc.office_name
+    ,offc.office_name as assigned_tc_office
+    ,agt_offc.office_name as agent_office
+    ,agt_offc.office_id as agent_office_id
+    ,agt_offc.referral_amount
+    ,agt_offc.agreement_type
     ,o.last_sync
 
     -- address
@@ -80,8 +85,10 @@ from
     left join dim_contract c on c.contract_id = t.current_contract_id
 --     left join close_date cd on o.order_id = cd.order_id
     left join src_tc_office offc on o.assigned_tc_office_id = offc.office_id
+    left join src_tc_office agt_offc on o.agent_office_id = agt_offc.office_id
     left join src_tc_user u on o.assigned_tc_id = u.user_id
     left join src_tc_user usr on u.user_id = u.google_user_id
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
+    left join src_tc_user agt on o.agent_id = agt.user_id
 
-union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null

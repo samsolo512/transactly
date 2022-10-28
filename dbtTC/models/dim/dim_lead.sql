@@ -197,6 +197,14 @@ with
         group by c.lead_c
     )
 
+    ,contact as(
+        select
+            lead_id
+            ,max(created_date_time) as created_date_time
+        from src_sf_contact c
+        group by lead_id
+    )
+
     ,final as(
         select
             working.seq_dim_lead.nextval as lead_pk
@@ -227,6 +235,12 @@ with
             ,l.agent_name
             ,l.agent_email
             ,p.partner
+            ,c.electricity
+            ,c.sewer
+            ,c.trash
+            ,c.water
+            ,c.gas
+            ,c.internet
 
         from
             lead_id ul
@@ -235,6 +249,11 @@ with
                 and ul.lead_id = l.lead_id
             left join states on l.lead_id = states.lead_id
             left join partner p on l.lead_id = p.lead_id
+            left join src_sf_contact c
+                join contact
+                    on c.lead_id = contact.lead_id
+                    and c.created_date_time = contact.created_date_time
+                on l.lead_id = c.lead_id
     )
 
 select * from final

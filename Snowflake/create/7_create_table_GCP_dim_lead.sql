@@ -19,6 +19,12 @@ create or replace table data_warehouse.dim_lead (
     ,agent_name string
     ,agent_email string
     ,partner string
+    ,electricity string
+    ,sewer string
+    ,trash string
+    ,water string
+    ,gas string
+    ,internet string
 
 --     ,owner_name string
 --     ,lead_partner_name string

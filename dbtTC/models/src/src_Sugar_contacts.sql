@@ -7,12 +7,33 @@ with
 select
     {{ field_clean('"date_entered"') }} as date_entered
     ,{{ field_clean('"primary_address_street"') }} as primary_address_street
-    ,{{ field_clean('"primary_address_street_2"') }} as primary_address_street_2
-    ,{{ field_clean('"primary_address_street_3"') }} as primary_address_street_3
     ,{{ field_clean('"primary_address_city"') }} as primary_address_city
     ,{{ field_clean('"primary_address_state"') }} as primary_address_state
     ,{{ field_clean('"primary_address_postalcode"') }} as primary_address_postalcode
     ,{{ field_clean('"primary_address_country"') }} as primary_address_country
+    ,{{ field_clean('"subdivision_c"') }} as subdivision_c
+    ,{{ field_clean('"availableinternetphoneoption_c"') }} as availableinternetphoneoption_c
+    ,{{ field_clean('"availableelectricoption_c"') }} as availableelectricoption_c
+    ,{{ field_clean('"availablegasoption_c"') }} as availablegasoption_c
+    ,{{ field_clean('"availablewatertrashoptions_c"') }} as availablewatertrashoptions_c
+    ,{{ field_clean('"tv_options_c"') }} as tv_options_c
+    ,{{ field_clean('"internet_phone_options_c"') }} as internet_phone_options_c
+    ,{{ field_clean('"availabletvoptions_c"') }} as availabletvoptions_c
+    ,{{ field_clean('"electric_options_c"') }} as electric_options_c
+    ,{{ field_clean('"gas_options_c"') }} as gas_options_c
+    ,{{ field_clean('"water_trash_options_c"') }} as water_trash_options_c
+    ,{{ field_clean('"sewer_options_c"') }} as sewer_options_c
+    ,{{ field_clean('"trash_options_c"') }} as trash_options_c
+
+    -- so Eric Minish can look for Reshop customers
+    ,{{ field_clean('"name"') }} as name
+    ,{{ field_clean('"rent_buy_c"') }} as rent_buy_c
+
+from src_Sugar_contacts
+
+/*
+    ,{{ field_clean('"primary_address_street_2"') }} as primary_address_street_2
+    ,{{ field_clean('"primary_address_street_3"') }} as primary_address_street_3
     ,{{ field_clean('"alt_address_street"') }} as alt_address_street
     ,{{ field_clean('"alt_address_street_2"') }} as alt_address_street_2
     ,{{ field_clean('"alt_address_street_3"') }} as alt_address_street_3
@@ -26,18 +47,8 @@ select
     ,{{ field_clean('"internetmodem_c"') }} as internetmodem_c
     ,{{ field_clean('"internetrouter_c"') }} as internetrouter_c
     ,{{ field_clean('"othertvprovider_c"') }} as othertvprovider_c
-    ,{{ field_clean('"subdivision_c"') }} as subdivision_c
     ,{{ field_clean('"trashcomments_c"') }} as trashcomments_c
-    ,{{ field_clean('"availableinternetphoneoption_c"') }} as availableinternetphoneoption_c
-    ,{{ field_clean('"availableelectricoption_c"') }} as availableelectricoption_c
-    ,{{ field_clean('"availablegasoption_c"') }} as availablegasoption_c
-    ,{{ field_clean('"availablewatertrashoptions_c"') }} as availablewatertrashoptions_c
-    ,{{ field_clean('"tv_options_c"') }} as tv_options_c
-    ,{{ field_clean('"internet_phone_options_c"') }} as internet_phone_options_c
-    ,{{ field_clean('"availabletvoptions_c"') }} as availabletvoptions_c
-    ,{{ field_clean('"electric_options_c"') }} as electric_options_c
     ,{{ field_clean('"googlemaps_c"') }} as googlemaps_c
-    ,{{ field_clean('"gas_options_c"') }} as gas_options_c
     ,{{ field_clean('"securityproviderorderform_c"') }} as securityproviderorderform_c
     ,{{ field_clean('"electricprovider_c"') }} as electricprovider_c
     ,{{ field_clean('"gasprovider_c"') }} as gasprovider_c
@@ -48,18 +59,7 @@ select
     ,{{ field_clean('"gas_setup_process_c"') }} as gas_setup_process_c
     ,{{ field_clean('"electric_setup_process_c"') }} as electric_setup_process_c
     ,{{ field_clean('"sewer_provider_c"') }} as sewer_provider_c
-    ,{{ field_clean('"water_trash_options_c"') }} as water_trash_options_c
-    ,{{ field_clean('"sewer_options_c"') }} as sewer_options_c
-    ,{{ field_clean('"trash_options_c"') }} as trash_options_c
-
-    -- so Eric Minish can look for Reshop customers
-    ,{{ field_clean('"name"') }} as name
-    ,{{ field_clean('"rent_buy_c"') }} as rent_buy_c
-
-from src_Sugar_contacts
-
-/*
-    {{ field_clean('"id"') }} as id
+    ,{{ field_clean('"id"') }} as id
     ,{{ field_clean('"date_modified"') }} as date_modified
     ,{{ field_clean('"modified_user_id"') }} as modified_user_id
     ,{{ field_clean('"modified_by_name"') }} as modified_by_name

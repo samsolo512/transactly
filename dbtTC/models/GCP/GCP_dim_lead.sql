@@ -31,6 +31,12 @@ with
             ,agent_name
             ,agent_email
             ,partner
+            ,electricity
+            ,sewer
+            ,trash
+            ,water
+            ,gas
+            ,internet
 
 --             ,owner_name
 --             ,lead_partner_name

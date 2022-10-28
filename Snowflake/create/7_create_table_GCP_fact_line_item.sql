@@ -19,6 +19,7 @@ create or replace table data_warehouse.fact_line_item (
     ,client_id string
     ,client_fullname string
     ,client_brokerage string
+    ,client_brokerage_id int
     ,tier_1_date datetime
     ,tier_2_date datetime
     ,tier_3_date date
@@ -32,6 +33,7 @@ create or replace table data_warehouse.fact_line_item (
     ,first_order_closed_date date
     ,fifth_order_closed_date date
     ,office_name string
+    ,office_id int
     ,order_status string
     ,last_sync datetime
     ,subscription_level string
