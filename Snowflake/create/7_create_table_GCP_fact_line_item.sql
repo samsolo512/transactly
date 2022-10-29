@@ -52,4 +52,9 @@ create or replace table data_warehouse.fact_line_item (
     ,closed_sequence int
     ,original_sales_rep_name string
     ,line_item_id int
+    ,stripe_paid numeric
+    ,rev_share_amount numeric
+    ,agreement_type string
+    ,agent_paid_date date
+    ,referral_amount int
 )

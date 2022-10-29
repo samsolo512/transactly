@@ -85,9 +85,9 @@ with
                 and a.city = nd.city
                 and a.state = nd.state
                 and t.status_changed_date = nd.status_changed_date
-            join src_tc_transaction_status ts on t.status_id = ts.transaction_status_id
-            join src_tc_user u on t.user_id = u.user_id
-            join src_tc_user cbu on t.created_by_id = cbu.user_id
+            left join src_tc_transaction_status ts on t.status_id = ts.transaction_status_id
+            left join src_tc_user u on t.user_id = u.user_id
+            left join src_tc_user cbu on t.created_by_id = cbu.user_id
             left join src_tc_party p on t.side_id = p.party_id
             left join diy
                 on t.transaction_id = diy.transaction_id

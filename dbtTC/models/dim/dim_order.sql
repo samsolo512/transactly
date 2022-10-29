@@ -81,7 +81,7 @@ select
 from
     src_tc_transaction t
     left join src_tc_address a on t.address_id = a.address_id
-    left join src_tc_order o on t.transaction_id = o.transaction_id
+    join src_tc_order o on t.transaction_id = o.transaction_id
     left join dim_contract c on c.contract_id = t.current_contract_id
 --     left join close_date cd on o.order_id = cd.order_id
     left join src_tc_office offc on o.assigned_tc_office_id = offc.office_id

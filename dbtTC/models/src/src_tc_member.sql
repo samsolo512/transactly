@@ -12,7 +12,9 @@ select
     ,role_id
     ,is_active
     ,office_id
+
 from src_tc_member
+
 where
     _fivetran_deleted = 'FALSE'
-    and is_active = 'TRUE'
+--     and is_active = 'TRUE'

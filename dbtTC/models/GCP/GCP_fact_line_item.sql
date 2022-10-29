@@ -47,7 +47,6 @@ with
             ,user.fullname
             ,user.brokerage as client_brokerage
             ,user.office_id as client_brokerage_id
-
             ,user.tier_1 as tier_1_date  -- due date of 5th sale
             ,user.tier_2 as tier_2_date  -- due date of 1st sale
             ,user.tier_3 as tier_3_date  -- user created date
@@ -62,7 +61,6 @@ with
             ,user.fifth_order_closed as fifth_order_closed_date
             ,o.agent_office as office_name
             ,o.agent_office_id as office_id
-
             ,o.order_status
             ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
             ,user.subscription_level
@@ -81,6 +79,11 @@ with
             ,fact.closed_sequence
             ,user.original_sales_rep_name
             ,line.line_item_id
+            ,fact.stripe_paid
+            ,fact.rev_share_amount
+            ,o.agreement_type
+            ,agt_pd.date_id as agent_paid_date
+            ,o.referral_amount
 
         from
             fact_line_item fact
@@ -93,6 +96,7 @@ with
             left join dim_date line_item_due_date on fact.created_date_pk = line_item_due_date.date_pk
             left join dim_date line_item_cancelled_date on fact.created_date_pk = line_item_cancelled_date.date_pk
             left join dim_date closed_date on cast(fact.closed_date_pk as date) = closed_date.date_id
+            left join dim_date agt_pd on fact.agent_paid_date_pk = agt_pd.date_pk
     )
 
 select * from final

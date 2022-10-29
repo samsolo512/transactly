@@ -109,6 +109,7 @@ select
     ,os.closed_sequence
     ,l.id as line_item_id
     ,l.stripe_paid
+    ,l.stripe_paid * ord.referral_amount / 100 as rev_share_amount
 
     -- revenue
     ,case when l.description = 'Listing Coordination Fee' and lower(l.status) not in ('canceled', 'withdrawn', 'cancelled') then 1 else 0 end as nbr_lc_orders
