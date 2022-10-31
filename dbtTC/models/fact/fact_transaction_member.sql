@@ -44,7 +44,7 @@ with
             src_tc_transaction trans
             join dim_transaction dt on trans.transaction_id = dt.transaction_id
             left join dim_user u on trans.created_by_id = u.user_id
-            left join src_tc_member m on trans.transaction_id = m.transaction_id
+            join src_tc_member m on trans.transaction_id = m.transaction_id
             left join dim_member memb on m.member_id = memb.member_id
             left join(
                 select

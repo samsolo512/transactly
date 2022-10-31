@@ -29,6 +29,16 @@ with
         from {{ ref('src_tc_user') }}
     )
 
+    ,src_tc_order as(
+        select *
+        from {{ ref('src_tc_order') }}
+    )
+
+    ,src_tc_contract as(
+        select *
+        from {{ ref('src_tc_contract') }}
+    )
+
     ,diy as(
         select
             t.transaction_id
@@ -77,6 +87,14 @@ with
             ,a.zip
             ,case when diy.transaction_id is not null then 1 else 0 end as diy_flag
             ,t.current_contract_id
+            ,cont.contract_closing_date
+            ,cont.contract_amount
+            ,case
+                when ord.order_side_id = 1 then 'buyer'
+                when ord.order_side_id = 2 then 'seller'
+                else null
+                end as order_side
+
         from
             src_tc_transaction t
             join src_tc_address a on t.address_id = a.address_id
@@ -92,6 +110,8 @@ with
             left join diy
                 on t.transaction_id = diy.transaction_id
                 and t.created_by_id = diy.agent_id
+            left join src_tc_contract cont on t.current_contract_id = cont.contract_id
+            left join src_tc_order ord on t.transaction_id = ord.transaction_id
     )
 
 select * from final
