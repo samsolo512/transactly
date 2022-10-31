@@ -552,6 +552,7 @@ with
             ,case agent_subscription_tier_id
                 when 1 then 'Basic'
                 when 2 then 'Pro'
+                when 3 then 'Pro Plus'
                 else null
                 end as tier
         from
