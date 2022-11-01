@@ -134,6 +134,8 @@ create or replace sequence working.seq_dim_lead start=1 increment=1;
 
 create or replace sequence working.seq_dim_member start=1 increment=1;
 
+create or replace sequence working.seq_dim_member_contact start=1 increment=1;
+
 create or replace sequence working.seq_dim_office start=1 increment=1;
 
 create or replace sequence working.seq_dim_opportunity start=1 increment=1;

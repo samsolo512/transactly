@@ -75,14 +75,14 @@ select
 
     -- dates
     ,cast(t.created_date as date) as created_date
-    ,cast(c.closing_date as date) as closing_date
+    ,cast(c.contract_closing_date as date) as closing_date
     ,cast(t.status_changed_date as date) as status_changed_date
 
 from
     src_tc_transaction t
     left join src_tc_address a on t.address_id = a.address_id
     join src_tc_order o on t.transaction_id = o.transaction_id
-    left join dim_contract c on c.contract_id = t.current_contract_id
+    left join src_tc_contract c on c.contract_id = t.current_contract_id
 --     left join close_date cd on o.order_id = cd.order_id
     left join src_tc_office offc on o.assigned_tc_office_id = offc.office_id
     left join src_tc_office agt_offc on o.agent_office_id = agt_offc.office_id

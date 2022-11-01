@@ -14,7 +14,7 @@ select
     ,c.email
     ,c.account_id
     ,c.last_name
-    ,c.first_name
+    ,{{ field_clean('c.first_name') }} as first_name
     ,c.name as full_name
     ,c.mobile_phone as phone
     ,c.owner_id

@@ -8,6 +8,6 @@ select
     c.id as contract_id
     ,c.transaction_id
     ,c.amount as contract_amount
-    ,c.closing_date as contract_closing_date
+    ,cast(c.closing_date as date) as contract_closing_date
 from src_tc_contract c
 where _fivetran_deleted = 'FALSE'

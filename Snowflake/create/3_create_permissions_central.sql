@@ -278,8 +278,8 @@ grant imported privileges on database hubspot to role hubspot_read;
 grant usage on database skyvia to role skyvia_read;
 grant usage on all schemas in database skyvia to role skyvia_read;
 grant usage on future schemas in database skyvia to role skyvia_owner;
-grant select on all tables in database skyvia to role skyvia_read;
-grant select on future tables in database skyvia to role skyvia_read;
+grant select on all tables in schema skyvia.sugarcrm to role skyvia_read;
+grant select on future tables in schema skyvia.sugarcrm to role skyvia_read;
 
 
 -- skyvia_owner

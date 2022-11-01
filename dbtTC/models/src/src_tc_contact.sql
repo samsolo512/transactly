@@ -11,7 +11,7 @@ select
     ,email
     ,party_id
     ,last_name
-    ,first_name
+    ,{{ field_clean('first_name') }} as first_name
     ,transaction_id
     ,phone
 

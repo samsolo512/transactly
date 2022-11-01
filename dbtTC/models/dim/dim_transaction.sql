@@ -58,20 +58,36 @@ with
             a.street
             ,a.city
             ,a.state
+            ,t.side_id
             ,max(t.status_changed_date) as status_changed_date
         from
             src_tc_transaction t
             join src_tc_address a on t.address_id = a.address_id
-        group by street, city, state
+        group by street, city, state, t.side_id
     )
 
     ,final as(
         select
             working.seq_dim_transaction.nextval as transaction_pk
             ,t.transaction_id
-            ,t.user_id
-            ,u.first_name as user_first_name
-            ,u.last_name as user_last_name
+
+            -- agent
+            ,t.user_id as agent_user_id
+            ,u.first_name as agent_first_name
+            ,u.last_name as agent_last_name
+            ,u.phone as agent_phone
+
+            -- tc_agent
+            ,tc_agt.user_id as tc_agent_user_id
+            ,tc_agt.first_name as tc_agent_first_name
+            ,tc_agt.last_name as tc_agent_last_name
+            ,tc_agt.phone as tc_agent_phone
+
+            -- created by
+            ,cbu.first_name as created_by_first_name
+            ,cbu.last_name as created_by_last_name
+
+            -- transaction
             ,ts.status
             ,t.type_id
             ,p.party_name as side_id
@@ -79,8 +95,6 @@ with
             ,t.created_date
             ,t.closed_date
             ,t.created_by_id
-            ,cbu.first_name as created_by_first_name
-            ,cbu.last_name as created_by_last_name
             ,a.street
             ,a.city
             ,a.state
@@ -102,6 +116,7 @@ with
                 on a.street = nd.street
                 and a.city = nd.city
                 and a.state = nd.state
+                and t.side_id = nd.side_id
                 and t.status_changed_date = nd.status_changed_date
             left join src_tc_transaction_status ts on t.status_id = ts.transaction_status_id
             left join src_tc_user u on t.user_id = u.user_id
@@ -112,6 +127,7 @@ with
                 and t.created_by_id = diy.agent_id
             left join src_tc_contract cont on t.current_contract_id = cont.contract_id
             left join src_tc_order ord on t.transaction_id = ord.transaction_id
+            left join src_tc_user tc_agt on ord.assigned_tc_id = tc_agt.user_id
     )
 
 select * from final
