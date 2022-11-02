@@ -33,11 +33,13 @@ with
             -- agent
             ,t.agent_first_name
             ,t.agent_last_name
+            ,t.agent_email
             ,t.agent_phone
 
             -- tc_agent
             ,t.tc_agent_first_name
             ,t.tc_agent_last_name
+            ,t.tc_agent_email
             ,t.tc_agent_phone
 
             -- member_contact
@@ -46,12 +48,16 @@ with
             ,mc.role_name as member_contact_role
             ,mc.phone as member_contact_phone
             ,mc.email as member_contact_email
+            ,mc.member_flag
+            ,mc.contact_flag
 
             -- transaction
-            ,t.side_id as transaction_side
+--             ,t.side_id as transaction_side
+            ,t.order_side
             ,t.status
             ,t.diy_flag
             ,t.contract_closing_date
+            ,t.closed_date transaction_closed_date
 
             -- fact
             ,fact.utility_transfer_status
@@ -64,7 +70,9 @@ with
         from
             fact_transaction_member_contact fact
             join dim_transaction t on fact.transaction_pk = t.transaction_pk
-            left join dim_member_contact mc on t.transaction_id = mc.transaction_id
+            left join dim_member_contact mc
+                on t.transaction_id = mc.transaction_id
+                and fact.member_contact_pk = mc.member_contact_pk
 
     )
 

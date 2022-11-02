@@ -44,7 +44,7 @@ with
 
         from
             src_tc_transaction trans
-            join dim_transaction dt on trans.transaction_id = dt.transaction_id
+--             join dim_transaction dt on trans.transaction_id = dt.transaction_id
             join src_tc_member m on trans.transaction_id = m.transaction_id
             join src_tc_user u on m.user_id = u.user_id
 
@@ -63,7 +63,7 @@ with
 
         from
             src_tc_transaction trans
-            join dim_transaction dt on trans.transaction_id = dt.transaction_id
+--             join dim_transaction dt on trans.transaction_id = dt.transaction_id
             join src_tc_contact cont on trans.transaction_id = cont.transaction_id
     )
 

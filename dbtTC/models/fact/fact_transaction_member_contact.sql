@@ -246,8 +246,6 @@ with
 
         from
             src_tc_transaction trans
-            -- the only thing keeping this query different in results than the original is
-            -- that dim_transaction filters for dups, thus 2k less rows than the original
             join dim_transaction t on trans.transaction_id = t.transaction_id
             left join dim_member_contact mc on t.transaction_id = mc.transaction_id
             left join ttv_utility on ttv_utility.transaction_id = t.transaction_id

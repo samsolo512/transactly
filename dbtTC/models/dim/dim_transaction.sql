@@ -24,10 +24,10 @@ with
         from {{ ref('src_tc_transaction_status') }}
     )
 
-    ,src_tc_user as(
-        select *
-        from {{ ref('src_tc_user') }}
-    )
+--     ,src_tc_user as(
+--         select *
+--         from {{ ref('src_tc_user') }}
+--     )
 
     ,src_tc_order as(
         select *
@@ -73,14 +73,16 @@ with
 
             -- agent
             ,t.user_id as agent_user_id
-            ,u.first_name as agent_first_name
-            ,u.last_name as agent_last_name
-            ,u.phone as agent_phone
+            ,agt.first_name as agent_first_name
+            ,agt.last_name as agent_last_name
+            ,agt.email as agent_email
+            ,agt.phone as agent_phone
 
             -- tc_agent
             ,tc_agt.user_id as tc_agent_user_id
             ,tc_agt.first_name as tc_agent_first_name
             ,tc_agt.last_name as tc_agent_last_name
+            ,tc_agt.email as tc_agent_email
             ,tc_agt.phone as tc_agent_phone
 
             -- created by
@@ -119,7 +121,7 @@ with
                 and t.side_id = nd.side_id
                 and t.status_changed_date = nd.status_changed_date
             left join src_tc_transaction_status ts on t.status_id = ts.transaction_status_id
-            left join src_tc_user u on t.user_id = u.user_id
+--             left join src_tc_user u on t.user_id = u.user_id
             left join src_tc_user cbu on t.created_by_id = cbu.user_id
             left join src_tc_party p on t.side_id = p.party_id
             left join diy
@@ -128,6 +130,7 @@ with
             left join src_tc_contract cont on t.current_contract_id = cont.contract_id
             left join src_tc_order ord on t.transaction_id = ord.transaction_id
             left join src_tc_user tc_agt on ord.assigned_tc_id = tc_agt.user_id
+            left join src_tc_user agt on ord.agent_id = agt.user_id
     )
 
 select * from final

@@ -20,5 +20,7 @@ select
     ,o._fivetran_synced last_sync
     ,o.agent_office_id
     ,o.city
-from src_tc_order o
-where _fivetran_deleted = 'FALSE'
+from
+    src_tc_order o
+where
+    _fivetran_deleted = 'FALSE'
