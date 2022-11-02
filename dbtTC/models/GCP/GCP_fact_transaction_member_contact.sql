@@ -52,7 +52,7 @@ with
             ,mc.contact_flag
 
             -- transaction
---             ,t.side_id as transaction_side
+            --,t.side_id as transaction_side
             ,t.order_side
             ,t.status
             ,t.diy_flag

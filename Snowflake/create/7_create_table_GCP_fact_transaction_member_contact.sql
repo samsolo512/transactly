@@ -1,6 +1,6 @@
  -- fact_transaction_member
 
-create or replace table data_warehouse.fact_transaction_member (
+create or replace table data_warehouse.fact_transaction_member_contact (
     transaction_id int
     ,street string
     ,city string
