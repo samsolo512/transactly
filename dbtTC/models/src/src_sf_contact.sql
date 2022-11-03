@@ -27,7 +27,7 @@ select
     ,{{ field_clean('c.regulated_trash_c') }} as trash
     ,{{ field_clean('c.regulated_water_c') }} as water
     ,{{ field_clean('c.regulated_gas_c') }} as gas
-    ,{{ field_clean('c.internet_aux_c') }} as internet
+    ,{{ field_clean('c.telecom_c') }} as internet
 
 from
     src_sf_contact c
