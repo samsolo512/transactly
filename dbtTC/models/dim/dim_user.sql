@@ -625,7 +625,7 @@ with
                 when 'bad' then 'Bad Contact Information'
                 else hagent.lead_status
                 end as lead_status
-            ,concat(cont.first_name, ' ', cont.last_name) as contact_owner
+            ,concat(cont_owner.firstname, ' ', cont_owner.lastname) as contact_owner
             ,concat(orig_agent.firstname, ' ', orig_agent.lastname) as original_sales_rep_name
             ,ul.lead_source
             ,cont.contact_id
@@ -732,6 +732,7 @@ with
             left join src_tc_user_subscription sub on u.user_id = sub.user_id
             left join fifth_order fifth on u.user_id = fifth.user_id
             left join src_hs_owners orig_agent on hagent.original_sales_rep = cast(orig_agent.ownerid as varchar)
+            left join src_hs_owners cont_owner on hagent.contact_owner = cast(cont_owner.ownerid as varchar)
             left join subscrip_tier st on u.user_id = st.user_id
             left join role_combine rc on ul.user_id = rc.user_id
             left join src_tc_office ofc on u.brokerage = ofc.office_name
@@ -760,7 +761,7 @@ with
             ,ofc.office_id
             ,st.tier
             ,hagent.lead_status
-            ,concat(cont.first_name, ' ', cont.last_name)
+            ,concat(cont_owner.firstname, ' ', cont_owner.lastname)
             ,ul.lead_source
             ,cont.contact_id
             ,u.stripe_account_id
