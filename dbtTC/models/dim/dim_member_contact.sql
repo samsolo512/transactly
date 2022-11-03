@@ -4,11 +4,6 @@ with
         from {{ ref('src_tc_transaction') }}
     )
 
-    ,dim_transaction as(
-        select *
-        from {{ ref('dim_transaction') }}
-    )
-
     ,src_tc_member as(
         select *
         from {{ ref('src_tc_member') }}
@@ -39,6 +34,7 @@ with
             ,u.last_name
             ,u.phone
             ,m.role_id
+            ,m.party_id
             ,1 as member_flag
             ,0 as contact_flag
 
@@ -57,6 +53,7 @@ with
             ,cont.last_name
             ,cont.phone
             ,cont.role_id
+            ,cont.party_id
             ,0 as member_flag
             ,1 as contact_flag
 
@@ -74,13 +71,17 @@ with
             ,c.last_name
             ,c.phone
             ,c.email
+            ,c.role_id
             ,t.role_name
+            ,c.party_id
+            ,p.party_name
             ,c.member_flag
             ,c.contact_flag
 
         from
             combine c
-            join src_tc_transaction_role t on c.role_id = t.role_id
+            left join src_tc_transaction_role t on c.role_id = t.role_id
+            left join src_tc_party p on c.party_id = p.party_id
     )
 
 select * from final
