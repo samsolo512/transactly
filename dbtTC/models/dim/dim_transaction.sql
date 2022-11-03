@@ -92,7 +92,6 @@ with
             -- transaction
             ,ts.status
             ,t.type_id
-            ,p.party_name as side_id
             ,t.category_id
             ,t.created_date
             ,t.closed_date
@@ -104,12 +103,21 @@ with
             ,case when diy.transaction_id is not null then 1 else 0 end as diy_flag
             ,t.current_contract_id
             ,cont.contract_closing_date
+            ,case
+                when datediff(day, getdate(), cont.contract_closing_date) >= 0
+                then datediff(day, getdate(), cont.contract_closing_date)
+                else null
+                end as days_to_close
             ,cont.contract_amount
+            ,ord.order_side_id
             ,case
                 when ord.order_side_id = 1 then 'buyer'
                 when ord.order_side_id = 2 then 'seller'
                 else null
                 end as order_side
+            ,t.side_id as transaction_side_id
+            ,p.party_name as transaction_side
+--             ,p.party_name as side_id
 
         from
             src_tc_transaction t
