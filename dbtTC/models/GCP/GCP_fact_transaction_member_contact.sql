@@ -57,6 +57,7 @@ with
             ,t.status
             ,t.diy_flag
             ,t.contract_closing_date
+            ,t.days_to_close
             ,t.closed_date transaction_closed_date
 
             -- fact

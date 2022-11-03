@@ -25,6 +25,7 @@ create or replace table data_warehouse.fact_transaction_member_contact (
     ,status string
     ,diy_flag int
     ,contract_closing_date date
+    ,days_to_close int
     ,transaction_closed_date date
     ,utility_transfer_status string
     ,utility_lead_sent_to string
