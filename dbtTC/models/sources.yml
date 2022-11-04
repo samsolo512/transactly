@@ -42,6 +42,12 @@ sources:
       - name: role
         identifier: role
 
+      - name: task
+        identifier: task
+
+      - name: task_status
+        identifier: task_status
+
       - name: transaction
         identifier: transaction
 
