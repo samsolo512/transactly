@@ -26,8 +26,11 @@ with
             t.transaction_id
             ,t.street
             ,t.state
+            ,t.zip
             ,task.assigned_to_name
             ,task.due_date
+            ,task.aging_days
+            ,task.completed_date
             ,task.text
             ,task.completed_flag
             ,task.private_flag

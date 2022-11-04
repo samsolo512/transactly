@@ -19,6 +19,7 @@ with
             working.seq_dim_task.nextval as task_pk
             ,t.task_id
             ,t.due_date
+            ,datediff(day, due_date, getdate()) as aging_days
             ,t.text
             ,s.status_name
             ,t.completed_date

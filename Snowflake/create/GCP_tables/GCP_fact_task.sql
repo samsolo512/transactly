@@ -4,8 +4,11 @@ create or replace table data_warehouse.fact_task (
     transaction_id int
     ,street string
     ,state string
+    ,zip string
     ,assigned_to_name string
     ,due_date date
+    ,aging_days int
+    ,completed_date date
     ,text string
     ,completed_flag int
     ,private_flag int
