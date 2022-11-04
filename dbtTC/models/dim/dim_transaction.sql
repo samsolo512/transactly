@@ -90,7 +90,7 @@ with
             ,cbu.last_name as created_by_last_name
 
             -- transaction
-            ,ts.status
+            ,ts.status as transaction_status
             ,t.type_id
             ,t.category_id
             ,t.created_date
@@ -117,7 +117,7 @@ with
                 end as order_side
             ,t.side_id as transaction_side_id
             ,p.party_name as transaction_side
---             ,p.party_name as side_id
+            ,ord.order_status
 
         from
             src_tc_transaction t

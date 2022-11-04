@@ -54,7 +54,7 @@ with
             -- transaction
             --,t.side_id as transaction_side
             ,t.order_side
-            ,t.status
+            ,t.transaction_status
             ,t.diy_flag
             ,t.contract_closing_date
             ,t.days_to_close

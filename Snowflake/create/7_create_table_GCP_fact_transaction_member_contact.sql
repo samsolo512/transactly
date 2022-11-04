@@ -22,7 +22,7 @@ create or replace table data_warehouse.fact_transaction_member_contact (
     ,member_flag int
     ,contact_flag int
     ,order_side string
-    ,status string
+    ,transaction_status string
     ,diy_flag int
     ,contract_closing_date date
     ,days_to_close int
