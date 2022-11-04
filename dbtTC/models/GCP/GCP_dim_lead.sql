@@ -37,6 +37,7 @@ with
             ,water
             ,gas
             ,internet
+            ,contact_owner
 
 --             ,owner_name
 --             ,lead_partner_name

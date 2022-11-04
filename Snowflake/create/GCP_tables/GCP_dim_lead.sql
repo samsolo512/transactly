@@ -25,6 +25,7 @@ create or replace table data_warehouse.dim_lead (
     ,water string
     ,gas string
     ,internet string
+    ,contact_owner string
 
 --     ,owner_name string
 --     ,lead_partner_name string
