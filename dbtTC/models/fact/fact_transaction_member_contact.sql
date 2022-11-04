@@ -180,8 +180,8 @@ with
 
         from
             dim_transaction t
-            join ttv_utility on ttv_utility.transaction_id = t.transaction_id
-            join ttv_home_insurance on ttv_home_insurance.transaction_id = t.transaction_id
+            left join ttv_utility on ttv_utility.transaction_id = t.transaction_id
+            left join ttv_home_insurance on ttv_home_insurance.transaction_id = t.transaction_id
     )
 
     ,final as(
