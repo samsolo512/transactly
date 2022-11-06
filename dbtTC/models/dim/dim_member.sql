@@ -42,6 +42,7 @@ with
             ,u.transactly_home_insurance_vendor_status
             ,u.transactly_utility_connection_vendor_status
             ,o.office_name
+            ,m.transaction_id
 
         from
             src_tc_member m
@@ -50,7 +51,7 @@ with
             join src_tc_party p on m.party_id = p.party_id
             left join src_tc_office o on m.office_id = o.office_id
 
-        union select 0, 0, null, null, null, null, null, null, null, null, null, null
+        union select 0, 0, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

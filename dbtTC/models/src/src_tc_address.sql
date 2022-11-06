@@ -6,8 +6,8 @@ with src_tc_address as(
 
 select
     a.id as address_id
-    ,{{ field_clean('a.address_line_1') }} as street
-    ,{{ field_clean('a.city') }} as city
+    ,trim({{ field_clean('a.address_line_1') }}) as street
+    ,trim({{ field_clean('a.city') }}) as city
     ,a.state
     ,a.zip
 

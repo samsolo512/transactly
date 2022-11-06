@@ -40,6 +40,7 @@ select
     ,o.order_id
     ,o.agent_id
     ,agt.fullname as agent
+    ,o.assigned_tc_id
     ,usr.fullname as assigned_TC
     ,t_create.fullname as created_by
     ,case
@@ -91,4 +92,4 @@ from
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
     left join src_tc_user agt on o.agent_id = agt.user_id
 
-union select 0, 0, 0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 0, 0, 0, 0, null, null, null , null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
