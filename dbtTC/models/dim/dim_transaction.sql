@@ -24,10 +24,10 @@ with
         from {{ ref('src_tc_transaction_status') }}
     )
 
---     ,src_tc_user as(
---         select *
---         from {{ ref('src_tc_user') }}
---     )
+    ,src_tc_user as(
+        select *
+        from {{ ref('src_tc_user') }}
+    )
 
     ,src_tc_order as(
         select *
@@ -72,7 +72,6 @@ with
             ,t.transaction_id
 
             -- agent
-            ,t.user_id as agent_user_id
             ,agt.first_name as agent_first_name
             ,agt.last_name as agent_last_name
             ,agt.email as agent_email
@@ -86,8 +85,10 @@ with
             ,tc_agt.phone as tc_agent_phone
 
             -- created by
+            ,t.created_by_id
             ,cbu.first_name as created_by_first_name
             ,cbu.last_name as created_by_last_name
+            ,cbu.fullname as created_by_name
 
             -- transaction
             ,ts.status as transaction_status
@@ -95,7 +96,6 @@ with
             ,t.category_id
             ,t.created_date
             ,t.closed_date
-            ,t.created_by_id
             ,a.street
             ,a.city
             ,a.state
@@ -108,6 +108,11 @@ with
                 then datediff(day, getdate(), cont.contract_closing_date)
                 else null
                 end as days_to_close
+            ,case
+                when datediff(day, getdate(), cont.contract_closing_date) between 20 and 50
+                then 1
+                else 0
+                end as days_to_close_20_to_50_flag
             ,cont.contract_amount
             ,ord.order_side_id
             ,case
@@ -129,7 +134,6 @@ with
                 and t.side_id = nd.side_id
                 and t.status_changed_date = nd.status_changed_date
             left join src_tc_transaction_status ts on t.status_id = ts.transaction_status_id
---             left join src_tc_user u on t.user_id = u.user_id
             left join src_tc_user cbu on t.created_by_id = cbu.user_id
             left join src_tc_party p on t.side_id = p.party_id
             left join diy

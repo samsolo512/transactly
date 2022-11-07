@@ -24,6 +24,11 @@ with
         from {{ ref('src_tc_user') }}
     )
 
+    ,dim_user as(
+        select *
+        from {{ ref('dim_user') }}
+    )
+
     ,combine as(
         -- member
         select
@@ -37,11 +42,13 @@ with
             ,m.party_id
             ,1 as member_flag
             ,0 as contact_flag
+            ,usr.utility_opt_in_status
 
         from
             src_tc_transaction trans
             join src_tc_member m on trans.transaction_id = m.transaction_id
             join src_tc_user u on m.user_id = u.user_id
+            join dim_user usr on u.user_id = usr.user_id
 
         -- contact
         union all
@@ -56,6 +63,7 @@ with
             ,cont.party_id
             ,0 as member_flag
             ,1 as contact_flag
+            ,null as utility_opt_in_status
 
         from
             src_tc_transaction trans
@@ -77,6 +85,7 @@ with
             ,p.party_name
             ,c.member_flag
             ,c.contact_flag
+            ,c.utility_opt_in_status
 
         from
             combine c

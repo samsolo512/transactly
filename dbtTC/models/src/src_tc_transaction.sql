@@ -14,7 +14,6 @@ with
     ,final as(
         select
             t.id as transaction_id
-            ,t.created_by_id as user_id
             ,t.status_id
             ,t.type_id
             ,t.category_id

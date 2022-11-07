@@ -61,6 +61,11 @@ with
         from {{ ref('src_tc_user_agent_subscription_tier') }}
     )
 
+    ,src_tc_user_transactly_vendor_opt_out as(
+        select *
+        from {{ ref('src_tc_user_transactly_vendor_opt_out') }}
+    )
+
     ,last_order_placed as (
         select
             l.user_id
@@ -606,6 +611,15 @@ with
         order by user_id
     )
 
+    -- utility transfer
+    ,util as(
+        select *
+        from
+            src_tc_user_transactly_vendor_opt_out uto
+        where
+            uto.vendor_type_id = 10  -- utility transfer
+    )
+
     ,final_logic as(
         select
             u.user_id
@@ -630,6 +644,7 @@ with
             ,ul.lead_source
             ,cont.contact_id
             ,u.stripe_account_id
+            ,case when util.user_id is null then 'IN' else 'OUT' end as utility_opt_in_status
 
             -- roles
             ,rc.role_super_admin as role_super_admin_flag
@@ -736,6 +751,7 @@ with
             left join subscrip_tier st on u.user_id = st.user_id
             left join role_combine rc on ul.user_id = rc.user_id
             left join src_tc_office ofc on u.brokerage = ofc.office_name
+            left join util on ul.user_id = util.user_id
 
             -- orders
             left join first_order_placed fp on u.user_id = fp.user_id
@@ -765,6 +781,7 @@ with
             ,ul.lead_source
             ,cont.contact_id
             ,u.stripe_account_id
+            ,utility_opt_in_status
             ,rc.role_super_admin
             ,rc.role_user
             ,rc.role_staff
@@ -827,6 +844,7 @@ with
             ,contact_owner
             ,contact_id
             ,stripe_account_id
+            ,utility_opt_in_status
 
             -- roles
             ,role_super_admin_flag
@@ -905,6 +923,7 @@ with
             ,contact_owner
             ,contact_id
             ,stripe_account_id
+            ,utility_opt_in_status
             ,role_super_admin_flag
             ,role_user_flag
             ,role_staff_flag
@@ -949,7 +968,7 @@ with
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null
     )
 
 select * from final
