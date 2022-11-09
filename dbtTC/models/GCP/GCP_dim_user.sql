@@ -15,7 +15,7 @@ with
         select
             user_pk
             ,user_id
-            ,lead_id
+--             ,lead_id
             ,first_name
             ,last_name
             ,fullname
@@ -24,23 +24,23 @@ with
             ,office_id
             ,subscription_level
             ,transaction_coordinator_status
-            ,contact_owner
-            ,contact_id
+--             ,contact_owner
+--             ,contact_id
         
             -- agent address
-            ,agent_name
-            ,agent_email
+--             ,agent_name
+--             ,agent_email
             ,address
             ,address2
             ,original_sales_rep_name
         
             -- lead address
-            ,lead_street
-            ,lead_city
-            ,lead_state
-            ,lead_zip
-            ,lead_country
-            ,full_address
+--             ,lead_street
+--             ,lead_city
+--             ,lead_state
+--             ,lead_zip
+--             ,lead_country
+--             ,full_address
         
             --flags
             ,pays_at_title_flag
@@ -57,7 +57,7 @@ with
         
             --s
             ,user_created_date
-            ,lead_created_date
+--             ,lead_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
             ,tier_3

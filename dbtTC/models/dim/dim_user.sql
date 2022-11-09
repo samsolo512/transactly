@@ -26,15 +26,15 @@ with
         from {{ ref('src_tc_transaction') }}
     )
 
-    ,src_sf_opportunity as(
-        select *
-        from {{ ref('src_sf_opportunity') }}
-    )
+--     ,src_sf_opportunity as(
+--         select *
+--         from {{ ref('src_sf_opportunity') }}
+--     )
 
-    ,src_sf_contact as(
-        select *
-        from {{ ref('src_sf_contact') }}
-    )
+--     ,src_sf_contact as(
+--         select *
+--         from {{ ref('src_sf_contact') }}
+--     )
 
     ,src_tc_user_subscription as(
         select *
@@ -46,10 +46,10 @@ with
         from {{ ref('HS_agent') }}
     )
 
-    ,src_sf_lead as(
-        select *
-        from {{ ref('src_sf_lead') }}
-    )
+--     ,src_sf_lead as(
+--         select *
+--         from {{ ref('src_sf_lead') }}
+--     )
 
     ,src_hs_owners as(
         select *
@@ -260,225 +260,225 @@ with
             and o.agent_id is null
     )
 
-    ,states as(
-        select
-            lead_id
-            ,case
-                when l.state is null and(lower(l.city) like '%atlanta%') then 'GA'
-                when l.state is null and(lower(l.city) like '%phoenix%') then 'AZ'
-                when l.state is null and(lower(l.city) like '%las vegas%') then 'NV'
-                when l.state is null and(lower(l.city) like '%san antonio%') then 'TX'
-                when l.state is null and(lower(l.city) like '%charlotte%') then 'NC'
-                when l.state is null and(lower(l.city) like '%chicago%') then 'IL'
-                when l.state is null and(lower(l.city) like '%denver%') then 'CO'
-                when l.state is null and(lower(l.city) like '%los angeles%') then 'CA'
-                when l.state is null and(lower(l.city) like '%washington%') then 'BC'
-                when l.state is null and(lower(l.city) like '%tampa%') then 'FL'
-                when l.state is null and(lower(l.city) like '%orlando%') then 'FL'
-                when l.state is null and(lower(l.city) like '%miami%') then 'FL'
-                when l.state is null and(lower(l.city) like '%jacksonville%') then 'FL'
-                when l.state is null and(lower(l.city) like '%nashville%') then 'TN'
-                when l.state is null and(lower(l.city) like '%memphis%') then 'TN'
-                when l.state is null and(lower(l.city) like '%san diego%') then 'CA'
-                when l.state is null and(lower(l.city) like '%fresno%') then 'CA'
-                when l.state is null and(lower(l.city) like '%san francisco%') then 'CA'
-                when l.state is null and(lower(l.city) like '%kansas city%') then 'MO'
-                when l.state is null and(lower(l.city) like '%philadelphia%') then 'PA'
-                when l.state is null and(lower(l.city) like '%pittsburgh%') then 'PA'
-                when l.state is null and(lower(l.city) like '%new york%') then 'NY'
-                when l.state is null and(lower(l.city) like '%portland%') then 'OR'
-                when l.state is null and(lower(l.city) like '%fort worth%') then 'TX'
-                when l.state is null and(lower(l.city) like '%seattle%') then 'WA'
-                when l.state is null and(lower(l.city) like '%sacramento%') then 'CA'
-                when l.state is null and(lower(l.city) like '%detroit%') then 'MI'
-                when l.state is null and(lower(l.city) like '%minneapolis%') then 'MN'
-                when l.state is null and(lower(l.city) like '%indianapolis%') then 'IN'
-                when l.state is null and(lower(l.city) like '%columbus%') then 'OH'
-                when l.state is null and(lower(l.city) like '%cincinnati%') then 'OH'
-                when l.state is null and(lower(l.city) like '%st. louis%') then 'MO'
-                when l.state is null and(lower(l.city) like '%baltimore%') then 'MD'
-                when l.state is null and(lower(l.city) like '%baltimore%') then 'AZ'
-                when l.state is null and(lower(l.city) like '%albuquerque%') then 'NM'
-                when l.state is null and(lower(l.city) like '%tucson%') then 'AZ'
-                when l.state is null and(lower(l.city) like '%el paso%') then 'NM'
-                when l.state is null and(lower(l.city) like '%riverside%') then 'CA'
-                when l.state is null and(lower(l.city) like '%oklahoma city%') then 'OK'
-                when l.state is null and(lower(l.city) like '%boston%') then 'MA'
-                when l.state is null and(lower(l.city) like '%arlington%') then 'VA'
-                when l.state is null and(lower(l.city) like '%roanoke%') then 'VA'
-                when l.state is null and(lower(l.city) like '%bedford%') then 'CT'
-                when l.state is null and(lower(l.city) like '%plano%') then 'TX'
+--     ,states as(
+--         select
+--             lead_id
+--             ,case
+--                 when l.state is null and(lower(l.city) like '%atlanta%') then 'GA'
+--                 when l.state is null and(lower(l.city) like '%phoenix%') then 'AZ'
+--                 when l.state is null and(lower(l.city) like '%las vegas%') then 'NV'
+--                 when l.state is null and(lower(l.city) like '%san antonio%') then 'TX'
+--                 when l.state is null and(lower(l.city) like '%charlotte%') then 'NC'
+--                 when l.state is null and(lower(l.city) like '%chicago%') then 'IL'
+--                 when l.state is null and(lower(l.city) like '%denver%') then 'CO'
+--                 when l.state is null and(lower(l.city) like '%los angeles%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%washington%') then 'BC'
+--                 when l.state is null and(lower(l.city) like '%tampa%') then 'FL'
+--                 when l.state is null and(lower(l.city) like '%orlando%') then 'FL'
+--                 when l.state is null and(lower(l.city) like '%miami%') then 'FL'
+--                 when l.state is null and(lower(l.city) like '%jacksonville%') then 'FL'
+--                 when l.state is null and(lower(l.city) like '%nashville%') then 'TN'
+--                 when l.state is null and(lower(l.city) like '%memphis%') then 'TN'
+--                 when l.state is null and(lower(l.city) like '%san diego%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%fresno%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%san francisco%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%kansas city%') then 'MO'
+--                 when l.state is null and(lower(l.city) like '%philadelphia%') then 'PA'
+--                 when l.state is null and(lower(l.city) like '%pittsburgh%') then 'PA'
+--                 when l.state is null and(lower(l.city) like '%new york%') then 'NY'
+--                 when l.state is null and(lower(l.city) like '%portland%') then 'OR'
+--                 when l.state is null and(lower(l.city) like '%fort worth%') then 'TX'
+--                 when l.state is null and(lower(l.city) like '%seattle%') then 'WA'
+--                 when l.state is null and(lower(l.city) like '%sacramento%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%detroit%') then 'MI'
+--                 when l.state is null and(lower(l.city) like '%minneapolis%') then 'MN'
+--                 when l.state is null and(lower(l.city) like '%indianapolis%') then 'IN'
+--                 when l.state is null and(lower(l.city) like '%columbus%') then 'OH'
+--                 when l.state is null and(lower(l.city) like '%cincinnati%') then 'OH'
+--                 when l.state is null and(lower(l.city) like '%st. louis%') then 'MO'
+--                 when l.state is null and(lower(l.city) like '%baltimore%') then 'MD'
+--                 when l.state is null and(lower(l.city) like '%baltimore%') then 'AZ'
+--                 when l.state is null and(lower(l.city) like '%albuquerque%') then 'NM'
+--                 when l.state is null and(lower(l.city) like '%tucson%') then 'AZ'
+--                 when l.state is null and(lower(l.city) like '%el paso%') then 'NM'
+--                 when l.state is null and(lower(l.city) like '%riverside%') then 'CA'
+--                 when l.state is null and(lower(l.city) like '%oklahoma city%') then 'OK'
+--                 when l.state is null and(lower(l.city) like '%boston%') then 'MA'
+--                 when l.state is null and(lower(l.city) like '%arlington%') then 'VA'
+--                 when l.state is null and(lower(l.city) like '%roanoke%') then 'VA'
+--                 when l.state is null and(lower(l.city) like '%bedford%') then 'CT'
+--                 when l.state is null and(lower(l.city) like '%plano%') then 'TX'
 
-                when l.state is null and(lower(l.street) like '% al %') then 'AL'
-                when l.state is null and(lower(l.street) like '% ar %') then 'AR'
-                when l.state is null and(lower(l.street) like '% az %') then 'AZ'
-                when l.state is null and(lower(l.street) like '% ca %') then 'CA'
-                when l.state is null and(lower(l.street) like '% co %') then 'CO'
-                when l.state is null and(lower(l.street) like '%colorado%') then 'CO'
-                when l.state is null and(lower(l.street) like '% de %') then 'DE'
-                when l.state is null and(lower(l.street) like '% fl %') then 'FL'
-                when l.state is null and(lower(l.street) like '% ga %') then 'GA'
-                when l.state is null and(lower(l.street) like '% ga') then 'GA'
-                when l.state is null and(lower(l.street) like '% hi %') then 'HI'
-                when l.state is null and(lower(l.street) like '% id%') then 'ID'
-                when l.state is null and(lower(l.street) like '% il %') then 'IL'
-                when l.state is null and(lower(l.street) like '% il.%') then 'IL'
-                when l.state is null and(lower(l.street) like '%illinois%') then 'IL'
-                when l.state is null and(lower(l.street) like '% in %') then 'IN'
-                when l.state is null and(lower(l.street) like '% ks %') then 'KS'
-                when l.state is null and(lower(l.street) like '% ky %') then 'KY'
-                when l.state is null and(lower(l.street) like '% la %') then 'LA'
-                when l.state is null and(lower(l.street) like '% ma %') then 'MA'
-                when l.state is null and(lower(l.street) like '% md %') then 'MD'
-                when l.state is null and(lower(l.street) like '% me %') then 'ME'
-                when l.state is null and(lower(l.street) like '% mi %') then 'MI'
-                when l.state is null and(lower(l.street) like '% mo %') then 'MO'
-                when l.state is null and(lower(l.street) like '%mn%') then 'MN'
-                when l.state is null and(lower(l.street) like '% ms %') then 'MS'
-                when l.state is null and(lower(l.street) like '%mt%') then 'MT'
-                when l.state is null and(lower(l.street) like '% nc %') then 'NC'
-                when l.state is null and(lower(l.street) like '% nh %') then 'NH'
-                when l.state is null and(lower(l.street) like '% nj %') then 'NJ'
-                when l.state is null and(lower(l.street) like '% nv %') then 'NV'
-                when l.state is null and(lower(l.street) like '% ny %') then 'NY'
-                when l.state is null and(lower(l.street) like '% oh %') then 'OH'
-                when l.state is null and(lower(l.street) like '% ok %') then 'OK'
-                when l.state is null and(lower(l.street) like '% ok') then 'OK'
-                when l.state is null and(lower(l.street) like '% or %') then 'OR'
-                when l.state is null and(lower(l.street) like '% or') then 'OR'
-                when l.state is null and(lower(l.street) like '% pa %') then 'PA'
-                when l.state is null and(lower(l.street) like '% sc %') then 'SC'
-                when l.state is null and(lower(l.street) like '% sd %') then 'SD'
-                when l.state is null and(lower(l.street) like '%tn%') then 'TN'
-                when l.state is null and(lower(l.street) like '% va %') then 'VA'
-                when l.state is null and(lower(l.street) like '% vt %') then 'VT'
-                when l.state is null and(lower(l.street) like '% wa %') then 'WA'
-                when l.state is null and(lower(l.street) like '% wi %') then 'WI'
+--                 when l.state is null and(lower(l.street) like '% al %') then 'AL'
+--                 when l.state is null and(lower(l.street) like '% ar %') then 'AR'
+--                 when l.state is null and(lower(l.street) like '% az %') then 'AZ'
+--                 when l.state is null and(lower(l.street) like '% ca %') then 'CA'
+--                 when l.state is null and(lower(l.street) like '% co %') then 'CO'
+--                 when l.state is null and(lower(l.street) like '%colorado%') then 'CO'
+--                 when l.state is null and(lower(l.street) like '% de %') then 'DE'
+--                 when l.state is null and(lower(l.street) like '% fl %') then 'FL'
+--                 when l.state is null and(lower(l.street) like '% ga %') then 'GA'
+--                 when l.state is null and(lower(l.street) like '% ga') then 'GA'
+--                 when l.state is null and(lower(l.street) like '% hi %') then 'HI'
+--                 when l.state is null and(lower(l.street) like '% id%') then 'ID'
+--                 when l.state is null and(lower(l.street) like '% il %') then 'IL'
+--                 when l.state is null and(lower(l.street) like '% il.%') then 'IL'
+--                 when l.state is null and(lower(l.street) like '%illinois%') then 'IL'
+--                 when l.state is null and(lower(l.street) like '% in %') then 'IN'
+--                 when l.state is null and(lower(l.street) like '% ks %') then 'KS'
+--                 when l.state is null and(lower(l.street) like '% ky %') then 'KY'
+--                 when l.state is null and(lower(l.street) like '% la %') then 'LA'
+--                 when l.state is null and(lower(l.street) like '% ma %') then 'MA'
+--                 when l.state is null and(lower(l.street) like '% md %') then 'MD'
+--                 when l.state is null and(lower(l.street) like '% me %') then 'ME'
+--                 when l.state is null and(lower(l.street) like '% mi %') then 'MI'
+--                 when l.state is null and(lower(l.street) like '% mo %') then 'MO'
+--                 when l.state is null and(lower(l.street) like '%mn%') then 'MN'
+--                 when l.state is null and(lower(l.street) like '% ms %') then 'MS'
+--                 when l.state is null and(lower(l.street) like '%mt%') then 'MT'
+--                 when l.state is null and(lower(l.street) like '% nc %') then 'NC'
+--                 when l.state is null and(lower(l.street) like '% nh %') then 'NH'
+--                 when l.state is null and(lower(l.street) like '% nj %') then 'NJ'
+--                 when l.state is null and(lower(l.street) like '% nv %') then 'NV'
+--                 when l.state is null and(lower(l.street) like '% ny %') then 'NY'
+--                 when l.state is null and(lower(l.street) like '% oh %') then 'OH'
+--                 when l.state is null and(lower(l.street) like '% ok %') then 'OK'
+--                 when l.state is null and(lower(l.street) like '% ok') then 'OK'
+--                 when l.state is null and(lower(l.street) like '% or %') then 'OR'
+--                 when l.state is null and(lower(l.street) like '% or') then 'OR'
+--                 when l.state is null and(lower(l.street) like '% pa %') then 'PA'
+--                 when l.state is null and(lower(l.street) like '% sc %') then 'SC'
+--                 when l.state is null and(lower(l.street) like '% sd %') then 'SD'
+--                 when l.state is null and(lower(l.street) like '%tn%') then 'TN'
+--                 when l.state is null and(lower(l.street) like '% va %') then 'VA'
+--                 when l.state is null and(lower(l.street) like '% vt %') then 'VT'
+--                 when l.state is null and(lower(l.street) like '% wa %') then 'WA'
+--                 when l.state is null and(lower(l.street) like '% wi %') then 'WI'
 
-                when
-                    l.state is null
-                    and(
-                        lower(l.street) like '%dallas%'
-                        or lower(l.street) like '%amarillo%'
-                        or lower(l.street) like '%austin%'
-                        or lower(l.street) like '%houston%'
-                        or lower(l.street) like '%leander%'
-                        or lower(l.street) like '%belton%'
-                        or lower(l.street) like '%lufkin%'
-                        or lower(l.street) like '%tx%'
-                        or lower(l.street) like '%texas%'
-                        or lower(l.street) like '%prosper%'
-                        or lower(l.street) like '%kilgore%'
+--                 when
+--                     l.state is null
+--                     and(
+--                         lower(l.street) like '%dallas%'
+--                         or lower(l.street) like '%amarillo%'
+--                         or lower(l.street) like '%austin%'
+--                         or lower(l.street) like '%houston%'
+--                         or lower(l.street) like '%leander%'
+--                         or lower(l.street) like '%belton%'
+--                         or lower(l.street) like '%lufkin%'
+--                         or lower(l.street) like '%tx%'
+--                         or lower(l.street) like '%texas%'
+--                         or lower(l.street) like '%prosper%'
+--                         or lower(l.street) like '%kilgore%'
 
-                        or lower(l.city) like '%dallas%'
-                        or lower(l.city) like '%amarillo%'
-                        or lower(l.city) like '%austin%'
-                        or lower(l.city) like '%houston%'
-                        or lower(l.city) like '%leander%'
-                        or lower(l.city) like '%belton%'
-                        or lower(l.city) like '%lufkin%'
-                        or lower(l.city) like '%tx%'
-                        or lower(l.city) like '%texas%'
-                        or lower(l.city) like '%prosper%'
-                        or lower(l.city) like '%kilgore%'
+--                         or lower(l.city) like '%dallas%'
+--                         or lower(l.city) like '%amarillo%'
+--                         or lower(l.city) like '%austin%'
+--                         or lower(l.city) like '%houston%'
+--                         or lower(l.city) like '%leander%'
+--                         or lower(l.city) like '%belton%'
+--                         or lower(l.city) like '%lufkin%'
+--                         or lower(l.city) like '%tx%'
+--                         or lower(l.city) like '%texas%'
+--                         or lower(l.city) like '%prosper%'
+--                         or lower(l.city) like '%kilgore%'
 
-                        -- or (l.city is null and l.street is not null and c.lead_account_name like '2TIO%')
-                    )
-                then 'TX'
+--                         -- or (l.city is null and l.street is not null and c.lead_account_name like '2TIO%')
+--                     )
+--                 then 'TX'
 
-                when lower(l.state) = 'texas' then 'TX'
-                when lower(l.state) = 'tx' then 'TX'
-                when lower(l.state) = 'tx 75495' then 'TX'
-                when lower(l.state) = 'north carolina' then 'NC'
-                when lower(l.state) = 'arizona' then 'AZ'
-                when lower(l.state) = 'georgia' then 'GA'
-                when lower(l.state) = 'massachusetts' then 'MA'
-                when lower(l.state) = 'colorado' then 'CO'
-                when lower(l.state) = 'co' then 'CO'
-                when lower(l.state) = 'alabama' then 'AL'
-                when lower(l.state) = 'california' then 'CA'
-                when lower(l.state) = 'connecticut' then 'CT'
-                when lower(l.state) = 'louisiana' then 'LA'
-                when lower(l.state) = 'arkansas' then 'AR'
-                when lower(l.state) = 'florida' then 'FL'
-                when lower(l.state) = 'new york' then 'NY'
+--                 when lower(l.state) = 'texas' then 'TX'
+--                 when lower(l.state) = 'tx' then 'TX'
+--                 when lower(l.state) = 'tx 75495' then 'TX'
+--                 when lower(l.state) = 'north carolina' then 'NC'
+--                 when lower(l.state) = 'arizona' then 'AZ'
+--                 when lower(l.state) = 'georgia' then 'GA'
+--                 when lower(l.state) = 'massachusetts' then 'MA'
+--                 when lower(l.state) = 'colorado' then 'CO'
+--                 when lower(l.state) = 'co' then 'CO'
+--                 when lower(l.state) = 'alabama' then 'AL'
+--                 when lower(l.state) = 'california' then 'CA'
+--                 when lower(l.state) = 'connecticut' then 'CT'
+--                 when lower(l.state) = 'louisiana' then 'LA'
+--                 when lower(l.state) = 'arkansas' then 'AR'
+--                 when lower(l.state) = 'florida' then 'FL'
+--                 when lower(l.state) = 'new york' then 'NY'
 
-                else l.state
-                end as state
+--                 else l.state
+--                 end as state
 
-        from src_sf_lead l
-    )
+--         from src_sf_lead l
+--     )
 
     -- distinct opportunity
-    ,distinct_opportunity as(
-        select
-            o.contact_id
-            ,max(o.close_date) as close_date
-        from
-            src_sf_opportunity o
-        group by
-            o.contact_id
-    )
+    -- ,distinct_opportunity as(
+    --     select
+    --         o.contact_id
+    --         ,max(o.close_date) as close_date
+    --     from
+    --         src_sf_opportunity o
+    --     group by
+    --         o.contact_id
+    -- )
 
     -- distinct contact
-    ,distinct_contact as(
-        select
-            c.converted_lead_c
-            ,max(c.created_date_time) as created_date_time
-        from
-            src_sf_contact c
-            left join src_sf_opportunity o
-                join distinct_opportunity do on o.contact_id = do.contact_id
-            on c.contact_id = o.contact_id
-        group by c.converted_lead_c
-    )
+    -- ,distinct_contact as(
+    --     select
+    --         c.converted_lead_c
+    --         ,max(c.created_date_time) as created_date_time
+    --     from
+    --         src_sf_contact c
+    --         left join src_sf_opportunity o
+    --             join distinct_opportunity do on o.contact_id = do.contact_id
+    --         on c.contact_id = o.contact_id
+    --     group by c.converted_lead_c
+    -- )
 
-    ,all_contact as(
-        select
-            c.*
-            ,a.account_name
-        from
-            src_sf_contact c
-            join distinct_contact dc
-                on c.converted_lead_c = dc.converted_lead_c
-                and c.created_date_time = dc.created_date_time
-            left join src_sf_account a on c.account_id = a.account_id
-    )
+    -- ,all_contact as(
+    --     select
+    --         c.*
+    --         ,a.account_name
+    --     from
+    --         src_sf_contact c
+    --         join distinct_contact dc
+    --             on c.converted_lead_c = dc.converted_lead_c
+    --             and c.created_date_time = dc.created_date_time
+    --         left join src_sf_account a on c.account_id = a.account_id
+    -- )
 
     -- lead
-    ,lead_date as(
-        select
-            l.email
-            ,case when cont.converted_lead_c is not null then 1 else 0 end as contact_flag
-            ,max(l.created_date_time) as created_date_time
-        from
-            src_sf_lead l
-            left join all_contact cont on l.lead_id = cont.converted_lead_c
-        group by l.email, cont.converted_lead_c
-    )
+    -- ,lead_date as(
+    --     select
+    --         l.email
+    --         ,case when cont.converted_lead_c is not null then 1 else 0 end as contact_flag
+    --         ,max(l.created_date_time) as created_date_time
+    --     from
+    --         src_sf_lead l
+    --         left join all_contact cont on l.lead_id = cont.converted_lead_c
+    --     group by l.email, cont.converted_lead_c
+    -- )
 
-    ,lead_max_contact as(
-        select
-            ld.email
-            ,max(ld.contact_flag) as contact_flag
-        from
-            src_sf_lead l
-            join lead_date ld on l.email = ld.email
-        group by ld.email
-    )
+    -- ,lead_max_contact as(
+    --     select
+    --         ld.email
+    --         ,max(ld.contact_flag) as contact_flag
+    --     from
+    --         src_sf_lead l
+    --         join lead_date ld on l.email = ld.email
+    --     group by ld.email
+    -- )
 
-    ,lead_id as(
-        select
-            l.email
-            ,min(l.lead_id) as lead_id
-        from
-            src_sf_lead l
-            join lead_date ld on l.email = ld.email
-            join lead_max_contact lmc
-                on l.email = lmc.email
-                and ld.contact_flag = lmc.contact_flag
-        group by l.email
-    )
+    -- ,lead_id as(
+    --     select
+    --         l.email
+    --         ,min(l.lead_id) as lead_id
+    --     from
+    --         src_sf_lead l
+    --         join lead_date ld on l.email = ld.email
+    --         join lead_max_contact lmc
+    --             on l.email = lmc.email
+    --             and ld.contact_flag = lmc.contact_flag
+    --     group by l.email
+    -- )
 
     ,combine as(
         -- user
@@ -491,13 +491,13 @@ with
             left join client c on u.user_id = c.user_id
 
         -- lead
-        union
-        select
-            email
-            ,0 as client_flag
-            ,1 as lead_flag
-        from
-            lead_id
+        -- union
+        -- select
+        --     email
+        --     ,0 as client_flag
+        --     ,1 as lead_flag
+        -- from
+        --     lead_id
     )
 
     ,client_flags as(
@@ -513,32 +513,36 @@ with
     ,user_lead as(
         select
             u.user_id
-            ,l.lead_id
-            ,nvl(u.first_name, l.first_name) as first_name
-            ,nvl(u.last_name, l.last_name) as last_name
-            ,nvl(u.fullname, l.name) as fullname
-            ,nvl(u.email, l.email) as email
-            ,l.street
-            ,l.city
-            ,l.state
-            ,l.country
-            ,l.zip
-            ,l.phone
+            -- ,l.lead_id
+            ,u.first_name
+            ,u.last_name
+            ,u.fullname
+            ,u.email
+            -- ,nvl(u.first_name, l.first_name) as first_name
+            -- ,nvl(u.last_name, l.last_name) as last_name
+            -- ,nvl(u.fullname, l.name) as fullname
+            -- ,nvl(u.email, l.email) as email
+            -- ,l.street
+            -- ,l.city
+            -- ,l.state
+            -- ,l.country
+            -- ,l.zip
+            -- ,l.phone
             ,u.created_date as tc_created_date
-            ,l.created_date as lead_created_date
+            -- ,l.created_date as lead_created_date
             ,c.client_flag
             ,c.lead_flag
-            ,l.lead_source
-            ,l.agent_name
-            ,l.agent_email
+            -- ,l.lead_source
+            -- ,l.agent_name
+            -- ,l.agent_email
         from
             client_flags c
             left join src_tc_user u on c.email = u.email
-            left join src_sf_lead l
-                join lead_id ld
-                    on l.email = ld.email
-                    and l.lead_id = ld.lead_id
-                on c.email = l.email
+            -- left join src_sf_lead l
+            --     join lead_id ld
+            --         on l.email = ld.email
+            --         and l.lead_id = ld.lead_id
+            --     on c.email = l.email
     )
 
     ,max_tier as(
@@ -623,7 +627,7 @@ with
     ,final_logic as(
         select
             u.user_id
-            ,ul.lead_id
+            -- ,ul.lead_id
             ,nvl(replace(u.first_name, '"', ''), ul.first_name) as first_name
             ,nvl(replace(u.last_name, '"', ''), ul.last_name) as last_name
             ,nvl(replace(u.fullname, '"', ''), ul.fullname) as fullname
@@ -641,8 +645,8 @@ with
                 end as lead_status
             ,concat(cont_owner.firstname, ' ', cont_owner.lastname) as contact_owner
             ,concat(orig_agent.firstname, ' ', orig_agent.lastname) as original_sales_rep_name
-            ,ul.lead_source
-            ,cont.contact_id
+            -- ,ul.lead_source
+            -- ,cont.contact_id
             ,u.stripe_account_id
             ,case when util.user_id is null then 'IN' else 'OUT' end as utility_opt_in_status
 
@@ -658,25 +662,25 @@ with
             ,rc.role_trans_coordinator as role_trans_coordinator_flag
 
             -- agent address
-            ,ul.agent_name
-            ,ul.agent_email
+            -- ,ul.agent_name
+            -- ,ul.agent_email
             ,hagent.address
             ,hagent.address2
 
             -- lead address
-            ,ul.street as lead_street
-            ,ul.city as lead_city
-            ,states.state as lead_state
-            ,ul.zip as lead_zip
-            ,ul.country as lead_country
-            ,concat(
-                ul.street
-                ,case when ul.city is not null then ', ' || ul.city else '' end
-                ,case when ul.state is not null then ', ' || ul.state else '' end
-                ,case when ul.zip is not null then ', ' || ul.zip else '' end
-                ,case when ul.country is not null then ', ' || ul.country else '' end
-            ) as full_address
-            ,ul.phone as lead_phone
+            -- ,ul.street as lead_street
+            -- ,ul.city as lead_city
+            -- ,states.state as lead_state
+            -- ,ul.zip as lead_zip
+            -- ,ul.country as lead_country
+            -- ,concat(
+            --     ul.street
+            --     ,case when ul.city is not null then ', ' || ul.city else '' end
+            --     ,case when ul.state is not null then ', ' || ul.state else '' end
+            --     ,case when ul.zip is not null then ', ' || ul.zip else '' end
+            --     ,case when ul.country is not null then ', ' || ul.country else '' end
+            -- ) as full_address
+            -- ,ul.phone as lead_phone
 
             --flags
             ,case u.pays_at_title
@@ -715,7 +719,7 @@ with
 
             -- dates
             ,u.created_date as user_created_date
-            ,ul.lead_created_date
+            -- ,ul.lead_created_date
             ,hagent.created_date as start_date
             ,datediff(day, hagent.created_date, fp.first_order_placed) as days_between_start_date_and_first_order_date
             ,fp.first_order_placed as tier_3
@@ -736,8 +740,8 @@ with
             user_lead ul
 
             -- sf lead, contact, opportunity
-            left join all_contact cont on ul.lead_id = cont.converted_lead_c
-            left join distinct_opportunity opp on cont.contact_id = opp.contact_id
+            -- left join all_contact cont on ul.lead_id = cont.converted_lead_c
+            -- left join distinct_opportunity opp on cont.contact_id = opp.contact_id
 
             -- TC user
             left join src_tc_user u on u.user_id = ul.user_id
@@ -763,12 +767,12 @@ with
             left join fifth_order_closed c5 on u.user_id = c5.user_id
 
             --states
-            left join states on ul.lead_id = states.lead_id
+            -- left join states on ul.lead_id = states.lead_id
 
 
         group by
             u.user_id
-            ,ul.lead_id
+            -- ,ul.lead_id
             ,nvl(replace(u.first_name, '"', ''), ul.first_name)
             ,nvl(replace(u.last_name, '"', ''), ul.last_name)
             ,nvl(replace(u.fullname, '"', ''), ul.fullname)
@@ -778,8 +782,8 @@ with
             ,st.tier
             ,hagent.lead_status
             ,concat(cont_owner.firstname, ' ', cont_owner.lastname)
-            ,ul.lead_source
-            ,cont.contact_id
+            -- ,ul.lead_source
+            -- ,cont.contact_id
             ,u.stripe_account_id
             ,utility_opt_in_status
             ,rc.role_super_admin
@@ -791,17 +795,17 @@ with
             ,rc.role_lender
             ,rc.role_partner
             ,rc.role_trans_coordinator
-            ,ul.agent_name
-            ,ul.agent_email
+            -- ,ul.agent_name
+            -- ,ul.agent_email
             ,hagent.address
             ,hagent.address2
-            ,ul.street
-            ,ul.city
-            ,states.state
-            ,ul.zip
-            ,ul.country
-            ,full_address
-            ,ul.phone
+            -- ,ul.street
+            -- ,ul.city
+            -- ,states.state
+            -- ,ul.zip
+            -- ,ul.country
+            -- ,full_address
+            -- ,ul.phone
             ,concat(orig_agent.firstname, ' ', orig_agent.lastname)
             ,pays_at_title_flag
             ,hagent.eligible_for_clients
@@ -815,7 +819,7 @@ with
             ,hagent.transactly_home_insurance_vendor_status
             ,hagent.transactly_utility_connection_vendor_status
             ,u.created_date
-            ,ul.lead_created_date
+            -- ,ul.lead_created_date
             ,hagent.created_date
             ,tier_3
             ,fifth.due_date
@@ -832,7 +836,7 @@ with
         select
             working.seq_dim_user.nextval as user_pk
             ,user_id
-            ,lead_id
+            -- ,lead_id
             ,first_name
             ,last_name
             ,fullname
@@ -842,7 +846,7 @@ with
             ,subscription_level
             ,lead_status as transaction_coordinator_status
             ,contact_owner
-            ,contact_id
+            -- ,contact_id
             ,stripe_account_id
             ,utility_opt_in_status
 
@@ -858,19 +862,19 @@ with
             ,role_trans_coordinator_flag
 
             -- agent address
-            ,agent_name
-            ,agent_email
+            -- ,agent_name
+            -- ,agent_email
             ,address
             ,address2
             ,original_sales_rep_name
 
             -- lead address
-            ,lead_street
-            ,lead_city
-            ,lead_state
-            ,lead_zip
-            ,lead_country
-            ,full_address
+            -- ,lead_street
+            -- ,lead_city
+            -- ,lead_state
+            -- ,lead_zip
+            -- ,lead_country
+            -- ,full_address
 
             --flags
             ,pays_at_title_flag
@@ -889,7 +893,7 @@ with
 
             -- dates
             ,user_created_date
-            ,lead_created_date
+            -- ,lead_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
             ,tier_3
@@ -911,7 +915,7 @@ with
         group by
             user_pk
             ,user_id
-            ,lead_id
+            -- ,lead_id
             ,first_name
             ,last_name
             ,fullname
@@ -921,7 +925,7 @@ with
             ,subscription_level
             ,lead_status
             ,contact_owner
-            ,contact_id
+            -- ,contact_id
             ,stripe_account_id
             ,utility_opt_in_status
             ,role_super_admin_flag
@@ -933,17 +937,17 @@ with
             ,role_lender_flag
             ,role_partner_flag
             ,role_trans_coordinator_flag
-            ,agent_name
-            ,agent_email
+            -- ,agent_name
+            -- ,agent_email
             ,address
             ,address2
-            ,lead_street
-            ,lead_city
-            ,lead_state
-            ,lead_zip
-            ,lead_country
-            ,full_address
-            ,lead_phone
+            -- ,lead_street
+            -- ,lead_city
+            -- ,lead_state
+            -- ,lead_zip
+            -- ,lead_country
+            -- ,full_address
+            -- ,lead_phone
             ,original_sales_rep_name
             ,pays_at_title_flag
             ,eligible_for_clients_flag
@@ -957,7 +961,7 @@ with
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
             ,user_created_date
-            ,lead_created_date
+            -- ,lead_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
             ,tier_3
@@ -967,8 +971,8 @@ with
         union select
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+
     )
 
 select * from final
