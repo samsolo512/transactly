@@ -18,23 +18,12 @@ create or replace table data_warehouse.dim_lead (
     ,lead_created_date date
     ,agent_name string
     ,agent_email string
-    ,partner string
     ,electricity string
     ,sewer string
     ,trash string
     ,water string
     ,gas string
     ,internet string
-    ,contact_owner string
-
---     ,owner_name string
---     ,lead_partner_name string
---     ,contact_partner_name string
---     ,opportunity_partner_name string
---     ,contact_created_date date
---     ,opportunity_created_date date
---     ,opportunity_close_date date
---     ,opportunity_name string
---     ,stage string
-
+    ,account_name string
+    ,partner string
 )

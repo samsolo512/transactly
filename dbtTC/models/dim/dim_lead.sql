@@ -19,6 +19,11 @@ with
         from {{ ref('src_sf_contact') }}
     )
 
+    ,src_sf_partner_lead_c as(
+        select *
+        from {{ ref('src_sf_partner_lead_c') }}
+    )
+
     ,states as(
         select
             lead_id
@@ -191,26 +196,37 @@ with
     )
 
     -- partner
-    ,recent_partner as(
-        select
-            lead_c as lead_id
-            ,max(created_date) as created_date
-        from src_sf_partner_lead_c
-        group by lead_c
-    )  -- select * from FIVETRAN.SALESFORCE.PARTNER_LEAD_C where lead_c = '00Q5w0000236cCtEAI'
-
-    ,partner as(
-        select
-            c.lead_c as lead_id
-            ,min(a.account_name) as partner
-        from
-            src_sf_partner_lead_c c
-            join recent_partner p
-                on c.lead_c = p.lead_id
-                and c.created_date = p.created_date
-            left join src_sf_account a on c.partner_c = a.account_id
-        group by c.lead_c
-    )
+--     ,recent_partner as(
+--         select
+--             lead_c as lead_id
+--             ,max(created_date) as created_date
+--         from src_sf_partner_lead_c
+--         group by lead_c
+--     )  -- select * from FIVETRAN.SALESFORCE.PARTNER_LEAD_C where lead_c = '00Q5w0000236cCtEAI'
+--
+--     ,partner as(
+--         select
+--             c.lead_c as lead_id
+--             ,min(a.account_name) as partner
+--         from
+--             src_sf_partner_lead_c c
+--             join recent_partner p
+--                 on c.lead_c = p.lead_id
+--                 and c.created_date = p.created_date
+--             left join src_sf_account a on c.partner_c = a.account_id
+--         group by c.lead_c
+--     )
+--
+--     ,partner_acct as(
+--         select
+--             p.lead_id
+--             ,p.partner
+--             ,u.name as partner_account_name
+--         from
+--             src_sf_account a
+--             join partner p on a.account_name = p.partner
+--             left join src_sf_user u on a.owner_id = u.user_id
+--     )
 
     ,contact as(
         select
@@ -218,6 +234,58 @@ with
             ,max(created_date_time) as created_date_time
         from src_sf_contact c
         group by lead_id
+    )
+
+    -- get 1 acct per lead
+    ,max_acct as(
+        select
+            c.lead_c
+            ,max(c.created_date) as created_date
+        from
+            src_sf_account a
+            left join src_sf_partner_lead_c c on c.partner_c = a.account_id
+            -- left join src_sf_lead l on c.lead_c = l.lead_id
+        where
+            account_name not like '%Lead Abandon%'
+        group by c.lead_c
+    )
+
+    ,acct as(
+        select
+            l.lead_id
+            ,c.created_date
+            ,min(a.account_id) as account_id
+        from
+            src_sf_account a
+            left join src_sf_partner_lead_c c on c.partner_c = a.account_id
+            left join src_sf_lead l on c.lead_c = l.lead_id
+            join max_acct ma
+                on c.lead_c = ma.lead_c
+                and c.created_date = ma.created_date
+        where
+            account_name not like '%Lead Abandon%'
+        group by
+            l.lead_id, c.created_date
+    )
+
+    ,unique_lead as(
+        select
+            a.account_name
+            ,u.name as account_owner
+            ,l.name as lead_name
+            ,l.lead_id
+            ,c.created_date
+        from
+            src_sf_account a
+            left join src_sf_user u on a.owner_id = u.user_id
+            left join src_sf_partner_lead_c c on c.partner_c = a.account_id
+            left join src_sf_lead l on c.lead_c = l.lead_id
+            join acct ma
+                on l.lead_id = ma.lead_id
+                and c.created_date = ma.created_date
+                and a.account_id = ma.account_id
+        where
+            account_name not like '%Lead Abandon%'
     )
 
     ,final as(
@@ -249,14 +317,15 @@ with
             ,l.created_date as lead_created_date
             ,l.agent_name
             ,l.agent_email
-            ,p.partner
+--             ,p.partner
             ,c.electricity
             ,c.sewer
             ,c.trash
             ,c.water
             ,c.gas
             ,c.internet
-            ,u.name as contact_owner
+            ,ulead.account_name
+            ,ulead.account_owner
 
         from
             lead_id ul
@@ -264,14 +333,21 @@ with
                 on ul.email = l.email
                 and ul.lead_id = l.lead_id
             left join states on l.lead_id = states.lead_id
-            left join partner p on l.lead_id = p.lead_id
+--             left join partner p on l.lead_id = p.lead_id
             left join src_sf_contact c
                 join contact
                     on c.lead_id = contact.lead_id
                     and c.created_date_time = contact.created_date_time
                 on l.lead_id = c.lead_id
-            left join src_sf_account a on c.account_id = a.account_id
-            left join src_sf_user u on a.owner_id = u.user_id
+--             left join src_sf_account a on c.account_id = a.account_id
+--             left join src_sf_user ulo on a.owner_id = ulo.user_id
+--             left join src_sf_user uco on c.owner_id = uco.user_id
+            left join unique_lead ulead on ul.lead_id = ulead.lead_id
+
+        union
+        select
+            0, '0', null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

@@ -30,24 +30,16 @@ with
             ,lead_created_date
             ,agent_name
             ,agent_email
-            ,partner
+--             ,partner
             ,electricity
             ,sewer
             ,trash
             ,water
             ,gas
             ,internet
-            ,contact_owner
-
---             ,owner_name
---             ,lead_partner_name
---             ,contact_partner_name
---             ,opportunity_partner_name
---             ,contact_created_date
---             ,opportunity_created_date
---             ,opportunity_close_date
---             ,opportunity_name
---             ,stage
+--             ,contact_owner
+            ,account_name
+            ,account_owner as partner
 
         from dim_lead
     )
