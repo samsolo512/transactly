@@ -45,7 +45,7 @@ with
             ,line.tc_paid
             ,user.user_id as client_id
             ,user.fullname
-            ,user.brokerage as client_brokerage
+            ,user.office_name as client_brokerage
             ,user.office_id as client_brokerage_id
             ,user.tier_1 as tier_1_date  -- due date of 5th sale
             ,user.tier_2 as tier_2_date  -- due date of 1st sale

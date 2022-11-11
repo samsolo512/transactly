@@ -8,5 +8,8 @@ select
     o.id as office_user_id
     ,o.user_id
     ,o.office_id
-from src_tc_office_user o
-where _fivetran_deleted = 'FALSE'
+    ,o.created
+from
+    src_tc_office_user o
+where
+    _fivetran_deleted = 'FALSE'
