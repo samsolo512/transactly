@@ -95,10 +95,10 @@ models:
     description: one row per Salesforce lead
     columns:
       - name: lead_pk
-        description: lead primary key.  Assigned by Salesforce
+        description: lead primary key.  Assigned by data warehouse
 
       - name: lead_id
-        description: unique identifier of the lead.  Assigned by data warehouse
+        description: unique identifier of the lead.  Assigned by Salesforce
 
       - name: first_name
         description: first name of lead
@@ -171,3 +171,95 @@ models:
 
       - name: account_owner
         description: the owner of the lead's account
+
+  - name: dim_line_item
+    description: one row per TC order line item
+    columns:
+      - name: line_item_pk
+        description: line item primary key.  Assigned by data warehouse
+
+      - name: line_item_id
+        description: line item unique identifier.  Assigned by TC app
+
+      - name: status
+        description: (in progress, complete, withdrawn, active, closed, ...)
+
+      - name: description
+        description: (transaction coordination fee, listing coordination fee, ...)
+
+      - name: agent_pays
+        description: $ amount the agent pays
+
+      - name: office_pays
+        description: $ amount the office pays
+
+      - name: total_fees
+        description: $ agent pays + $ office pays
+
+      - name: due_date
+        description: line item due date
+
+      - name: paid
+        description: (yes, no)
+
+      - name: tc_paid
+        description: (yes, no)
+
+      - name: cancelled_date
+        description: date the line item was cancelled
+
+      - name: created_date
+        description: date the line item was created
+
+      - name: last_sync
+        description: the last time Fivetran pulled data from the TC app into dim_line_item
+
+  - name: dim_member_contact
+    description: one row per transaction per member or contact
+    columns:
+      - name: member_contact_pk
+        description: member_contact primary key.  Assigned by data warehouse
+
+      - name: member_contact_id
+        description: member or contact unique id.  Assigned by TC app
+        
+      - name: transaction_id
+        description: transaction unique id.  Assigned by TC app
+        
+      - name: member_or_contact
+        description: whether the record is for a member or for a contact (member, contact)
+
+      - name: first_name
+        description: member or contact first name
+
+      - name: last_name
+        description: member or contact last name
+
+      - name: phone
+        description: member or contact phone
+
+      - name: email
+        description: member or contact email
+
+      - name: role_id
+        description: an integer representing the role name (1-22)
+
+      - name: role_name
+        description: the member or contact role (buyer agent, seller agent, loan processor, ...)
+
+      - name: party_id
+        description: an integer representing the party name (1-2)
+
+      - name: party_name
+        description: (buyer, seller)
+
+      - name: member_flag
+        description: a 1 or 0 representing whether the row represents a member
+
+      - name: contact_flag
+        description: a 1 or 0 representing whether the row represents a contact
+
+      - name: utility_opt_in_status
+        description: whether the contact or lead has opted in or not to utilites (IN, OUT)
+
+
