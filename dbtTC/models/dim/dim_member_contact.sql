@@ -35,6 +35,7 @@ with
             trans.transaction_id
             ,lower(u.email) as email
             ,m.member_id as member_contact_id
+            ,'member' as member_or_contact
             ,u.first_name
             ,u.last_name
             ,u.phone
@@ -56,6 +57,7 @@ with
             trans.transaction_id
             ,lower(cont.email) as email
             ,cont.contact_id as member_contact_id
+            ,'contact' as member_or_contact
             ,cont.first_name
             ,cont.last_name
             ,cont.phone
@@ -75,6 +77,7 @@ with
             working.seq_dim_member_contact.nextval as member_contact_pk
             ,c.member_contact_id
             ,c.transaction_id
+            ,c.member_or_contact
             ,c.first_name
             ,c.last_name
             ,c.phone
