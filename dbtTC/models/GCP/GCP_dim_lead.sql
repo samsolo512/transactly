@@ -39,7 +39,7 @@ with
             ,internet
 --             ,contact_owner
             ,account_name
-            ,account_owner as partner
+            ,account_owner
 
         from dim_lead
     )

@@ -25,5 +25,5 @@ create or replace table data_warehouse.dim_lead (
     ,gas string
     ,internet string
     ,account_name string
-    ,partner string
+    ,account_owner string
 )
