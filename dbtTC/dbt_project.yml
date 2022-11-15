@@ -37,7 +37,7 @@ models:
     dim:
       +materialized: table
     working:
-      +materialized: table
+      +materialized: ephemeral
     fact:
       +materialized: table
     GCP:

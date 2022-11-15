@@ -1,5 +1,5 @@
 -- dim_member_contact
--- 1 row/ contact
+-- 1 row/ tranaction/ member_contact
 
 select 
     transaction_id, member_contact_id, member_or_contact, count(1) 

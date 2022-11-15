@@ -1,0 +1,83 @@
+version: 2
+
+models:
+  - name: dim_lead
+    description: one row per Salesforce lead
+    columns:
+      - name: lead_pk
+        description: lead primary key.  Assigned by data warehouse
+
+      - name: lead_id
+        description: unique identifier of the lead.  Assigned by Salesforce
+
+      - name: first_name
+        description: first name of lead
+
+      - name: last_name
+        description: last name of lead
+
+      - name: name
+        description: full name of lead
+
+      - name: company
+        description: the source of the lead
+
+      - name: street
+        description: lead street address
+
+      - name: city
+        description: lead city address
+
+      - name: state
+        description: lead state address
+
+      - name: zip
+        description: lead zip address
+
+      - name: country
+        description: lead country address
+
+      - name: full_address
+        description: combined street, city, state, country
+
+      - name: phone
+        description: lead phone
+
+      - name: email
+        description: lead email
+
+      - name: lead_source
+        description: source of lead
+
+      - name: lead_created_date
+        description: date when the lead record was created
+
+      - name: agent_name
+        description: name of the lead's agent
+
+      - name: agent_email
+        description: email of the lead's agent
+
+      - name: electricity
+        description: where the lead signed up for electricity utility
+
+      - name: sewer
+        description: where the lead signed up for sewer utility
+
+      - name: trash
+        description: where the lead signed up for trash utility
+
+      - name: water
+        description: where the lead signed up for water utility
+
+      - name: gas
+        description: where the lead signed up for gas utility
+
+      - name: internet
+        description: where the lead signed up for internet
+
+      - name: account_name
+        description: the account of the lead
+
+      - name: account_owner
+        description: the owner of the lead's account

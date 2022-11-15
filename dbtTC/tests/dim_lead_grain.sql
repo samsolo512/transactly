@@ -1,5 +1,5 @@
 -- dim_lead_grain
--- 1 row/ contact
+-- 1 row/ lead
 
 select 
     lead_id, count(1) 

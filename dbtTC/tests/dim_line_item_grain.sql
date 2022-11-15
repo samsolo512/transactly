@@ -1,5 +1,5 @@
 -- dim_line_item_grain
--- 1 row/ contact
+-- 1 row/ line item
 
 select 
     line_item_id, count(1) 
