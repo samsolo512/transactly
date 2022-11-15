@@ -109,10 +109,10 @@ with
                 else null
                 end as days_to_close
             ,case
-                when datediff(day, getdate(), cont.contract_closing_date) between 20 and 50
+                when datediff(day, getdate(), cont.contract_closing_date) between 21 and 50
                 then 1
                 else 0
-                end as days_to_close_20_to_50_flag
+                end as days_to_close_21_to_50_flag
             ,cont.contract_amount
             ,ord.order_side_id
             ,case
