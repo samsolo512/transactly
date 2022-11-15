@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: one row per date
+    columns:
+      - name: date_pk
+        description: date primary key.  Assigned by data warehouse
+
+      - name: date_id
+        description: unique identifier of the date.  Assigned by data warehouse.  The number is made up yyy-mm-dd
+
+      - name: year
+        description: date year in digits
+
+      - name: month
+        description: date month in digits
+
+      - name: month_name
+        description: date month in three letters (Jan, Feb, Mar...)
+
+      - name: day_of_mon
+        description: day of month (1-31)
+
+      - name: day_of_week
+        description: day of week (1-7)
+
+      - name: week_of_year
+        description: week of year (1-52)
+
+      - name: day_of_year
+        description: day of year (1-365)

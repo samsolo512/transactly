@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim_agent
+    description: Users who are agents.  One row per agent.  In other words, they are either TC users who have the role of 'role-agent', or they are agents assigned to Salesforce leads
+    columns:
+      - name: agent_pk
+        description: agent primary key.  Assigned by data warehouse.
+        test: not_null
+
+      - name: user_id
+        description: unique identifier for the user. Assigned by TC app.
+
+      - name: agent_name
+        description: full name of the agent
+
+      - name: agent_email
+        description: email of the agent
+
+      - name: tc_created_date
+        description: the date the TC user record was created
+
+      - name: lead_created_date
+        description: the date the lead record was created
+
+      - name: tc_agent_flag
+        description: 1 = is a TC Agent, 0 = not a TC Agent
+
+      - name: lead_agent_flag
+        description: 1 = is a lead Agent, 0 = not a lead Agent
+
+      - name: agent_type
+        description: whether the agent is 'TC', 'Lead', or 'TC and Lead'
