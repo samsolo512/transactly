@@ -41,7 +41,7 @@ select
     ,o.agent_id
     ,agt.fullname as agent
     ,o.assigned_tc_id
-    ,usr.fullname as assigned_TC
+    ,u.fullname as assigned_TC
     ,t_create.fullname as created_by
     ,case
         when t.expiration_date <= getdate() then 'expired'

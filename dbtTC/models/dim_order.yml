@@ -1,0 +1,78 @@
+version: 2
+
+models:
+  - name: dim_order
+    description: One row per TC order
+    columns:
+      - name: order_pk
+        description: order primary key.  Assigned by data warehouse
+
+      - name: order_id
+        description: unique identifier for the order.  Assigned by TC app
+        test: not_null
+
+      - name: transaction_id
+        description: unique identifier for transaction.  Assigned by TC app
+
+      - name: agent_id
+        description: user_id for the agent who owns the order
+
+      - name: agent
+        description: user name for the agent who owns the order
+
+      - name: assigned_tc_id
+        description: user_id for the tc who is assigned to the order
+
+      - name: assigned_tc
+        description: name of the tc who is assigned to the order
+
+      - name: created_by
+        description: name of the person who created the order
+
+      - name: order_status
+        description: (closed, withdrawn, cancelled, ...)
+
+      - name: order_type
+        description: (listing, transaction, ...)
+
+      - name: order_side
+        description: (buyer, seller)
+
+      - name: transaction_side
+        description: (buyer, seller)
+
+      - name: assigned_tc_office
+        description: (Transactly, TC Solutions, Moncord, ...)
+
+      - name: agent_office
+        description: name of the office or brokerage of the agent who owns the order
+
+      - name: agent_office_id
+        description: unique id of the office or brokerage of the agent who owns the order
+
+      - name: referral_amount
+        description: the $ amount of the transaction
+
+      - name: agreement_type
+        description: (revenue share, membership, credit, ...)
+
+      - name: last_sync
+        description: date when the record was last updated from Fivetran
+
+      - name: address
+        description: address of the transaction
+
+      - name: city
+        description: city of the transaction
+
+      - name: state
+        description: state of the transaction
+
+      - name: created_date
+        description: date the order was created
+
+      - name: closing_date
+        description: date the order closed
+
+      - name: status_changed_date
+        description: date the order status was changed
