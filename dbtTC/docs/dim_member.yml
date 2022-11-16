@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: dim_member
+    description: One row per TC member.  These are members associated with a transaction
+    columns:
+      - name: member_pk
+        description: member primary key.  Assigned by data warehouse.
+
+      - name: member_id
+        description: unique identifier for the member. Assigned by TC app.
+        test: not_null
+
+      - name: role_name
+        description: (buyer agent, seller agent, buyer transaction coordinator, ...)
+
+      - name: side_id
+        description: (buyer, seller)
+
+      - name: active_flag
+        description: flag whether the member is active or not (1, 0)
+
+      - name: user_id
+        description: unique identifier of the user.  Assigned by TC app
+
+      - name: first_name
+        description: first name of the member
+
+      - name: last_name
+        description: last name of the member
+
+      - name: email
+        description: email of the member
+
+      - name: transactly_home_insurance_vendor_status
+        description: 
+
+      - name: transactly_utility_connection_vendor_status
+        description: 
+
+      - name: office_name
+        description: the office or brokerage name of the agent
+
+      - name: transaction_id
+        description: the unique identifier of the transaction.  Assigned by TC app

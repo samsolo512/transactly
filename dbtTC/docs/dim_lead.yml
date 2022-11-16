@@ -9,6 +9,7 @@ models:
 
       - name: lead_id
         description: unique identifier of the lead.  Assigned by Salesforce
+        test: not_null
 
       - name: first_name
         description: first name of lead

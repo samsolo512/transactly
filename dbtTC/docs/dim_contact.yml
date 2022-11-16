@@ -9,6 +9,7 @@ models:
 
       - name: contact_id
         description: unique identifier for the contact.  Assigned by TC app
+        test: not_null
 
       - name: role_name
         description: the role of the contact as assigned in TC app

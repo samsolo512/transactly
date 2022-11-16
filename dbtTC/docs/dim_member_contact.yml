@@ -9,6 +9,7 @@ models:
 
       - name: member_contact_id
         description: member or contact unique id.  Assigned by TC app
+        test: not_null
         
       - name: transaction_id
         description: transaction unique id.  Assigned by TC app

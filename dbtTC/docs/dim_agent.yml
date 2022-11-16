@@ -6,10 +6,10 @@ models:
     columns:
       - name: agent_pk
         description: agent primary key.  Assigned by data warehouse.
-        test: not_null
 
       - name: user_id
         description: unique identifier for the user. Assigned by TC app.
+        test: not_null
 
       - name: agent_name
         description: full name of the agent

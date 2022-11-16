@@ -9,6 +9,7 @@ models:
 
       - name: line_item_id
         description: line item unique identifier.  Assigned by TC app
+        test: not_null
 
       - name: status
         description: (in progress, complete, withdrawn, active, closed, ...)
