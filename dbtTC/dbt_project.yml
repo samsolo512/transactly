@@ -1,17 +1,13 @@
 
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
 name: 'dbtTC'
 version: '1.0.0'
 config-version: 2
 
+
 # This setting configures which "profile" dbt uses for this project.
 profile: 'dbtTC'
 
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
+
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
@@ -19,18 +15,15 @@ seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
+
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
 
-# Configuring models
+# models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
 models:
   dbtTC:
     +materialized: view
@@ -42,9 +35,14 @@ models:
       +materialized: table
     GCP:
       +materialized: table
+  # salesforce_source:
+  #   +schema: my_new_schema_name # leave blank for just the target_schema
 
 
-
-#hooks
-#on-run-end:
-#  - '{{unload_data_to_GCP()}}'
+vars:
+  salesforce_database: fivetran
+  salesforce_schema: salesforce
+  salesforce__event_enabled: false # Disable if you do not have the event table
+  salesforce__task_enabled: false # Disable if you do not have the task table
+  salesforce__order_enabled: false # Disable if you do not have the order table
+  salesforce__user_role_enabled: false # Disable if you do not have the order table
