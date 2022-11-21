@@ -24,6 +24,11 @@ with
         from {{ ref('src_tc_office') }}
     )
 
+    ,src_tc_contract as(
+        select *
+        from {{ ref('src_tc_contract') }}
+    )
+
 --     ,close_date as(
 --         select
 --             o.order_id
