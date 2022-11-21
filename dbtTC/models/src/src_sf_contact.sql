@@ -1,6 +1,6 @@
 with src_sf_contact as(
     select *
-    from {{ source('sf', 'contact') }}
+    from {{ source('salesforce_salesforce', 'contact') }}
 )
 
 select

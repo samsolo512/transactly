@@ -1,6 +1,6 @@
 with partner_lead_c as(
     select *
-    from {{ source('sf', 'partner_lead_c') }}
+    from {{ source('salesforce_salesforce', 'partner_lead_c') }}
 )
 
 select

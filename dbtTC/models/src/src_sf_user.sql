@@ -1,6 +1,6 @@
 with src_sf_user as(
     select *
-    from {{ source('sf', 'user') }}
+    from {{ source('salesforce_salesforce', 'user') }}
 )
 
 select

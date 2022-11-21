@@ -1,6 +1,6 @@
 with src_sf_opportunity as(
     select *
-    from {{ source('sf', 'opportunity') }}
+    from {{ source('salesforce_salesforce', 'opportunity') }}
 )
 
 select

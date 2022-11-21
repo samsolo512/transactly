@@ -129,7 +129,7 @@ sources:
       - name: revenuelineitems
         identifier: '"RevenueLineItems"'
 
-  - name: sf
+  - name: salesforce_salesforce
     description: "Salesforce data sources"
     database: fivetran
     schema: salesforce

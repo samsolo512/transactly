@@ -1,6 +1,6 @@
 with src_sf_lead as(
     select *
-    from {{ source('sf', 'lead') }}
+    from {{ source('salesforce_salesforce', 'lead') }}
 )
 
 select
