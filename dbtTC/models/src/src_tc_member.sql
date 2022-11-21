@@ -1,6 +1,6 @@
 with src_tc_member as(
     select *
-    from {{ source('tc', 'member') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'member') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

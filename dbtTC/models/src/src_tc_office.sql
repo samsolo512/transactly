@@ -1,6 +1,6 @@
 with src_tc_office as(
     select *
-    from {{ source('tc', 'office') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'office') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

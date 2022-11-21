@@ -1,6 +1,6 @@
 with src_tc_transactly_vendor as(
     select *
-    from {{ source('tc', 'transactly_vendor') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'transactly_vendor') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

@@ -1,6 +1,6 @@
 with src_tc_contract as(
     select *
-    from {{ source('tc', 'contract') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'contract') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

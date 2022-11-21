@@ -1,6 +1,6 @@
 with src_tc_user_transactly_vendor_opt_out as(
     select *
-    from {{ source('tc', 'user_transactly_vendor_opt_out') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'user_transactly_vendor_opt_out') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

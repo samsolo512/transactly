@@ -1,15 +1,9 @@
 with
     src_tc_transaction as(
         select *
-        from {{ source('tc', 'transaction') }}
+        from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'transaction') }}
         where lower(_fivetran_deleted) = 'false'
     )
-
---     ,src_tc_address as(
---         select *
---         from {{ source('tc', 'address') }}
---         where lower(_fivetran_deleted) = 'false'
---     )
 
     ,final as(
         select
@@ -27,10 +21,8 @@ with
             ,t.status_changed_date
         from
             src_tc_transaction t
---             join src_tc_address a on t.address_id = a.id
         where
             t._fivetran_deleted = 'FALSE'
---             and a._fivetran_deleted = 'FALSE'
     )
 
 select * from final

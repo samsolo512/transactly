@@ -1,6 +1,6 @@
 with src_tc_line_item as(
     select *
-    from {{ source('tc', 'line_item') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'line_item') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

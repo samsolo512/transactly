@@ -1,6 +1,6 @@
 with src_tc_offer_group as(
     select *
-    from {{ source('tc', 'offer_group') }}
+    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'offer_group') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

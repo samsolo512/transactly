@@ -1,7 +1,10 @@
 version: 2
 
 sources:
-  - name: tc
+  # name per Fivetran Transform requirements
+  # fivetran_connecter_name_destination_schema
+  - name: transactly_app_production_transactly_app_production_rec_accounts  
+  # - name: tc
     description: "Transactly data sources"
     database: fivetran
     schema: transactly_app_production_rec_accounts
