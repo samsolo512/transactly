@@ -14,6 +14,11 @@ with
         from {{ ref('src_tc_task_status') }}
     )
 
+    ,dim_transaction as(
+        select *
+        from {{ ref('dim_transaction') }}
+    )
+
     ,final as(
         select
             working.seq_dim_task.nextval as task_pk
