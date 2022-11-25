@@ -64,6 +64,8 @@ grant usage on stage prod.dimensional.GCP_stage to role dbt_role;
 grant role fivetran_owner to role fivetran_role;
 grant usage on warehouse fivetran_wh to role fivetran_role;
 grant role quickbooks_owner to role fivetran_role;
+grant role hubspot_read to role fivetran_role;
+grant role prod_owner to role fivetran_role;
 
 
 -- data_engineer
@@ -187,18 +189,24 @@ grant select on future tables in schema fivetran.quickbooks to role quickbooks_r
 
 
 -- prod_owner
+grant usage on stage prod.dimensional.gcp_stage to role prod_owner;
+grant usage on file format prod.dimensional.csv_format to role prod_owner;
+
 grant ownership on database prod to role prod_owner;
 grant ownership on all schemas in database prod to role prod_owner;
 grant ownership on all tables in database prod to role prod_owner revoke current grants;
 grant ownership on all procedures in database prod to role prod_owner;
 grant ownership on all sequences in database prod to role prod_owner;
-grant ownership on all views in database prod to role prod_owner;
+grant ownership on all views in database prod to role prod_owner revoke current grants;
+
+
 revoke ownership on future schemas in database prod from role prod_owner;
 revoke ownership on future tables in database prod from role prod_owner;
 revoke ownership on future procedures in database prod from role prod_owner;
 revoke ownership on future sequences in database prod from role prod_owner;
 revoke ownership on future tables in schema prod.public from role prod_owner;
 revoke ownership on future views in database prod from role prod_owner;
+
 grant ownership on future schemas in database prod to role prod_owner;
 grant ownership on future tables in database prod to role prod_owner;
 grant ownership on future procedures in database prod to role prod_owner;

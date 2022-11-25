@@ -1,6 +1,6 @@
 with src_tc_contact as(
     select *
-    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'contact') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'contact') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

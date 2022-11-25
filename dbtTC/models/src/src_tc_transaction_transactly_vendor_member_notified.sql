@@ -1,6 +1,6 @@
 with src_tc_transaction_transactly_vendor_member_notified as(
     select *
-    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'transaction_transactly_vendor_member_notified') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'transaction_transactly_vendor_member_notified') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

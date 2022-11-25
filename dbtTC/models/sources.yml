@@ -3,11 +3,11 @@ version: 2
 sources:
   # name per Fivetran Transform requirements
   # fivetran_connecter_name_destination_schema
-  - name: transactly_app_production_transactly_app_production_rec_accounts  
+  - name: gcp_prod_gcp_prod_prod  
   # - name: tc
     description: "Transactly data sources"
     database: fivetran
-    schema: transactly_app_production_rec_accounts
+    schema: gcp_prod_prod
     tables:
       - name: address
         identifier: address

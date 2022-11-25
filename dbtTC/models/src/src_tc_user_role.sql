@@ -1,6 +1,6 @@
 with src_tc_user_role as(
     select *
-    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'user_role') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'user_role') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

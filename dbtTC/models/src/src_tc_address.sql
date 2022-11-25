@@ -1,6 +1,6 @@
 with src_tc_address as(
     select *
-    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'address') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'address') }}
     where lower(_fivetran_deleted) = 'false'
 )
 

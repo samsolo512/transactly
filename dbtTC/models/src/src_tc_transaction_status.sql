@@ -1,6 +1,6 @@
 with src_tc_transaction_status as(
     select *
-    from {{ source('transactly_app_production_transactly_app_production_rec_accounts', 'transaction_status') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'transaction_status') }}
     where lower(_fivetran_deleted) = 'false'
 )
 
