@@ -40,8 +40,8 @@ with
 
         from
             fact_revenue fact
-            join dim_agent a on fact.agent_pk = a.agent_pk
             join dim_opportunity o on fact.opportunity_pk = o.opportunity_pk
+            left join dim_agent a on fact.agent_pk = a.agent_pk
     )
 
 select * from final

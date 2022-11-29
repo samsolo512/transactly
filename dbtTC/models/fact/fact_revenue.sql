@@ -44,8 +44,8 @@ with
 
         from
             fact_opportunity fact
-            join dim_agent a on fact.agent_pk = a.agent_pk
             join dim_opportunity o on fact.opportunity_pk = o.opportunity_pk
+            left join dim_agent a on fact.agent_pk = a.agent_pk
 
         where
             revenue_connection_flag = 1
@@ -65,8 +65,8 @@ with
 
         from
             fact_line_item fact
-            join dim_agent a on fact.agent_pk = a.agent_pk
             join dim_line_item line on fact.line_item_pk = line.line_item_pk
+            left join dim_agent a on fact.agent_pk = a.agent_pk
 
         where
             line.due_date is not null
@@ -91,17 +91,17 @@ with
         from
             fact_opportunity fact
             join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
-            join dim_agent a on fact.agent_pk = a.agent_pk
+            left join dim_agent a on fact.agent_pk = a.agent_pk
             left join src_sf_vendor_payout_c v on opp.opportunity_id = v.opportunity_id
 
         where
             v.amount_c is not null
-
+            
         group by
             a.agent_pk, v.payout_date, v.vendor_payout_id, opp.opportunity_id
     )
-
-    ,combine as(
+   
+   ,combine as(
         select
             agent_pk
             ,opportunity_id
@@ -157,8 +157,8 @@ with
             ,c.opportunity_revenue + c.transactly_revenue + c.vendor_payout_amount as total_revenue
 
         from
-            dim_agent a
-            left join combine c on c.agent_pk = a.agent_pk
+            combine c
+            left join dim_agent a on c.agent_pk = a.agent_pk
             left join dim_opportunity opp on c.opportunity_id = opp.opportunity_id
     )
 

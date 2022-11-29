@@ -199,20 +199,21 @@ grant ownership on all procedures in database prod to role prod_owner;
 grant ownership on all sequences in database prod to role prod_owner;
 grant ownership on all views in database prod to role prod_owner revoke current grants;
 
-
 revoke ownership on future schemas in database prod from role prod_owner;
 revoke ownership on future tables in database prod from role prod_owner;
 revoke ownership on future procedures in database prod from role prod_owner;
 revoke ownership on future sequences in database prod from role prod_owner;
-revoke ownership on future tables in schema prod.public from role prod_owner;
+revoke ownership on future tables in database prod from role prod_owner;
 revoke ownership on future views in database prod from role prod_owner;
+revoke ownership on future views in schema prod.dimensional from role prod_owner;
 
 grant ownership on future schemas in database prod to role prod_owner;
 grant ownership on future tables in database prod to role prod_owner;
 grant ownership on future procedures in database prod to role prod_owner;
 grant ownership on future sequences in database prod to role prod_owner;
-grant ownership on future tables in schema prod.public to role prod_owner;
+grant ownership on future tables in database prod to role prod_owner;
 grant ownership on future views in database prod to role prod_owner;
+grant ownership on future views in schema prod.dimensional to role prod_owner;
 
 
 -- stage_owner
