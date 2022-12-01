@@ -106,9 +106,12 @@ with
     ,final as(
         select
             working.seq_dim_agent.nextval as agent_pk
+
+            -- grain
+            ,nvl(u.email, c.agent_email) as agent_email
+
             ,u.user_id
             ,nvl(u.fullname, c.agent_name) as agent_name
-            ,nvl(u.email, c.agent_email) as agent_email
             ,c.user_created_date as tc_created_date
             ,c.lead_created_date as lead_created_date
             ,c.tc_agent_flag

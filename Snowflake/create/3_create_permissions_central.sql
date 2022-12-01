@@ -176,9 +176,9 @@ grant usage on schema fivetran.salesforce to role fivetran_read;
 grant select on all tables in schema fivetran.salesforce to role fivetran_read;
 grant select on future tables in schema fivetran.salesforce to role fivetran_read;
 -- Transactly
-grant usage on schema fivetran.transactly_app_production_rec_accounts to role fivetran_read;
-grant select on all tables in schema fivetran.transactly_app_production_rec_accounts to role fivetran_read;
-grant select on future tables in schema fivetran to role transactly_app_production_rec_accounts;
+grant usage on schema fivetran.gcp_prod_prod to role fivetran_read;
+grant select on all tables in schema fivetran.gcp_prod_prod to role fivetran_read;
+grant select on future tables in schema fivetran.gcp_prod_prod to role fivetran_read;
 
 
 -- quickbooks_read

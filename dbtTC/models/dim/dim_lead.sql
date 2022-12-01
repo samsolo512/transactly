@@ -291,7 +291,10 @@ with
     ,final as(
         select
             working.seq_dim_lead.nextval as lead_pk
+
+            -- grain
             ,l.lead_id
+
             ,l.first_name
             ,l.last_name
             ,l.name

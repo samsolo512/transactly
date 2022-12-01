@@ -14,16 +14,6 @@ with
         from {{ ref('src_hs_owners') }}
     )
 
---     ,src_tc_agent_subscription_tier as(
---         select *
---         from {{ ref('src_tc_agent_subscription_tier') }}
---     )
---
---     ,src_tc_user_agent_subscription_tier as(
---         select *
---         from {{ ref('src_tc_user_agent_subscription_tier') }}
---     )
-
     ,src_mls_listings as (
         select *
         from {{ ref('src_mls_listings') }}
@@ -33,16 +23,6 @@ with
         select *
         from {{ ref('src_tc_office') }}
     )
-
---     ,src_tc_user as(
---         select *
---         from {{ ref('src_tc_user') }}
---     )
---
---     ,src_tc_user_role as(
---         select *
---         from {{ ref('src_tc_user_role') }}
---     )
 
     ,MLS_combined as(
         select

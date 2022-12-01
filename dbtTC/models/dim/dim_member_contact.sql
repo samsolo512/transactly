@@ -75,9 +75,12 @@ with
     ,final as(
         select
             working.seq_dim_member_contact.nextval as member_contact_pk
-            ,c.member_contact_id
+            
+            --grain
             ,c.transaction_id
+            ,c.member_contact_id
             ,c.member_or_contact
+
             ,c.first_name
             ,c.last_name
             ,c.phone

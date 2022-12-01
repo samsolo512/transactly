@@ -16,7 +16,10 @@ with
 
 select
     working.seq_dim_contact.nextval as contact_pk
+
+    --grain
     ,c.contact_id
+    
     ,tr.role_name
     ,p.party_name
     ,c.side_id

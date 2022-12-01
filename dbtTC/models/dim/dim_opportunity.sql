@@ -39,6 +39,8 @@ with
     ,final as(
         select
             working.seq_dim_opportunity.nextval as opportunity_pk
+
+            -- grain
             ,opp.opportunity_id
             ,p.product_id
 

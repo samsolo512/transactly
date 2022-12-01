@@ -41,8 +41,11 @@ with
 
 select
     working.seq_dim_order.nextval as order_pk
-    ,t.transaction_id
+
+    -- grain
     ,o.order_id
+    
+    ,t.transaction_id
     ,o.agent_id
     ,agt.fullname as agent
     ,o.assigned_tc_id
