@@ -10,7 +10,7 @@ select
     ,side_id
     ,email
     ,party_id
-    ,trim(last_name) as last_name
+    ,trim({{ field_clean('last_name') }}) as last_name
     ,trim({{ field_clean('first_name') }}) as first_name
     ,transaction_id
     ,phone
