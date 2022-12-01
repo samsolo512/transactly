@@ -14,6 +14,8 @@ create or replace table data_warehouse.fact_transaction_member_contact (
     ,tc_agent_last_name string
     ,tc_agent_email string
     ,tc_agent_phone string
+    ,member_contact_id int
+    ,member_or_contact string
     ,member_contact_first_name string
     ,member_contact_last_name string
     ,member_contact_role string

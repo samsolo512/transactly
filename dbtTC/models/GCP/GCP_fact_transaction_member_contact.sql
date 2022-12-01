@@ -43,6 +43,8 @@ with
             ,t.tc_agent_phone
 
             -- member_contact
+            ,mc.member_contact_id
+            ,mc.member_or_contact
             ,mc.first_name as member_contact_first_name
             ,mc.last_name as member_contact_last_name
             ,mc.role_name as member_contact_role
@@ -78,4 +80,6 @@ with
 
     )
 
-select * from final
+select * from final --order by transaction_id, member_contact_id, member_or_contact
+
+--select * from final order by transaction_id, member_contact_id, member_or_contact limit 5 offset 182295  --fail
