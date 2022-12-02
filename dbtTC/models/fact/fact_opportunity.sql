@@ -37,6 +37,11 @@ with
         from {{ ref('dim_opportunity')}}
     )
 
+    ,dim_agent as(
+        select *
+        from {{ ref('dim_agent')}}
+    )
+
     ,final as(
         select
             nvl(ld.lead_pk, 0) as lead_pk
