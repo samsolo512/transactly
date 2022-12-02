@@ -35,8 +35,6 @@ models:
       +materialized: table
     GCP:
       +materialized: table
-  # salesforce_source:
-  #   +schema: my_new_schema_name # leave blank for just the target_schema
 
 
 vars:
