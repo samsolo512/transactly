@@ -22,7 +22,10 @@ with
     ,final as(
         select
             working.seq_dim_task.nextval as task_pk
+
+            -- grain
             ,t.task_id
+
             ,t.due_date
             ,datediff(day, due_date, getdate()) as aging_days
             ,t.text
@@ -49,4 +52,3 @@ with
 
 select * from final
 
--- select task_id, count(1) from final group by task_id order by count(1) desc

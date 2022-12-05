@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: dim_task
+    description: One row per task
+    columns:
+      - name: task_pk
+        description: task primary key.  Assigned by data warehouse
+
+      - name: task_id
+        description: unique identifier for the task.  Assigned by TC app
+        test: not_null
+
+      - name: due_date
+        description: date the task is due
+
+      - name: aging days
+        description: number of days since the task was due
+
+      - name: text
+        description: description of the task
+
+      - name: status_name
+        description: the status of the task
+
+      - name: completed_date
+        description: date the task was completed
+
+      - name: completed_flag
+        description: integer (1 or 0) indicating whether the task was completed
+
+      - name: category
+        description: category of the task (contract, closing, under contract, inspections, ...)
+
+      - name: private_flag
+        description: integer (1 or 0) indicating whether the task is private
+
+      - name: assigned_to_name
+        description: name of the agent to whom the task is assigned
+
+      - name: tc_staff_flag
+        description: integer (1 or 0) indicating whether the task is assigned to internal staff

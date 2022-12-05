@@ -69,6 +69,8 @@ with
     ,final as(
         select
             working.seq_dim_transaction.nextval as transaction_pk
+
+            -- grain
             ,t.transaction_id
 
             -- agent

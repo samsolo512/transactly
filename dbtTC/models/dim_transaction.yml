@@ -1,0 +1,108 @@
+version: 2
+
+models:
+  - name: dim_transaction
+    description: One row per TC transaction
+    columns:
+      - name: transaction_pk
+        description: transaction primary key.  Assigned by data warehouse
+
+      - name: transaction_id
+        description: unique identifier for the transaction.  Assigned by TC app
+        test: not_null
+
+      - name: agent_first_name
+        description: first name of the agent who owns the transaction
+
+      - name: agent_last_name
+        description: last name of the agent who owns the transaction
+
+      - name: agent_email
+        description: email of the agent who owns the transaction
+
+      - name: agent_phone
+        description: phone number of the agent who owns the transaction
+
+      - name: tc_agent_user_id
+        description: the TC assigned unique identifier of the agent who owns the transaction
+
+      - name: tc_agent_first_name
+        description: first name of the TC agent assigned to the transaction
+
+      - name: tc_agent_last_name
+        description: last name of the TC agent assigned to the transaction
+
+      - name: tc_agent_email
+        description: email of the TC agent assigned to the transaction
+
+      - name: tc_agent_phone
+        description: phone number of the TC agent assigned to the transaction
+
+      - name: created_by_id
+        description: the TC assigned unique identifier of the user who created the transaction
+
+      - name: created_by_first_name
+        description: first name of the user who created the transaction
+
+      - name: created_by_last_name
+        description: last name of the user who created the transaction
+
+      - name: created_by_name
+        description: full name of the user who created the transaction
+
+      - name: type_id
+        description: integer that represents the TC assigned unique identifier of the type of transaction
+
+      - name: category_id
+        description:  integer that represents the TC assigned unique identifier of the category of transaction
+
+      - name: created_date
+        description: date the transaction was created
+
+      - name: closed_date
+        description: date the transaction was closed
+
+      - name: street
+        description: street address of the transaction
+
+      - name: city
+        description: city address of the transaction
+
+      - name: state
+        description: state address of the transaction
+
+      - name: zip
+        description: zip code of the transaction
+
+      - name: diy_flag
+        description: integer (1 or 0) indicating whether the transaction is diy or not
+
+      - name: current_contract_id
+        description: TC assigned unique identifier of the contract related to the transaction
+
+      - name: contract_closing_date
+        description: date the contract closed
+
+      - name: days_to_close
+        description: number of days between the current date and the contract closing date
+
+      - name: days_to_close_21_to_50_flag
+        description: integer (1 or 0) indicating whether the transaction closes between 21 and 50 days from now or not
+
+      - name: contract_amount
+        description: dollar value of the contract related to the transaction
+
+      - name: order_side_id
+        description: integer (1 or 0) indicating whether the order is buyer or seller side
+
+      - name: order_side
+        description: (buyer, seller)
+
+      - name: transaction_side_id
+        description: integer (1 or 0) indicating whether the transaction is buyer or seller side
+
+      - name: transaction_side
+        description: (buyer, seller)
+
+      - name: order_status
+        description: (closed, in progress, cancelled, withdrawn, complete, ...)
