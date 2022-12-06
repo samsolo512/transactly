@@ -2,12 +2,17 @@
 
 create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
+    ,opportunity_line_item_name string
     ,state string
     ,street string
     ,account_name string
-    ,opportunity_owner string
     ,email string
+    ,owner_name string
+    ,created_date date
     ,close_date date
+    ,days_to_close int
+    ,days_since_created int
+    ,last_stage_change_date date
     ,agent_name string
     ,agent_email string
     ,product_name string
@@ -17,4 +22,3 @@ create or replace table data_warehouse.fact_opportunity (
     ,stage string
     ,revenue numeric(18,2)
 )
-

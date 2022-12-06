@@ -23,13 +23,18 @@ with
 
     ,final as(
         select
-            o.opportunity_line_item_name as opportunity_name
+            o.opportunity_name
+            ,o.opportunity_line_item_name
             ,l.state
             ,l.street
             ,o.account_name
-            ,o.opportunity_name as opportunity_owner
             ,l.email
+            ,o.owner_name
+            ,fact.created_date
             ,fact.close_date
+            ,fact.days_to_close
+            ,fact.days_since_created
+            ,fact.last_stage_change_date
             ,l.agent_name
             ,l.agent_email
             ,o.product_name
@@ -45,14 +50,18 @@ with
             join dim_lead l on fact.lead_pk = l.lead_pk
 
         group by
-            o.opportunity_line_item_name
+            o.opportunity_name
+            ,o.opportunity_line_item_name
             ,l.state
             ,l.street
             ,o.account_name
-            ,o.opportunity_name
-            ,o.opportunity_name
             ,l.email
+            ,o.owner_name
+            ,fact.created_date
             ,fact.close_date
+            ,fact.days_to_close
+            ,fact.days_since_created
+            ,fact.last_stage_change_date
             ,l.agent_name
             ,l.agent_email
             ,o.product_name

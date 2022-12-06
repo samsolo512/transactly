@@ -48,11 +48,14 @@ with
             ,nvl(do.opportunity_pk, 0) as opportunity_pk
             ,nvl(ag.agent_pk, 0) as agent_pk
 
-            ,opp.close_date
             ,opp.created_date
+            ,opp.close_date
+            ,datediff(day, opp.created_date, opp.close_date) as days_to_close
+            ,opp.last_stage_change_date
             ,case when itm.revenue >= 1 then 1 else 0 end as revenue_connection_flag
             ,case when itm.revenue > 0 and itm.revenue < 1 then 1 else 0 end as unpaid_connection_flag
             ,itm.revenue
+            ,datediff(day, opp.created_date, getdate()) as days_since_created
 
         from
             src_sf_opportunity opp
