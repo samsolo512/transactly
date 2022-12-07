@@ -28,6 +28,11 @@ select
     ,regulated_trash_c as trash
     ,regulated_water_c as water
     ,regulated_gas_c as gas
-from src_sf_lead l
+    ,converted_date
+    ,is_converted
+
+from 
+    src_sf_lead l
+    
 where
     is_deleted = 'FALSE'

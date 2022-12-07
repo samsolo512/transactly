@@ -14,6 +14,10 @@ select
     ,o.created_date as created_date_time
     ,to_date(o.created_date) as created_date
     ,to_date(o.last_stage_change_date) as last_stage_change_date
+    ,amount
+    ,is_won
+    ,is_closed
+    ,forecast_category
 
 from
     src_sf_opportunity o
