@@ -28,7 +28,7 @@ with
             ,address2
             ,original_sales_rep_name
         
-            --flags
+            -- flags
             ,pays_at_title_flag
             ,eligible_for_clients_flag
             ,tc_staff_flag
@@ -36,18 +36,19 @@ with
             ,lead_flag
             ,self_procured_flag
         
-            --HubSpot fields
+            -- HubSpot fields
             ,HS_agent_type
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
         
-            --s
             ,user_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
             ,tier_3
             ,tier_2
             ,tier_1
+
+            -- orders
             ,last_order_due
             ,first_order_placed
             ,last_order_placed
@@ -56,6 +57,12 @@ with
             ,third_order_closed
             ,fourth_order_closed
             ,fifth_order_closed
+
+            ,anniversary_1_yr_1st_order_placed
+            ,days_since_last_order_placed
+            ,days_since_last_order_placed_over_90_flag
+            ,total_closed_orders
+
         from dim_user
     )
 

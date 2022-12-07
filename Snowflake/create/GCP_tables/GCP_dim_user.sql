@@ -46,4 +46,9 @@ create or replace table data_warehouse.dim_user (
     ,third_order_closed date
     ,fourth_order_closed date
     ,fifth_order_closed date
+
+    ,anniversary_1_yr_1st_order_placed date
+    ,days_since_last_order_placed int
+    ,days_since_last_order_placed_over_90_flag int
+    ,total_closed_orders int
 )

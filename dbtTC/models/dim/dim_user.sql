@@ -408,6 +408,41 @@ with
                 on a.user_id = b.user_id
                 and a.created_date = b.created_date
     )
+    
+    ,order_sequence as(
+        select
+            user.user_id
+            ,o.order_id
+            ,l.created_date
+            ,l.due_date as closed_date
+            ,l.id as line_item_id
+            ,case
+                when l.due_date is not null then row_number() over (partition by user.user_id order by l.due_date, o.order_id)
+                else null 
+                end as closed_sequence
+            ,row_number() over (partition by user.user_id order by l.created_date, o.order_id) as placed_sequence
+
+        from
+            src_tc_transaction t
+            join src_tc_order o on t.transaction_id = o.transaction_id
+            left join src_tc_line_item l
+                join dim_line_item line on l.id = line.line_item_id
+            on o.order_id = l.order_id
+            left join dim_user user on o.agent_id = user.user_id
+
+        where
+            l.description in('Listing Coordination Fee', 'Transaction Coordination Fee')
+    )
+    
+    ,total_orders as(
+        select
+            user_id
+            ,max(closed_sequence) as total_closed_orders
+        from
+            order_sequence os
+        group by
+            user_id
+    )
 
     ,final_logic as(
         select
@@ -499,6 +534,11 @@ with
             ,c3.third_order_closed
             ,c4.fourth_order_closed
             ,c5.fifth_order_closed
+        
+            ,dateadd(year, 1, fp.first_order_placed) as anniversary_1_yr_1st_order_placed
+            ,datediff(day, loc.last_order_placed, getdate()) as days_since_last_order_placed
+            ,case when days_since_last_order_placed >= 90 then 1 else 0 end as days_since_last_order_placed_over_90_flag
+            ,toto.total_closed_orders
 
         from
             user_lead ul
@@ -525,6 +565,7 @@ with
             left join third_order_closed c3 on u.user_id = c3.user_id
             left join fourth_order_closed c4 on u.user_id = c4.user_id
             left join fifth_order_closed c5 on u.user_id = c5.user_id
+            left join total_orders toto on u.user_id = toto.user_id
 
         group by
             u.user_id
@@ -574,6 +615,10 @@ with
             ,c3.third_order_closed
             ,c4.fourth_order_closed
             ,c5.fifth_order_closed
+            ,dateadd(year, 1, fp.first_order_placed)
+            ,datediff(day, loc.last_order_placed, getdate())
+            ,case when days_since_last_order_placed >= 90 then 1 else 0 end
+            ,toto.total_closed_orders
     )
 
     ,final as(
@@ -641,6 +686,11 @@ with
             ,max(third_order_closed) as third_order_closed
             ,max(fourth_order_closed) as fourth_order_closed
             ,max(fifth_order_closed) as fifth_order_closed
+        
+            ,anniversary_1_yr_1st_order_placed
+            ,days_since_last_order_placed
+            ,days_since_last_order_placed_over_90_flag
+            ,total_closed_orders
 
         from final_logic
 
@@ -687,12 +737,17 @@ with
             ,days_between_start_date_and_first_order_date
             ,tier_3
             ,last_order_due
+            ,anniversary_1_yr_1st_order_placed
+            ,days_since_last_order_placed
+            ,days_since_last_order_placed_over_90_flag
+            ,total_closed_orders
 
 
         union select
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null
 
     )
 

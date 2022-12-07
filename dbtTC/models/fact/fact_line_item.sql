@@ -44,6 +44,7 @@ with
         select *
         from {{ ref('dim_agent')}}
     )
+
     ,order_sequence as(
         select
             user.user_id
@@ -53,7 +54,8 @@ with
             ,l.id as line_item_id
             ,case
                 when l.due_date is not null then row_number() over (partition by user.user_id order by l.due_date, o.order_id)
-                else null end as closed_sequence
+                else null 
+                end as closed_sequence
             ,row_number() over (partition by user.user_id order by l.created_date, o.order_id) as placed_sequence
 
         from
@@ -66,8 +68,6 @@ with
 
         where
             l.description in('Listing Coordination Fee', 'Transaction Coordination Fee')
-
---         order by user.user_id, l.created_date, o.order_id
     )
 
 select
