@@ -37,6 +37,7 @@ with
             ,gas
             ,internet
             ,account_name
+            ,parent_account_name
             ,account_owner
 
         from dim_lead

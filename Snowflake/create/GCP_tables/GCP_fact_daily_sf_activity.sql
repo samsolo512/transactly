@@ -10,5 +10,4 @@ create or replace table data_warehouse.fact_daily_sf_activity (
     ,opportunities_won_amount int
     ,opportunities_lost int
     ,opportunities_lost_amount int
-    ,pipeline_amount int
 )

@@ -22,7 +22,7 @@ with
             ,opportunities_won_amount
             ,opportunities_lost
             ,opportunities_lost_amount
-            ,pipeline_amount
+            --,pipeline_amount
 
         from fact_daily_sf_activity
     )

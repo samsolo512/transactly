@@ -9,6 +9,7 @@ select
     ,a.name as account_name
     ,a.owner_id
     ,a.partner_status_c as partner_status
+    ,a.parent_id
 from src_sf_account a
 where
     is_deleted = 'FALSE'
