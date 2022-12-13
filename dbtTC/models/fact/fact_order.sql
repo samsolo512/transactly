@@ -30,6 +30,11 @@ with
         from {{ ref('dim_transaction')}}
     )
 
+    ,dim_user as(
+        select *
+        from {{ ref('dim_user')}}
+    )
+
 --     ,order_sequence as(
 --         select
 --             o.order_id
