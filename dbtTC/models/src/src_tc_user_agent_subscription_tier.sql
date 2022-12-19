@@ -1,8 +1,9 @@
-with src_tc_user_agent_subscription_tier as(
-    select *
-    from {{ source('gcp_prod_gcp_prod_prod', 'user_agent_subscription_tier') }}
-    where lower(_fivetran_deleted) = 'false'
-)
+with 
+    src_tc_user_agent_subscription_tier as(
+        select *
+        from {{ source('gcp_prod_gcp_prod_prod', 'user_agent_subscription_tier') }}
+        where lower(_fivetran_deleted) = 'false'
+    )
 
 select
     u.id

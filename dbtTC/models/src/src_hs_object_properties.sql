@@ -11,5 +11,5 @@ select
     objectid
     ,objecttypeid
     ,name
-    ,value
+    ,trim({{ field_clean('value') }}) as value
 from src_HS_object_properties

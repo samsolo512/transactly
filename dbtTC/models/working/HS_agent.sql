@@ -7,7 +7,7 @@
 with
     src_hs_object_properties as(
         select *
-        from {{ source('hs', 'object_properties') }}
+        from {{ ref('src_hs_object_properties') }}
     )
 
 select
