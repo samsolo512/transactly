@@ -438,6 +438,7 @@ with
         select
             user_id
             ,max(closed_sequence) as total_closed_orders
+            ,max(placed_sequence) as total_placed_orders
         from
             order_sequence os
         group by
@@ -539,6 +540,7 @@ with
             ,datediff(day, loc.last_order_placed, getdate()) as days_since_last_order_placed
             ,case when days_since_last_order_placed >= 90 then 1 else 0 end as days_since_last_order_placed_over_90_flag
             ,toto.total_closed_orders
+            ,toto.total_placed_orders
 
         from
             user_lead ul
@@ -619,6 +621,7 @@ with
             ,datediff(day, loc.last_order_placed, getdate())
             ,case when days_since_last_order_placed >= 90 then 1 else 0 end
             ,toto.total_closed_orders
+            ,toto.total_placed_orders
     )
 
     ,final as(
@@ -691,6 +694,7 @@ with
             ,days_since_last_order_placed
             ,days_since_last_order_placed_over_90_flag
             ,total_closed_orders
+            ,total_placed_orders
 
         from final_logic
 
@@ -741,13 +745,14 @@ with
             ,days_since_last_order_placed
             ,days_since_last_order_placed_over_90_flag
             ,total_closed_orders
+            ,total_placed_orders
 
 
         union select
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null
+            null, null, null, null
 
     )
 

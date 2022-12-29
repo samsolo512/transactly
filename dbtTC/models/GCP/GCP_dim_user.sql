@@ -62,6 +62,7 @@ with
             ,days_since_last_order_placed
             ,days_since_last_order_placed_over_90_flag
             ,total_closed_orders
+            ,total_placed_orders
 
         from dim_user
     )
