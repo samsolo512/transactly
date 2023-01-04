@@ -6,7 +6,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,state string
     ,street string
     ,account_name string
-    ,email string
+    ,lead_email string
     ,owner_name string
     ,created_date date
     ,close_date date
@@ -20,5 +20,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,revenue_connection_flag int
     ,unpaid_connection_flag int
     ,stage string
+    ,o.email as contact_email
+    ,o.contact_id
     ,revenue numeric(18,2)
 )

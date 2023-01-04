@@ -28,7 +28,7 @@ with
             ,l.state
             ,l.street
             ,o.account_name
-            ,l.email
+            ,l.email as lead_email
             ,o.owner_name
             ,fact.created_date
             ,fact.close_date
@@ -42,6 +42,8 @@ with
             ,fact.revenue_connection_flag
             ,fact.unpaid_connection_flag
             ,o.stage
+            ,o.email as contact_email
+            ,o.contact_id
             ,sum(fact.revenue) as revenue
 
         from
@@ -69,7 +71,8 @@ with
             ,fact.revenue_connection_flag
             ,fact.unpaid_connection_flag
             ,o.stage
+            ,o.email
+            ,o.contact_id
     )
 
 select * from final
-
