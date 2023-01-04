@@ -20,7 +20,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,revenue_connection_flag int
     ,unpaid_connection_flag int
     ,stage string
-    ,o.email as contact_email
-    ,o.contact_id
+    ,contact_email string
+    ,contact_id string
     ,revenue numeric(18,2)
 )
