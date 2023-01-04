@@ -57,4 +57,5 @@ create or replace table data_warehouse.fact_line_item (
     ,agreement_type string
     ,agent_paid_date date
     ,referral_amount int
+    ,user_email string
 )

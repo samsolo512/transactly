@@ -84,6 +84,7 @@ with
             ,o.agreement_type
             ,agt_pd.date_id as agent_paid_date
             ,o.referral_amount
+            ,user.email as user_email
 
         from
             fact_line_item fact
