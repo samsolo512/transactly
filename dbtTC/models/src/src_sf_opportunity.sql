@@ -9,7 +9,7 @@ select
     ,o.close_date
     ,o.name as opportunity_name
     ,o.owner_id
-    ,o.id as opportunity_id
+    ,trim(o.id) as opportunity_id
     ,o.stage_name as stage
     ,o.created_date as created_date_time
     ,to_date(o.created_date) as created_date

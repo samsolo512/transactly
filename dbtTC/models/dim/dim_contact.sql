@@ -27,6 +27,7 @@ select
     ,c.last_name
     ,c.first_name
     ,c.transaction_id
+
 from
     src_tc_contact c
     join src_tc_party p on c.party_id = p.party_id

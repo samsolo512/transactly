@@ -4,10 +4,10 @@ with src_sf_vendor_payout_c as(
 )
 
 select
-    p.name
-    ,p.amount_c
+    p.name as vendor_payout_name
+    ,p.amount_c as vendor_payout_amount
     ,p.id as vendor_payout_id
-    ,p.date_c as payout_date
+    ,p.date_c as vendor_payout_date
     ,p.opportunity_c as opportunity_id
 from 
     src_sf_vendor_payout_c p

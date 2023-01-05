@@ -58,6 +58,8 @@ with
             ,cont.state
             ,cont.created_date
             ,cont.water
+            ,cont.full_name as contact_full_name
+            ,opp.close_date as opportunity_close_date
 
         from
             src_sf_opportunity opp
@@ -68,7 +70,7 @@ with
             left join src_sf_product_2 p on itm.product_id = p.product_id
             left join src_sf_account a on opp.account_id = a.account_id
 
-        union select 0, '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null
+        union select 0, '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

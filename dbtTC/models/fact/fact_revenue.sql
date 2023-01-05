@@ -83,10 +83,10 @@ with
             a.agent_pk
             ,opp.opportunity_id
             ,v.vendor_payout_id
-            ,v.payout_date as date
+            ,v.vendor_payout_date as date
             ,0 as opportunity_revenue
             ,0 as transactly_revenue
-            ,sum(v.amount_c) as payout_revenue
+            ,sum(v.vendor_payout_amount) as payout_revenue
 
         from
             fact_opportunity fact
@@ -95,10 +95,10 @@ with
             left join src_sf_vendor_payout_c v on opp.opportunity_id = v.opportunity_id
 
         where
-            v.amount_c is not null
+            v.vendor_payout_amount is not null
             
         group by
-            a.agent_pk, v.payout_date, v.vendor_payout_id, opp.opportunity_id
+            a.agent_pk, v.vendor_payout_date, v.vendor_payout_id, opp.opportunity_id
     )
    
    ,combine as(

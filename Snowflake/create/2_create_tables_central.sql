@@ -148,6 +148,8 @@ create or replace sequence working.seq_dim_task start=1 increment=1;
 
 create or replace sequence working.seq_dim_transaction start=1 increment=1;
 
+create or replace sequence working.seq_dim_vendor_payout start=1 increment=1;
+
 
 
 
