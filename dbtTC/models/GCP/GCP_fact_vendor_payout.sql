@@ -33,6 +33,8 @@ with
             ,opp.opportunity_close_date
             ,fact.vendor_payout_date
             ,fact.vendor_payout_amount
+            ,pay.vendor_name
+            ,pay.spiff
 
         from
             fact_vendor_payout fact

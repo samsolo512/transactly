@@ -9,6 +9,8 @@ select
     ,p.id as vendor_payout_id
     ,p.date_c as vendor_payout_date
     ,p.opportunity_c as opportunity_id
+    ,p.spiff_c as spiff
+    ,p.vendor_c
 from 
     src_sf_vendor_payout_c p
 where

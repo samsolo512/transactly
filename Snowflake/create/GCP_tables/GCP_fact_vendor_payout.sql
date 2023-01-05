@@ -10,4 +10,6 @@ create or replace table data_warehouse.fact_vendor_payout (
     ,opportunity_close_date date
     ,vendor_payout_date date
     ,vendor_payout_amount numeric(10,2)
+    ,vendor_name string
+    ,spiff numeric(10,2)
 )
