@@ -25,6 +25,7 @@ with
         select
             o.opportunity_name
             ,o.opportunity_line_item_name
+            ,o.opportunity_id
             ,l.state
             ,l.street
             ,o.account_name
@@ -54,6 +55,7 @@ with
         group by
             o.opportunity_name
             ,o.opportunity_line_item_name
+            ,o.opportunity_id
             ,l.state
             ,l.street
             ,o.account_name

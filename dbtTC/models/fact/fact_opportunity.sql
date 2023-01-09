@@ -26,6 +26,11 @@ with
         select *
         from {{ ref('src_sf_product_2')}}
     )
+    
+    ,src_sf_vendor_payout_c as(
+        select *
+        from {{ ref('src_sf_vendor_payout_c')}}
+    )
 
     ,dim_lead as(
         select *
@@ -41,7 +46,7 @@ with
         select *
         from {{ ref('dim_agent')}}
     )
-
+    
     ,final as(
         select
             nvl(ld.lead_pk, 0) as lead_pk
@@ -53,7 +58,11 @@ with
             ,datediff(day, opp.created_date, opp.close_date) as days_to_close
             ,opp.last_stage_change_date
             ,case when itm.revenue >= 1 then 1 else 0 end as revenue_connection_flag
-            ,case when itm.revenue > 0 and itm.revenue < 1 then 1 else 0 end as unpaid_connection_flag
+            --,case when itm.revenue > 0 and itm.revenue < 1 then 1 else 0 end as unpaid_connection_flag
+            ,case 
+                when v.opportunity_id is not null and itm.revenue > 0 then 0
+                else 1
+                end as unpaid_connection_flag
             ,itm.revenue
             ,datediff(day, opp.created_date, getdate()) as days_since_created
 
@@ -76,6 +85,7 @@ with
                 on opp.opportunity_id = do.opportunity_id
                 and p.product_id = do.product_id
             left join dim_agent ag on l.agent_email = ag.agent_email
+            left join src_sf_vendor_payout_c v on v.opportunity_id = opp.opportunity_id
     )
 
 select * from final

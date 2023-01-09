@@ -3,6 +3,7 @@
 create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
     ,opportunity_line_item_name string
+    ,opportunity_id string
     ,state string
     ,street string
     ,account_name string

@@ -1,3 +1,5 @@
+-- src_sf_opportunity
+
 with src_sf_opportunity as(
     select *
     from {{ source('salesforce_salesforce', 'opportunity') }}
@@ -14,10 +16,15 @@ select
     ,o.created_date as created_date_time
     ,to_date(o.created_date) as created_date
     ,to_date(o.last_stage_change_date) as last_stage_change_date
-    ,amount
-    ,is_won
-    ,is_closed
-    ,forecast_category
+    ,o.amount
+    ,o.is_won
+    ,o.is_closed
+    ,o.forecast_category
+    ,case 
+        when o.paid_c = 'TRUE' then 1
+        when o.paid_c = 'FALSE' then 0
+        else null
+        end as paid_flag
 
 from
     src_sf_opportunity o
