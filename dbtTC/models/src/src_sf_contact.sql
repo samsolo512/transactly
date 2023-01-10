@@ -16,6 +16,7 @@ select
     ,c.last_name
     ,{{ field_clean('c.first_name') }} as first_name
     ,c.name as full_name
+    ,c.mobile_phone
     ,c.mobile_phone as phone
     ,c.owner_id
     ,c.created_date as created_date_time

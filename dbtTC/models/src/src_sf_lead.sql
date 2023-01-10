@@ -1,3 +1,5 @@
+-- src_sf_lead
+
 with src_sf_lead as(
     select *
     from {{ source('salesforce_salesforce', 'lead') }}
@@ -14,7 +16,8 @@ select
     ,l.state
     ,l.postal_code as zip
     ,l.country
-    ,l.mobile_phone as phone
+    ,l.mobile_phone
+    ,l.phone
     ,l.email
     ,l.lead_source
     ,l.created_date as created_date_time

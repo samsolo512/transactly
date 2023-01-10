@@ -23,31 +23,45 @@ with
 
     ,final as(
         select
+            -- opportunity
             o.opportunity_name
             ,o.opportunity_line_item_name
             ,o.opportunity_id
-            ,l.state
-            ,l.street
+            ,o.stage
+            ,o.lease_start_date
+
+            -- account and product
             ,o.account_name
+            ,o.product_name
+            ,o.product_family
+
+            -- lead
+            ,l.street as lead_street
+            ,l.state as lead_state
+            ,l.phone as lead_phone
+            ,l.mobile_phone as lead_mobile_phone
             ,l.email as lead_email
-            ,o.owner_name
+            ,l.owner_name as lead_owner_name
+            ,l.agent_name as lead_agent_name
+            ,l.agent_email as lead_agent_email
+            
+            -- contact
+            ,o.contact_id
+            ,o.contact_full_name
+            ,o.contact_phone
+            ,o.contact_mobile_phone
+            ,o.contact_email
+
+            -- facts
+            ,o.service_start_date
             ,fact.created_date
             ,fact.close_date
             ,fact.days_to_close
             ,fact.days_since_created
             ,fact.last_stage_change_date
-            ,l.agent_name
-            ,l.agent_email
-            ,o.product_name
-            ,o.product_family
             ,fact.revenue_connection_flag
             ,fact.unpaid_connection_flag
-            ,o.stage
-            ,o.email as contact_email
-            ,o.contact_id
             ,sum(fact.revenue) as revenue
-            ,o.lease_start_date
-            ,o.phone
 
         from
             fact_opportunity fact
@@ -55,30 +69,8 @@ with
             join dim_lead l on fact.lead_pk = l.lead_pk
 
         group by
-            o.opportunity_name
-            ,o.opportunity_line_item_name
-            ,o.opportunity_id
-            ,l.state
-            ,l.street
-            ,o.account_name
-            ,l.email
-            ,o.owner_name
-            ,fact.created_date
-            ,fact.close_date
-            ,fact.days_to_close
-            ,fact.days_since_created
-            ,fact.last_stage_change_date
-            ,l.agent_name
-            ,l.agent_email
-            ,o.product_name
-            ,o.product_family
-            ,fact.revenue_connection_flag
-            ,fact.unpaid_connection_flag
-            ,o.stage
-            ,o.email
-            ,o.contact_id
-            ,o.lease_start_date
-            ,o.phone
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+            17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
     )
 
 select * from final

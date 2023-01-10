@@ -316,6 +316,7 @@ with
                 ,case when l.country is not null then ', ' || l.country else '' end
             ) as full_address
             ,l.phone
+            ,l.mobile_phone
             ,l.email
             ,l.lead_source
             ,l.created_date as lead_created_date
@@ -331,6 +332,7 @@ with
             ,ulead.account_name
             ,ulead.account_owner
             ,b.account_name as parent_account_name
+            ,u.name as owner_name
 
         from
             lead_id ul
@@ -348,12 +350,13 @@ with
 --             left join src_sf_user uco on c.owner_id = uco.user_id
             left join unique_lead ulead on ul.lead_id = ulead.lead_id
             left join src_sf_account b on ulead.parent_id = b.account_id
+            left join src_sf_user u on l.owner_id = u.user_id
 
         union
         select
             0, '0', 
-            null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

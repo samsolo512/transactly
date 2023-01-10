@@ -4,26 +4,39 @@ create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
     ,opportunity_line_item_name string
     ,opportunity_id string
-    ,state string
-    ,street string
+    ,stage string
+    ,lease_start_date string
+
+    -- account and product
     ,account_name string
+    ,product_name string
+    ,product_family string
+
+    -- lead
+    ,lead_street string
+    ,lead_state string
+    ,lead_phone string
+    ,lead_mobile_phone string
     ,lead_email string
-    ,owner_name string
+    ,lead_owner_name string
+    ,lead_agent_name string
+    ,lead_agent_email string
+    
+    -- contact
+    ,contact_id string
+    ,contact_full_name string
+    ,contact_phone string
+    ,contact_mobile_phone string
+    ,contact_email string
+
+    -- facts
+    ,service_start_date date
     ,created_date date
     ,close_date date
     ,days_to_close int
     ,days_since_created int
     ,last_stage_change_date date
-    ,agent_name string
-    ,agent_email string
-    ,product_name string
-    ,product_family string
     ,revenue_connection_flag int
     ,unpaid_connection_flag int
-    ,stage string
-    ,contact_email string
-    ,contact_id string
     ,revenue numeric(18,2)
-    ,lease_start_date string
-    ,phone string
 )
