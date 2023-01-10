@@ -25,6 +25,7 @@ select
         when o.paid_c = 'FALSE' then 0
         else null
         end as paid_flag
+    ,lease_begins_c as lease_start_date
 
 from
     src_sf_opportunity o

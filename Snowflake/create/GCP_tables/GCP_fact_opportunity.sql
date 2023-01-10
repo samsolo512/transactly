@@ -24,4 +24,6 @@ create or replace table data_warehouse.fact_opportunity (
     ,contact_email string
     ,contact_id string
     ,revenue numeric(18,2)
+    ,lease_start_date string
+    ,phone string
 )

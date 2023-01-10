@@ -46,6 +46,8 @@ with
             ,o.email as contact_email
             ,o.contact_id
             ,sum(fact.revenue) as revenue
+            ,o.lease_start_date
+            ,o.phone
 
         from
             fact_opportunity fact
@@ -75,6 +77,8 @@ with
             ,o.stage
             ,o.email
             ,o.contact_id
+            ,o.lease_start_date
+            ,o.phone
     )
 
 select * from final
