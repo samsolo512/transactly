@@ -55,7 +55,7 @@ create or replace table data_warehouse.fact_line_item (
     ,stripe_paid numeric
     ,rev_share_amount numeric
     ,agreement_type string
-    ,agent_paid_date date
+    ,stripe_paid_date date
     ,referral_amount int
     ,user_email string
     ,user_total_closed_orders int

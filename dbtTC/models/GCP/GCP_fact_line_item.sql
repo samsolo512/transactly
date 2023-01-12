@@ -82,7 +82,7 @@ with
             ,fact.stripe_paid
             ,fact.rev_share_amount
             ,o.agreement_type
-            ,agt_pd.date_id as agent_paid_date
+            ,agt_pd.date_id as stripe_paid_date
             ,o.referral_amount
             ,user.email as user_email
             ,user.total_closed_orders as user_total_closed_orders
