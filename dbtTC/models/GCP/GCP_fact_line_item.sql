@@ -85,6 +85,7 @@ with
             ,agt_pd.date_id as agent_paid_date
             ,o.referral_amount
             ,user.email as user_email
+            ,user.total_closed_orders as user_total_closed_orders
 
         from
             fact_line_item fact
