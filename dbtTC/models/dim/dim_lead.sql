@@ -245,8 +245,8 @@ with
             src_sf_account a
             left join src_sf_partner_lead_c c on c.partner_c = a.account_id
             -- left join src_sf_lead l on c.lead_c = l.lead_id
-        where
-            account_name not like '%Lead Abandon%'
+        --where
+            --account_name not like '%Lead Abandon%'
         group by c.lead_c
     )
 
@@ -262,8 +262,8 @@ with
             join max_acct ma
                 on c.lead_c = ma.lead_c
                 and c.created_date = ma.created_date
-        where
-            account_name not like '%Lead Abandon%'
+        --where
+            --account_name not like '%Lead Abandon%'
         group by
             l.lead_id, c.created_date
     )
@@ -285,8 +285,8 @@ with
                 on l.lead_id = ma.lead_id
                 and c.created_date = ma.created_date
                 and a.account_id = ma.account_id
-        where
-            account_name not like '%Lead Abandon%'
+        --where
+            --account_name not like '%Lead Abandon%'
     )
 
     ,final as(
@@ -346,8 +346,6 @@ with
                     on c.lead_id = contact.lead_id
                     and c.created_date_time = contact.created_date_time
                 on l.lead_id = c.lead_id
---             left join src_sf_user ulo on a.owner_id = ulo.user_id
---             left join src_sf_user uco on c.owner_id = uco.user_id
             left join unique_lead ulead on ul.lead_id = ulead.lead_id
             left join src_sf_account b on ulead.parent_id = b.account_id
             left join src_sf_user u on l.owner_id = u.user_id
