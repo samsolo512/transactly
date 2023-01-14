@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: dim_vendor_payout
+    description: one row per vendor pmt to transactly
+    columns:
+      - name: vendor_payout_pk
+        description: vendor payout primary key.  Assigned by data warehouse.
+
+      - name: vendor_payout_id
+        description: unique identifier for the vendor payout. Assigned by Salesforce.
+        test: not_null
+
+      - name: vendor_payout_name
+
+      - name: spiff
+
+      - name: vendor_name

@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: dim_user
+    description: users in the Transactly database
+    columns:
+      - name: user_pk
+        description: user primary key.  Assigned by data warehouse.
+
+      - name: user_id
+        description: unique identifier for the user. Assigned by TC app.
+        test: not_null
+
+      - name: first_name
+        description: first name of the user
+
+      - name: last_name
+        description: last name of the user
+
+      - name: fullname
+        description: full name of the user
+
+      - name: email
+        description: email of the user
+
+      - name: brokerage
+        description: the brokerage assigned to the user record
+
+      - name: office_id
+        description: the unique identifier of the office attached to the user
+
+      - name: office_name
+        description: the name of the office attached to the userd
+
+      - name: subscription_level
+        description: agent membership level - free, pro
+
+      - name: lead_status
+
+      - name: contact_owner
+
+      - name: original_sales_rep_name
+
+      - name: stripe_account_id
+
+      - name: utility_opt_in_status
+
+      - name: role_super_admin_flag
+
+      - name: role_user_flag
+
+      - name: role_staff_flag
+
+      - name: role_beta_agent_flag
+
+      - name: role_agent_flag
+
+      - name: role_unlicensed_flag
+
+      - name: role_lender_flag
+
+      - name: role_partner_flag
+
+      - name: role_trans_coordinator_flag
+
+      - name: address
+
+      - name: address2
+
+      - name: pays_at_title_flag
+
+      - name: eligible_for_clients_flag
+
+      - name: client_type
+
+      - name: self_procured_flag
+
+      - name: active_flag
+
+      - name: HS_agent_type
+
+      - name: transactly_home_insurance_vendor_status
+
+      - name: transactly_utility_connection_vendor_status
+
+      - name: user_created_date
+
+      - name: start_date
+
+      - name: days_between_start_date_and_first_order_date
+
+      - name: tier_3
+
+      - name: tier_2
+
+      - name: tier_1
+
+      - name: last_order_due
+
+      - name: first_order_placed
+
+      - name: last_order_placed
+
+      - name: first_order_closed
+
+      - name: second_order_closed
+
+      - name: third_order_closed
+
+      - name: fourth_order_closed
+
+      - name: fifth_order_closed
+
+      - name: anniversary_1_yr_1st_order_placed
+
+      - name: days_since_last_order_placed
+
+      - name: days_since_last_order_placed_over_90_flag
+
+      - name: total_closed_orders
+
+      - name: total placed_orders
