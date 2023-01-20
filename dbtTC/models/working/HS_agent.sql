@@ -22,6 +22,7 @@ select
     ,original_sales_repr as original_sales_rep
     ,hubspot_owner_id as contact_owner
     ,hs_lifecyclestage_customer_date as became_a_customer
+    ,assigned_tc
     ,renewal_date
     ,case when mobilephone = '' then null else mobilephone end as mobile_phone_number
     ,case when phone = '' then null else phone end as phone_number
@@ -63,7 +64,7 @@ from(
             ,'hubspot_owner_id'  -- contact owner
             ,'hs_lifecyclestage_customer_date'  -- became a customer
             -- is active (APP)
-            -- assigned TC (APP)
+            ,'assigned_tc'
             -- number of Active Transactions (APP)
             -- user number of orders (APP)
             ,'renewal_date'  -- renewal date (APP)
@@ -109,6 +110,7 @@ pivot(
         ,'original_sales_repr'
         ,'hubspot_owner_id'
         ,'hs_lifecyclestage_customer_date'
+        ,'assigned_tc'
         ,'renewal_date'
         ,'mobilephone'
         ,'phone'
@@ -141,6 +143,7 @@ as p(
     ,original_sales_repr
     ,hubspot_owner_id
     ,hs_lifecyclestage_customer_date
+    ,assigned_tc
     ,renewal_date
     ,mobilephone
     ,phone

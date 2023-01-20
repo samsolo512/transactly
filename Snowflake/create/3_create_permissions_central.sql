@@ -314,8 +314,6 @@ grant usage on database prod to role prod_dimensional_read;
 grant usage on schema prod.dimensional to role prod_dimensional_read;
 grant select on all tables in schema prod.dimensional to role prod_dimensional_read;
 grant select on future tables in schema prod.dimensional to role prod_dimensional_read;
-grant select on all views in schema prod.dimensional to role prod_dimensional_read;
-grant select on future views in schema prod.dimensional to role prod_dimensional_read;
 
 
 -- hubspot_owner

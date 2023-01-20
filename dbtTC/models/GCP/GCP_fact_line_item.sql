@@ -86,6 +86,8 @@ with
             ,o.referral_amount
             ,user.email as user_email
             ,user.total_closed_orders as user_total_closed_orders
+            ,user.HS_lead_status
+            ,user.HS_assigned_TC
 
         from
             fact_line_item fact

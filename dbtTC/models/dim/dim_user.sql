@@ -517,6 +517,8 @@ with
             ,hagent.type as HS_agent_type
             ,hagent.transactly_home_insurance_vendor_status
             ,hagent.transactly_utility_connection_vendor_status
+            ,hagent.lead_status as HS_lead_status
+            ,hagent.assigned_tc as HS_assigned_TC
 
             -- dates
             ,u.created_date as user_created_date
@@ -606,6 +608,8 @@ with
             ,hagent.type
             ,hagent.transactly_home_insurance_vendor_status
             ,hagent.transactly_utility_connection_vendor_status
+            ,hagent.lead_status
+            ,hagent.assigned_tc
             ,u.created_date
             ,hagent.created_date
             ,tier_3
@@ -671,6 +675,8 @@ with
             ,HS_agent_type
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
+            ,HS_lead_status
+            ,HS_assigned_TC
 
             -- dates
             ,user_created_date
@@ -736,6 +742,8 @@ with
             ,HS_agent_type
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
+            ,HS_lead_status
+            ,HS_assigned_TC
             ,user_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
@@ -752,7 +760,7 @@ with
             0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null
+            null, null, null, null, null, null
 
     )
 

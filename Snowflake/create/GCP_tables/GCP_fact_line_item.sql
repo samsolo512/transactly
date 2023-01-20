@@ -59,4 +59,6 @@ create or replace table data_warehouse.fact_line_item (
     ,referral_amount int
     ,user_email string
     ,user_total_closed_orders int
+    ,HS_lead_status string
+    ,HS_assigned_TC string
 )
