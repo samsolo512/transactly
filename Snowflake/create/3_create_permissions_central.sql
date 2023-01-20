@@ -17,6 +17,7 @@ grant role data_analyst to user qstrother;
 grant role data_analyst to user mclifton;
 grant role data_analyst to user jcollado;
 grant role data_engineer to user datagrip_svc;
+grant role metabase_role to user metabase_svc;
 grant usage on warehouse PowerBI_WH to role PowerBI_role;
 
 
@@ -28,6 +29,7 @@ grant role fivetran_role to role data_engineer;
 grant role tableau_role to role data_engineer;
 grant role data_analyst to role data_engineer;
 grant role dbt_role to role data_engineer;
+grant role metabase_role to role data_engineer;
 
 
 -- grant user roles to sysadmin
@@ -35,6 +37,7 @@ grant role fivetran_role to role sysadmin;
 grant role data_engineer to role sysadmin;
 grant role airbyte_role to role sysadmin;
 grant role dbt_role to role sysadmin;
+grant role metabase_role to role sysadmin;
 
 
 ----------------------------------------------------------------------------------------------------
@@ -89,6 +92,15 @@ grant usage on warehouse transactlydev to role data_engineer;
 grant usage on warehouse airbyte_wh to role airbyte_role;
 grant usage on integration GCP to role data_engineer;
 grant imported privileges on database snowflake to role data_engineer;  -- so can view snowflake database
+
+
+-- metabase_role
+grant role ext_transactly_app to role metabase_role;
+grant role ext_quickbooks to role metabase_role;
+grant role ext_salesforce to role metabase_role;
+grant role ext_stripe to role metabase_role;
+grant role ext_twoTurnItOn to role metabase_role;
+grant usage on warehouse metabase_wh to role metabase_role;
 
 
 -- sysadmin
@@ -147,6 +159,35 @@ grant usage on all schemas in database airbyte to role airbyte_read;
 grant select on all tables in database airbyte to role airbyte_read;
 grant select on future tables in database airbyte to role airbyte_read;
 
+
+-- ext_quickbooks
+grant usage on database fivetran to role ext_quickbooks;
+grant usage on schema fivetran.quickbooks to role ext_quickbooks;
+grant select on all tables in schema fivetran.quickbooks to ext_quickbooks;
+
+
+-- ext_salesforce
+grant usage on database fivetran to role ext_salesforce;
+grant usage on schema fivetran.salesforce to role ext_salesforce;
+grant select on all tables in schema fivetran.salesforce to ext_salesforce;
+
+
+-- ext_stripe
+grant usage on database fivetran to role ext_stripe;
+grant usage on schema fivetran.stripe to role ext_stripe;
+grant select on all tables in schema fivetran.stripe to ext_stripe;
+
+
+-- ext_transactly_app
+grant usage on database fivetran to role ext_transactly_app;
+grant usage on schema fivetran.gcp_prod_prod to role ext_transactly_app;
+grant select on all tables in schema fivetran.gcp_prod_prod to ext_transactly_app;
+
+
+-- ext_twoTurnItOn
+grant usage on database fivetran to role ext_twoTurnItOn;
+grant usage on schema fivetran.twoturniton_dbo to role ext_twoTurnItOn;
+grant select on all tables in schema fivetran.twoturniton_dbo to ext_twoTurnItOn;
 
 
 -- fivetran_owner and quickbooks_owner should be kept together in this order so that all

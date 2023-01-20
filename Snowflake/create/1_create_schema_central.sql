@@ -10,7 +10,7 @@ create warehouse if not exists fivetran_wh with warehouse_size = xsmall scaling_
 create warehouse if not exists PowerBI_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
 create warehouse if not exists Tableau_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
 create warehouse if not exists dbt_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
-
+create warehouse if not exists metabase_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
 
 
 ---------------------------------------------------------------------------------------------------
@@ -46,6 +46,7 @@ create user if not exists powerbi_svc default_role = powerbi_role default_wareho
 create user if not exists dbt_svc default_role = dbt_role default_warehouse = dbt_WH default_namespace = dev.models password = '' must_change_password = false;
 create user if not exists fivetran_user default_role = fivetran_role default_warehouse = fivetran_wh password = '' must_change_password = false;
 create user if not exists datagrip_svc default_role = data_engineeer default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
+create user if not exists metabase_svc default_role = metabase_role default_warehouse = metabase_wh default_namespace = prod.dimensional password = '' must_change_password = false;
 
 -- create or modify users
 create user if not exists sbrown default_role = data_engineer default_warehouse = compute_wh default_namespace = dev.dimensional;
@@ -64,6 +65,7 @@ create role if not exists data_analyst;
 create role if not exists data_engineer;
 create role if not exists dbt_role;
 create role if not exists fivetran_role;
+create role if not exists metabase_role;
 create role if not exists powerbi_role;
 create role if not exists tableau_role;
 
@@ -71,6 +73,11 @@ create role if not exists tableau_role;
 -- create object roles
 create role if not exists airbyte_owner;
 create role if not exists airbyte_read;
+create role if not exists ext_quickbooks;
+create role if not exists ext_salesforce;
+create role if not exists ext_stripe;
+create role if not exists ext_transactly_app;
+create role if not exists ext_twoTurnItOn;
 create role if not exists fivetran_owner;
 create role if not exists fivetran_read;
 create role if not exists hubspot_owner;
@@ -86,7 +93,6 @@ create role if not exists dev_owner;
 create role if not exists dev_read;
 create role if not exists skyvia_read;
 create role if not exists skyvia_owner;
-
 
 
 ---------------------------------------------------------------------------------------------------
