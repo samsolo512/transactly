@@ -84,7 +84,7 @@ with
             join dim_transaction ta on t.transaction_id = ta.transaction_id
 --             left join order_sequence os on o.order_id = os.order_id
             left join dim_order ord on o.order_id = ord.order_id
-            left join dim_date created_date on cast(t.created_date as date) = created_date.date_id
+            left join dim_date created_date on cast(o.created_date as date) = created_date.date_id
             left join dim_date closed_date on cast(t.closed_date as date) = closed_date.date_id
             left join dim_user assigned_tc on o.assigned_tc_id = assigned_tc.user_id
             left join dim_user agent on o.agent_id = agent.user_id

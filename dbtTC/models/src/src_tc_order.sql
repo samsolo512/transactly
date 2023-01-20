@@ -1,3 +1,5 @@
+-- src_tc_order
+
 with src_tc_order as(
     select *
     from {{ source('gcp_prod_gcp_prod_prod', 'order') }}
@@ -8,7 +10,10 @@ select
     o.id as order_id
     ,o.transaction_id
     ,o.agent_id
-    ,cast(o.created as date) as created_date
+    ,case
+        when o.created >= '1/18/2023' then cast(dateadd(hour, -6, o.created) as date)
+        else cast(o.created as date)
+        end as created_date
     ,o.assigned_tc_id
     ,o.status as order_status
     ,o.type as order_type
