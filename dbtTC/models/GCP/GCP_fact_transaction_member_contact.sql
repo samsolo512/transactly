@@ -70,10 +70,12 @@ with
             ,fact.home_insurance_status
             ,fact.home_insurance_lead_sent_to
             ,fact.home_insurance_notified_date
+            ,fact.status_changed_date
 
         from
             fact_transaction_member_contact fact
             join dim_transaction t on fact.transaction_pk = t.transaction_pk
+            left join dim_order o on o.transaction_id = fact.transaction_pk
             left join dim_member_contact mc
                 on t.transaction_id = mc.transaction_id
                 and fact.member_contact_pk = mc.member_contact_pk

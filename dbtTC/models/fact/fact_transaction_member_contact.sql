@@ -196,6 +196,7 @@ with
             ,date(i.notified_date) as home_insurance_notified_date
             ,ui.utility_transfer_status
             ,ui.home_insurance_status
+            ,o.status_changed_date
 
             -- for testing in the 'where' clause below
             -- ,mc.role_name as member_contact_role
@@ -210,6 +211,7 @@ with
             left join ttv_utility u on u.transaction_id = t.transaction_id
             left join ttv_home_insurance i on i.transaction_id = t.transaction_id
             left join util_insurance ui on trans.transaction_id = ui.transaction_id
+            left join dim_order o on trans.transaction_id = o.transaction_id
     )
 
 select * from final

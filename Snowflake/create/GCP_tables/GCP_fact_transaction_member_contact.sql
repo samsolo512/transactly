@@ -36,4 +36,5 @@ create or replace table data_warehouse.fact_transaction_member_contact (
     ,home_insurance_status string
     ,home_insurance_lead_sent_to string
     ,home_insurance_notified_date date
+    ,status_changed_date date
 )
