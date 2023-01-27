@@ -76,6 +76,7 @@ select
     ,agt_offc.referral_amount
     ,agt_offc.agreement_type
     ,o.last_sync
+    ,t.short_url
 
     -- address
     ,a.street as address
@@ -100,4 +101,7 @@ from
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
     left join src_tc_user agt on o.agent_id = agt.user_id
 
-union select 0, 0, 0, 0, null, null, null , null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+union select 
+    0, 0, 0, 0, null, null, null , null, null, null, null, 
+    null, null, null, null, null, null, null, null, null, 
+    null, null, null, null, null

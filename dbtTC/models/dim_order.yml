@@ -76,3 +76,6 @@ models:
 
       - name: status_changed_date
         description: date the order status was changed
+
+      - name: short_url
+        description: reference in the TC app where to find the order
