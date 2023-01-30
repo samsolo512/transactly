@@ -333,6 +333,7 @@ with
             ,ulead.account_owner
             ,b.account_name as parent_account_name
             ,u.name as owner_name
+            ,last_day(dateadd(day, -1, l.created_date), 'week') lead_week_date
 
         from
             lead_id ul
@@ -354,7 +355,7 @@ with
         select
             0, '0', 
             null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

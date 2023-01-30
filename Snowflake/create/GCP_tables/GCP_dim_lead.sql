@@ -27,4 +27,5 @@ create or replace table data_warehouse.dim_lead (
     ,account_name string
     ,parent_account_name string
     ,account_owner string
+    ,lead_week_date date
 )

@@ -39,6 +39,7 @@ with
             ,account_name
             ,parent_account_name
             ,account_owner
+            ,lead_week_date
 
         from dim_lead
     )
