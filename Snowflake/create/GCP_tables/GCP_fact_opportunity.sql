@@ -21,6 +21,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,lead_owner_name string
     ,lead_agent_name string
     ,lead_agent_email string
+    ,lead_week_date date
     
     -- contact
     ,contact_id string
