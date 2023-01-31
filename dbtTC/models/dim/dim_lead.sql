@@ -333,7 +333,7 @@ with
             ,ulead.account_owner
             ,b.account_name as parent_account_name
             ,u.name as owner_name
-            ,dateadd(day, -1, last_day(l.created_date, 'week')) lead_week_date
+            ,last_day(l.created_date, 'week') lead_week_date
 
         from
             lead_id ul
