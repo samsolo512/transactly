@@ -50,6 +50,7 @@ select
     ,agt.fullname as agent
     ,o.assigned_tc_id
     ,u.fullname as assigned_TC
+    ,u.email as assigned_tc_email
     ,t_create.fullname as created_by
     ,case
         when t.expiration_date <= getdate() then 'expired'
@@ -104,4 +105,4 @@ from
 union select 
     0, 0, 0, 0, null, null, null , null, null, null, null, 
     null, null, null, null, null, null, null, null, null, 
-    null, null, null, null, null
+    null, null, null, null, null, null

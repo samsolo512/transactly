@@ -88,6 +88,7 @@ with
             ,user.total_closed_orders as user_total_closed_orders
             ,user.HS_lead_status
             ,user.HS_assigned_TC
+            ,o.assigned_TC_email
 
         from
             fact_line_item fact

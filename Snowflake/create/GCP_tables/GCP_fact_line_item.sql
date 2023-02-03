@@ -61,4 +61,5 @@ create or replace table data_warehouse.fact_line_item (
     ,user_total_closed_orders int
     ,HS_lead_status string
     ,HS_assigned_TC string
+    ,assigned_tc_email string
 )
