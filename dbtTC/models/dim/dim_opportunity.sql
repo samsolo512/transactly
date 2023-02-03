@@ -56,6 +56,7 @@ with
             ,p.product_name
             ,p.product_family
             ,a.account_name
+            ,a2.account_name as vendor
 
             -- lead
             --,u.name as owner_name
@@ -82,10 +83,11 @@ with
             --left join src_sf_user u on l.owner_id = u.user_id
             left join src_sf_product_2 p on itm.product_id = p.product_id
             left join src_sf_account a on opp.account_id = a.account_id
+            left join src_sf_account a2 on p.vendor_id = a2.account_id
 
         union select 
             0, '0', '0', 
-            null, null, null, null, null, null, null, null, null, 
+            null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null
     )
 

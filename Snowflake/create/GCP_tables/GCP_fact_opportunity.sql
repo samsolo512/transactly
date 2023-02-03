@@ -11,6 +11,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,account_name string
     ,product_name string
     ,product_family string
+    ,vendor string
 
     -- lead
     ,lead_street string
