@@ -51,6 +51,7 @@ with
             ,opp.close_date as opportunity_close_date
             ,opp.lease_start_date
             ,opp.service_start_date
+            ,uo.name as opportunity_owner_name
 
             -- account and product
             ,p.product_name
@@ -74,6 +75,7 @@ with
             ,cont.mobile_phone as contact_mobile_phone
             ,cont.created_date as contact_created_date
             ,cont.water
+            ,u.name as contact_owner_name
 
         from
             src_sf_opportunity opp
@@ -84,11 +86,13 @@ with
             left join src_sf_product_2 p on itm.product_id = p.product_id
             left join src_sf_account a on opp.account_id = a.account_id
             left join src_sf_account a2 on p.vendor_id = a2.account_id
+            left join src_sf_user u on cont.owner_id = u.user_id
+            left join src_sf_user uo on opp.owner_id = uo.user_id
 
         union select 
             0, '0', '0', 
-            null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

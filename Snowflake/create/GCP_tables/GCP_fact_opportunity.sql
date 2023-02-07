@@ -6,6 +6,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,opportunity_id string
     ,stage string
     ,lease_start_date string
+    ,opportunity_owner_name string
 
     -- account and product
     ,account_name string
@@ -30,6 +31,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,contact_phone string
     ,contact_mobile_phone string
     ,contact_email string
+    ,contact_owner_name string
 
     -- facts
     ,service_start_date date

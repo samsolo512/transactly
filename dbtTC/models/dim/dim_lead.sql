@@ -334,6 +334,7 @@ with
             ,b.account_name as parent_account_name
             ,u.name as owner_name
             ,last_day(l.created_date, 'week') lead_week_date
+            ,l.status
 
         from
             lead_id ul
@@ -354,7 +355,7 @@ with
         union
         select
             0, '0', 
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 

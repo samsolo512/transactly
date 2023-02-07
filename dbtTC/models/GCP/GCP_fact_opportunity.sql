@@ -29,6 +29,7 @@ with
             ,o.opportunity_id
             ,o.stage
             ,o.lease_start_date
+            ,o.opportunity_owner_name
 
             -- account and product
             ,o.account_name
@@ -53,6 +54,7 @@ with
             ,o.contact_phone
             ,o.contact_mobile_phone
             ,o.contact_email
+            ,o.contact_owner_name
 
             -- facts
             ,o.service_start_date
@@ -71,8 +73,8 @@ with
             join dim_lead l on fact.lead_pk = l.lead_pk
 
         group by
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-            17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+            19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33
     )
 
 select * from final

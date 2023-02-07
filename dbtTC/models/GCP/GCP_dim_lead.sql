@@ -40,6 +40,8 @@ with
             ,parent_account_name
             ,account_owner
             ,lead_week_date
+            ,owner_name as lead_owner_name
+            ,status as lead_status
 
         from dim_lead
     )

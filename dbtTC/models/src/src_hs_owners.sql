@@ -7,4 +7,5 @@ select
     ownerid
     ,firstname
     ,lastname
-from src_HS_owners
+from 
+    src_HS_owners

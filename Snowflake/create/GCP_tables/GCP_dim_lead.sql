@@ -28,4 +28,6 @@ create or replace table data_warehouse.dim_lead (
     ,parent_account_name string
     ,account_owner string
     ,lead_week_date date
+    ,lead_owner_name string
+    ,lead_status string
 )

@@ -33,6 +33,7 @@ select
     ,regulated_gas_c as gas
     ,converted_date
     ,is_converted
+    ,status
 
 from 
     src_sf_lead l

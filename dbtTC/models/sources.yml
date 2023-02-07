@@ -137,6 +137,9 @@ sources:
       - name: account
         identifier: account
 
+      - name: agscmi_activity_c
+        identifier: agscmi_activity_c
+
       - name: contact
         identifier: contact
 
