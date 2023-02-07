@@ -166,3 +166,6 @@ sources:
 
       - name: vendor_payout_c
         identifier: vendor_payout_c
+
+      - name: record_type
+        identifier: record_type

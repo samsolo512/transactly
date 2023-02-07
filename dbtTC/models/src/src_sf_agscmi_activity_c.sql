@@ -11,5 +11,12 @@ select
     ,agscmi_caller_id_c as caller_id
     ,call_duration_in_seconds_c as call_duration_in_seconds
     ,to_date(created_date) as created_date
+    ,agscmi_to_number_c as phone
+    ,agscmi_chat_transcript_c as script
+    ,agscmi_site_domain_c as website
+    ,agscmi_campaign_c as campaign
+    ,owner_id
+    ,record_type_id
+    ,agscmi_lead_c as lead_id
 from 
     src_sf_agscmi_activity_c
