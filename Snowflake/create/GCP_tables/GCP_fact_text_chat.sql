@@ -7,6 +7,6 @@ create or replace table data_warehouse.fact_text_chat (
     ,phone string
     ,direction string
     ,call_duration string
-    ,lead_owner_name string
+    ,lead_name string
     ,lead_owner string
 )

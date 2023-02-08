@@ -24,7 +24,7 @@ with
             ,fact.phone
             ,fact.direction
             ,fact.call_duration
-            ,l.name as lead_owner_name
+            ,l.name as lead_name
             ,l.owner_name as lead_owner
 
         from 
