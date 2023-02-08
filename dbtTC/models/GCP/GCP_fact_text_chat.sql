@@ -26,7 +26,9 @@ with
             ,fact.call_duration
             ,l.name as lead_name
             ,l.owner_name as lead_owner
-
+            ,call_twilio_client
+            ,activity_name
+            
         from 
             fact_text_chat fact
             left join dim_lead l on fact.lead_pk = l.lead_pk

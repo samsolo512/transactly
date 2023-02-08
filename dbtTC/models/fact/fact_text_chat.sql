@@ -42,6 +42,8 @@ with
                 else null 
                 end as seconds
             ,a.lead_id
+            ,a.call_twilio_client
+            ,a.activity_name
         from 
             src_sf_agscmi_activity_c a
             join src_sf_record_type b on a.record_type_id = b.record_type_id
@@ -57,6 +59,8 @@ with
             ,p.direction
             ,p.call_duration_in_seconds
             ,concat(lpad(nvl(hours, '0'),2,0), ':', lpad(nvl(minutes, '0'),2,0), ':', lpad(nvl(seconds, '0'),2,0)) as call_duration
+            ,p.call_twilio_client
+            ,p.activity_name
         from 
             prep p
             left join dim_lead l on p.lead_id = l.lead_id
