@@ -23,6 +23,7 @@ with
             ,fact.caller_id
             ,fact.phone
             ,fact.direction
+            ,call_duration_in_seconds
             ,fact.call_duration
             ,l.name as lead_name
             ,l.owner_name as lead_owner
