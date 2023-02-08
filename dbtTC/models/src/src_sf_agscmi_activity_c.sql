@@ -9,7 +9,7 @@ select
     ,name as activity_name
     ,agscmi_external_id_c as external_id
     ,agscmi_caller_id_c as caller_id
-    ,call_duration_in_seconds_c as call_duration_in_seconds
+    ,cast(call_duration_in_seconds_c as number(5,0)) as call_duration_in_seconds
     ,to_date(created_date) as created_date
     ,agscmi_to_number_c as phone
     ,agscmi_chat_transcript_c as script
