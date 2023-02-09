@@ -98,7 +98,7 @@ from
     left join src_tc_office offc on o.assigned_tc_office_id = offc.office_id
     left join src_tc_office agt_offc on o.agent_office_id = agt_offc.office_id
     left join src_tc_user u on o.assigned_tc_id = u.user_id
-    left join src_tc_user usr on u.user_id = usr.google_user_id
+    -- left join src_tc_user usr on u.user_id = usr.google_user_id
     left join src_tc_user t_create on t.created_by_id = t_create.user_id
     left join src_tc_user agt on o.agent_id = agt.user_id
 
