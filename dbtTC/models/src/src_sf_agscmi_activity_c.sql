@@ -18,5 +18,6 @@ select
     ,owner_id
     ,record_type_id
     ,agscmi_lead_c as lead_id
+    ,agscmi_contact_c
 from 
     src_sf_agscmi_activity_c

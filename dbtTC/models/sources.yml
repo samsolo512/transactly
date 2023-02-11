@@ -161,6 +161,9 @@ sources:
       - name: product_2
         identifier: product_2
 
+      - name: twilio_sf_message_c
+        identifier: twilio_sf_message_c
+
       - name: user
         identifier: user
 

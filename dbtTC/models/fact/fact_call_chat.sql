@@ -1,4 +1,4 @@
--- fact_text_chat
+-- fact_call_chat
 -- 1 row/communication event
 
 with

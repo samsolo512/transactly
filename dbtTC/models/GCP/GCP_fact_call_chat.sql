@@ -1,6 +1,6 @@
 {{ config(
     post_hook=[
-      "{{unload_to_GCP('GCP_fact_text_chat')}}"
+      "{{unload_to_GCP('GCP_fact_call_chat')}}"
     ]
 ) }}
 
@@ -11,9 +11,9 @@ with
         from {{ ref('dim_lead') }}
     )
 
-    ,fact_text_chat as(
+    ,fact_call_chat as(
         select *
-        from {{ ref('fact_text_chat') }}
+        from {{ ref('fact_call_chat') }}
     )
 
     ,final as(
@@ -31,7 +31,7 @@ with
             ,activity_name
             
         from 
-            fact_text_chat fact
+            fact_call_chat fact
             left join dim_lead l on fact.lead_pk = l.lead_pk
     )
 

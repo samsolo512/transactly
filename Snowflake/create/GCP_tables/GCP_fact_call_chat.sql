@@ -1,6 +1,6 @@
--- fact_text_chat
+-- fact_call_chat
 
-create or replace table data_warehouse.fact_text_chat (
+create or replace table data_warehouse.fact_call_chat (
     contact_method string
     ,created_date date
     ,caller_id string
