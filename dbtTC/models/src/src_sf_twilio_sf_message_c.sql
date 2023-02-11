@@ -14,3 +14,5 @@ select
     ,response_time_c as response_time
 from 
     src_sf_twilio_sf_message_c
+where
+    is_deleted = FALSE
