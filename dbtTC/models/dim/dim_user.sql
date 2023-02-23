@@ -573,10 +573,10 @@ with
 
         group by
             u.user_id
-            ,nvl(replace(u.first_name, '"', ''), ul.first_name)
-            ,nvl(replace(u.last_name, '"', ''), ul.last_name)
-            ,nvl(replace(u.fullname, '"', ''), ul.fullname)
-            ,nvl(replace(u.email, '"', ''), ul.email)
+            ,nvl(u.first_name, ul.first_name)
+            ,nvl(u.last_name, ul.last_name)
+            ,nvl(u.fullname, ul.fullname)
+            ,nvl(u.email, ul.email)
             ,u.brokerage
             ,uo.office_id
             ,uo.office_name
