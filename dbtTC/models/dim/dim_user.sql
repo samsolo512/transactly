@@ -448,10 +448,10 @@ with
     ,final_logic as(
         select
             u.user_id
-            ,nvl(replace(u.first_name, '"', ''), ul.first_name) as first_name
-            ,nvl(replace(u.last_name, '"', ''), ul.last_name) as last_name
-            ,nvl(replace(u.fullname, '"', ''), ul.fullname) as fullname
-            ,nvl(replace(u.email, '"', ''), ul.email) as email
+            ,nvl(u.first_name, ul.first_name) as first_name
+            ,nvl(u.last_name, ul.last_name) as last_name
+            ,nvl(u.fullname, ul.fullname) as fullname
+            ,nvl(u.email, ul.email) as email
             ,u.brokerage
             ,uo.office_id
             ,uo.office_name

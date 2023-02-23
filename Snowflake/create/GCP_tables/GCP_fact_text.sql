@@ -6,7 +6,7 @@ create or replace table data_warehouse.fact_text (
     ,text_body string
     ,to_number string
     ,from_number string
-    ,created_date string
+    ,created_date date
     ,direction string
     ,response_time string
 )

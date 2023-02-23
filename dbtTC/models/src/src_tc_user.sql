@@ -13,8 +13,8 @@ select
     ,cast(u.last_online_date as date) as last_online_date
     ,trim({{ field_clean('u.first_name') }}) as first_name
     ,trim({{ field_clean('u.last_name') }}) as last_name
-    ,concat({{ field_clean('u.first_name') }}, ' ', {{ field_clean('u.last_name') }}) as fullname
-    ,u.email
+    ,trim(concat({{ field_clean('u.first_name') }}, ' ', {{ field_clean('u.last_name') }})) as fullname
+    ,trim({{ field_clean('u.email') }}) as email
     ,u.first_login
     ,cast(u.autopay_date as date) as autopay_date
     ,cast(u.created as date) as created_date

@@ -59,8 +59,8 @@ with
             ,user.first_order_placed as first_order_placed_date
             ,user.first_order_closed as first_order_closed_date
             ,user.fifth_order_closed as fifth_order_closed_date
-            ,o.agent_office as office_name
-            ,o.agent_office_id as office_id
+            ,user.office_name
+            ,user.office_id
             ,o.order_status
             ,to_timestamp(greatest(line.last_sync, o.last_sync)) as last_sync
             ,user.subscription_level
