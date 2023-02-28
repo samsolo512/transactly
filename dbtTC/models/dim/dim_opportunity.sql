@@ -74,6 +74,7 @@ with
             ,cont.created_date as contact_created_date
             ,cont.water
             ,u.name as contact_owner_name
+            ,cont.attribution as contact_attribution
 
         from
             src_sf_opportunity opp
@@ -90,7 +91,7 @@ with
         union select 
             '0', '0', 
             null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null
     )
 
 select 

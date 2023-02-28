@@ -32,6 +32,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,contact_mobile_phone string
     ,contact_email string
     ,contact_owner_name string
+    ,contact_attribution string
 
     -- facts
     ,service_start_date date

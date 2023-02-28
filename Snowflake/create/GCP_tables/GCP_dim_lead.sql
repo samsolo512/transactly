@@ -30,4 +30,5 @@ create or replace table data_warehouse.dim_lead (
     ,lead_week_date date
     ,lead_owner_name string
     ,lead_status string
+    ,attribution string
 )

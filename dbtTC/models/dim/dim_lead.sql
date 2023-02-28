@@ -335,6 +335,7 @@ with
             ,u.name as owner_name
             ,last_day(l.created_date, 'week') lead_week_date
             ,l.status
+            ,l.attribution
 
         from
             lead_id ul
@@ -356,7 +357,7 @@ with
         select
             0, '0', 
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select * from final

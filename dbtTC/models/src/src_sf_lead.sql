@@ -34,6 +34,7 @@ select
     ,converted_date
     ,is_converted
     ,status
+    ,attribution_c as attribution
 
 from 
     src_sf_lead l

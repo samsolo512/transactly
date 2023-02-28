@@ -42,6 +42,7 @@ with
             ,lead_week_date
             ,owner_name as lead_owner_name
             ,status as lead_status
+            ,attribution
 
         from dim_lead
     )

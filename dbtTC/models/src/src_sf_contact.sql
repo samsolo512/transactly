@@ -29,6 +29,7 @@ select
     ,{{ field_clean('c.regulated_water_c') }} as water
     ,{{ field_clean('c.regulated_gas_c') }} as gas
     ,{{ field_clean('c.telecom_c') }} as internet
+    ,attribution_c as attribution
 
 from
     src_sf_contact c
