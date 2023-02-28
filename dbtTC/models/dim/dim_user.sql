@@ -630,8 +630,7 @@ with
 
     ,final as(
         select
-            working.seq_dim_user.nextval as user_pk
-            ,user_id
+            user_id
             ,first_name
             ,last_name
             ,fullname
@@ -705,8 +704,7 @@ with
         from final_logic
 
         group by
-            user_pk
-            ,user_id
+            user_id
             ,first_name
             ,last_name
             ,fullname
@@ -755,16 +753,19 @@ with
             ,total_closed_orders
             ,total_placed_orders
 
-
         union select
-            0, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null
 
     )
 
-select * from final
+select 
+    working.seq_dim_user.nextval as user_pk
+    ,* 
+from 
+    final
 
 
 /*

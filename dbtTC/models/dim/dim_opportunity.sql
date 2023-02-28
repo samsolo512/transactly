@@ -38,10 +38,8 @@ with
 
     ,final as(
         select
-            working.seq_dim_opportunity.nextval as opportunity_pk
-
             -- grain
-            ,p.product_id
+            p.product_id
 
             -- opportunity
             ,opp.opportunity_id
@@ -90,11 +88,15 @@ with
             left join src_sf_user uo on opp.owner_id = uo.user_id
 
         union select 
-            0, '0', '0', 
+            '0', '0', 
             null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null
     )
 
-select * from final
+select 
+    working.seq_dim_opportunity.nextval as opportunity_pk
+    ,* 
+from 
+    final
 
 -- select email, opportunity_id, product_name, count(1) from final group by opportunity_id, product_name, email order by count(1) desc
