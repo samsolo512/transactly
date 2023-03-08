@@ -6,6 +6,11 @@ with
         from {{ ref('src_sf_vendor_payout_c') }}
     )
 
+    ,src_sf_account as(
+        select *
+        from {{ ref('src_sf_account') }}
+    )
+
     ,final as(
         select
             working.seq_dim_vendor_payout.nextval as vendor_payout_pk
