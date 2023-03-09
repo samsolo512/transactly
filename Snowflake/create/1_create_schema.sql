@@ -47,6 +47,8 @@ create user if not exists dbt_svc default_role = dbt_role default_warehouse = db
 create user if not exists fivetran_user default_role = fivetran_role default_warehouse = fivetran_wh password = '' must_change_password = false week_start = 7;
 create user if not exists datagrip_svc default_role = data_engineeer default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
 create user if not exists metabase_svc default_role = metabase_role default_warehouse = metabase_wh default_namespace = prod.dimensional password = '' must_change_password = false;
+create user if not exists neo4j_svc default_role = neo4j_role default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
+
 
 -- create or modify users
 create user if not exists sbrown default_role = data_engineer default_warehouse = compute_wh default_namespace = dev.dimensional;
@@ -66,6 +68,7 @@ create role if not exists data_engineer;
 create role if not exists dbt_role;
 create role if not exists fivetran_role;
 create role if not exists metabase_role;
+create role if not exists neo4j_role;
 create role if not exists powerbi_role;
 create role if not exists tableau_role;
 

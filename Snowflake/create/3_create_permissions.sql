@@ -30,6 +30,7 @@ grant role tableau_role to role data_engineer;
 grant role data_analyst to role data_engineer;
 grant role dbt_role to role data_engineer;
 grant role metabase_role to role data_engineer;
+grant role neo4j_role to user neo4j_svc;
 
 
 -- grant user roles to sysadmin
@@ -85,6 +86,7 @@ grant role airbyte_role to role data_engineer;
 grant role airbyte_owner to role data_engineer;
 grant role skyvia_read to role data_engineer;
 grant role skyvia_owner to role data_engineer;
+grant role neo4j_role to role data_engineer;
 grant usage on warehouse compute_wh to role data_engineer;
 grant usage on warehouse powerbi_wh to role data_engineer;
 grant usage on warehouse tableau_wh to role data_engineer;
@@ -101,6 +103,11 @@ grant role ext_salesforce to role metabase_role;
 grant role ext_stripe to role metabase_role;
 grant role ext_twoTurnItOn to role metabase_role;
 grant usage on warehouse metabase_wh to role metabase_role;
+
+
+-- neo4j_role
+grant role dev_read to role neo4j_role;
+grant usage on warehouse compute_wh to role neo4j_role;
 
 
 -- sysadmin
