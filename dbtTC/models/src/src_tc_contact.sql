@@ -8,7 +8,7 @@ select
     id as contact_id
     ,role_id
     ,side_id
-    ,email
+    ,trim({{ field_clean('email') }}) as email
     ,party_id
     ,trim({{ field_clean('last_name') }}) as last_name
     ,trim({{ field_clean('first_name') }}) as first_name
