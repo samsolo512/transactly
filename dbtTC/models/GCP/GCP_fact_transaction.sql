@@ -38,7 +38,7 @@ with
             ,tran.diy_flag
             ,tran.transaction_side
             ,tran.street
-            ,o.order_status
+            ,tran.transaction_status
 
             ,tran.diy_flag_all_transaction_statuses
             ,usr.first_order_placed
