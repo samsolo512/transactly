@@ -24,6 +24,11 @@ with
         from {{ ref('dim_line_item') }}
     )
 
+    ,dim_order as(
+        select *
+        from {{ ref('dim_order') }}
+    )
+
     ,dim_transaction as(
         select *
         from {{ ref('dim_transaction') }}
@@ -71,6 +76,7 @@ with
         select
             transaction.transaction_pk
             ,nvl(user.user_pk, (select user_pk from dim_user where user_id = 0)) as user_pk
+            ,nvl(ord.order_pk, (select order_pk from dim_order where order_id = 0)) as order_pk
             ,case when trans.status_id = 3 then 1 else 0 end as closed_flag
             ,case when trans.status_id in (1, 2, 4) then 1 else 0 end as active_flag
             ,case when trans.side_id = 1 then 1 else 0 end as buy_flag
@@ -87,6 +93,7 @@ with
             src_tc_transaction trans
             join src_tc_address a on trans.address_id = a.address_id
             left join src_tc_order o on trans.transaction_id = o.transaction_id
+            left join dim_order ord on o.order_id = ord.order_id
             -- add line item in order to get total fees where applicable
             left join src_tc_line_item l
                 join dim_line_item line on l.id = line.line_item_id
@@ -107,7 +114,7 @@ with
                 and trans.created_by_id = c.agent_id
 
         group by
-            1,2,3,4,5,6,7,8,9
+            1,2,3,4,5,6,7,8,9,10
     )
 
 select * from final

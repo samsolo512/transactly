@@ -8,6 +8,9 @@ create or replace table data_warehouse.fact_transaction (
     ,created_date date
     ,closed_date date
     ,diy_flag int
+    ,order_side string
+    ,street string
+    ,order_status string
     ,diy_flag_all_transaction_statuses int
     ,first_order_placed date
     ,tc_staff_flag int
