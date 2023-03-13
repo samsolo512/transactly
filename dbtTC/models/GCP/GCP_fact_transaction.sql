@@ -36,7 +36,7 @@ with
             ,tran.closed_date
             ,tran.contract_closing_date
             ,tran.diy_flag
-            ,tran.order_side
+            ,tran.transaction_side
             ,tran.street
             ,o.order_status
 
