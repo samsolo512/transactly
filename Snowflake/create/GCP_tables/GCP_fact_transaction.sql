@@ -7,6 +7,7 @@ create or replace table data_warehouse.fact_transaction (
     ,brokerage string
     ,created_date date
     ,closed_date date
+    ,contract_closing_date date
     ,diy_flag int
     ,order_side string
     ,street string

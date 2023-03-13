@@ -34,6 +34,7 @@ with
             ,usr.brokerage
             ,tran.created_date
             ,tran.closed_date
+            ,tran.contract_closing_date
             ,tran.diy_flag
             ,tran.order_side
             ,tran.street
