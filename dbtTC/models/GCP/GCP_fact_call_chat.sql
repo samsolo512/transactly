@@ -29,6 +29,8 @@ with
             ,l.owner_name as lead_owner
             ,call_twilio_client
             ,activity_name
+            ,source
+            ,message
             
         from 
             fact_call_chat fact

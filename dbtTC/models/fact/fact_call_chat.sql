@@ -12,20 +12,25 @@ with
         from {{ ref('src_sf_record_type')}}
     )
 
+    ,src_hs_object_properties as(
+        select *
+        from {{ ref('src_hs_object_properties')}}
+    )
+
     ,dim_lead as(
         select *
         from {{ ref('dim_lead')}}
     )
 
-    ,prep as(
+    ,sf as(
         select
             case
                 when lower(b.record_type_name) = 'sms' then 'Text'
                 else b.record_type_name
                 end as contact_method
             ,a.created_date
-            ,a.caller_id
-            ,a.phone
+            ,regexp_replace(a.caller_id, '[\\+\\-\\)\\(]') as caller_id
+            ,regexp_replace(a.phone, '[\\+\\-\\)\\(]') as phone
             ,a.direction
             ,a.call_duration_in_seconds  -- desc table src_sf_agscmi_activity_c
             ,case 
@@ -48,22 +53,134 @@ with
             src_sf_agscmi_activity_c a
             join src_sf_record_type b on a.record_type_id = b.record_type_id
     )
-    
+
+    ,allcomm as(
+        select
+            objectid
+            ,value as contact_method
+        from 
+            src_hs_object_properties
+        where
+            lower(name) = 'hs_engagement_type'
+            and value in('SMS', 'CALL')
+    )
+
+    ,rawdata as(
+        select
+            o.objecttypeid
+            ,o.objectid
+            ,case
+                when lower(a.contact_method) = 'call' then 'Call'
+                when lower(a.contact_method) = 'sms' then 'Text'
+                else a.contact_method
+                end as contact_method
+            ,o.name
+            ,o.value
+            ,case 
+                when a.contact_method = 'SMS' and left(o.value, 8) in('Incoming', 'Outgoing') then left(o.value, 8)
+                when a.contact_method = 'CALL' and o.value like ('% Outgoing %') then 'Outbound'
+                when a.contact_method = 'CALL' then replace(replace(regexp_substr(o.value, '\\[.{1,3}bound\\]'), '['), ']')
+                else null 
+                end as message_direction
+            ,case 
+                when a.contact_method = 'SMS' and left(o.value, 8) in('Incoming', 'Outgoing') then substr(o.value, regexp_instr(o.value, '[0-9]{11}', 1, 1), 11) 
+                when a.contact_method = 'CALL' then substr(regexp_substr(o.value, '\\+[0-9]{11}'), 2, 13)
+                else null 
+                end as from_number
+            ,case 
+                when a.contact_method = 'SMS' and left(o.value, 8) in('Incoming', 'Outgoing') then substr(o.value, regexp_instr(o.value, '[0-9]{11}', 1, 2), 11)
+                when a.contact_method = 'CALL' then substr(regexp_substr(o.value, 'to.*\\+[0-9]{11}'), -11)
+                else null 
+                end as to_number
+            ,substr(o.value, regexp_instr(o.value, 'Message: ', 1, 1)+9) as message
+        from
+            src_hs_object_properties o
+            join allcomm a on o.objectid = a.objectid
+        where
+            name in('hs_communication_body', 'hs_call_body')
+            -- and o.objecttypeid <> '0-4'
+    )
+
+    ,obj as(
+        select
+            o.value as ownerid
+            ,r.*
+        from
+            rawdata r
+            left join src_hs_object_properties o 
+                on o.objectid = r.objectid
+                and o.name = 'hubspot_owner_id'
+    )
+
+    ,tmstmp as(
+        select
+            o.objectid
+            ,to_date(o.value) as timestamp
+        from
+            rawdata r
+            left join src_hs_object_properties o 
+                on o.objectid = r.objectid
+                and o.name = 'hs_timestamp'
+    )
+
+    ,hs as(
+        select distinct
+            o.firstname
+            ,o.lastname
+            ,r.contact_method
+            ,r.message_direction
+            ,r.from_number
+            ,r.to_number
+            ,r.message
+            ,t.timestamp
+        from
+            obj r
+            left join src_hs_owners o on r.ownerid = nullif(trim(o.ownerid), '')
+            left join tmstmp t on r.objectid = t.objectid
+    )
+
     ,final as(
         select
-            l.lead_pk
-            ,p.contact_method
-            ,p.created_date
-            ,p.caller_id
-            ,p.phone
-            ,p.direction
-            ,p.call_duration_in_seconds
+            nvl(l.lead_pk, (select lead_pk from dim_lead where lead_id = '0')) as lead_pk
+            ,sf.contact_method
+            ,sf.created_date
+            ,sf.caller_id
+            ,sf.phone
+            ,sf.direction
+            ,sf.call_duration_in_seconds
             ,concat(lpad(nvl(hours, '0'),2,0), ':', lpad(nvl(minutes, '0'),2,0), ':', lpad(nvl(seconds, '0'),2,0)) as call_duration
-            ,p.call_twilio_client
-            ,p.activity_name
+            ,sf.call_twilio_client
+            ,sf.activity_name
+            ,'SF' as source
+            ,null as message
         from 
-            prep p
-            left join dim_lead l on p.lead_id = l.lead_id
+            sf
+            left join dim_lead l on sf.lead_id = l.lead_id
+
+        union
+        select
+            (select lead_pk from dim_lead where lead_id = '0') as lead_pk
+            ,contact_method
+            ,timestamp as created_date
+            ,case
+                when message_direction = 'Outbound' then to_number
+                when message_direction = 'Inbound' then from_number
+                else null
+                end as caller_id
+            ,case
+                when message_direction = 'Inbound' then to_number
+                when message_direction = 'Outbound' then from_number
+                else null
+                end as phone
+            ,message_direction as direction
+            ,null as call_duration_in_seconds
+            ,null as call_duration
+            ,concat(firstname, ' ', lastname)
+            ,null as activity_name
+            ,'HS' as source
+            ,message
+        from
+            hs
     )
 
 select * from final

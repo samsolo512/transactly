@@ -12,4 +12,6 @@ create or replace table data_warehouse.fact_call_chat (
     ,lead_owner string
     ,call_twilio_client string
     ,activity_name string
+    ,source string
+    ,message string
 )
