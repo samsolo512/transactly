@@ -1,3 +1,5 @@
+-- src_hs_object_properties
+
 with src_HS_object_properties as(
     select
         objectid
@@ -12,4 +14,5 @@ select
     ,objecttypeid
     ,name
     ,trim({{ field_clean('value') }}) as value
-from src_HS_object_properties
+from 
+    src_HS_object_properties

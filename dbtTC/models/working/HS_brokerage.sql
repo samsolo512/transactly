@@ -1,3 +1,5 @@
+-- HS_brokerage
+
 with
     src_hs_object_properties as(
         select *

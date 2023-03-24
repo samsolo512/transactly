@@ -109,6 +109,9 @@ sources:
       - name: owners
         identifier: owners
 
+      - name: pipeline_stages
+        identifier: pipeline_stages
+
   - name: Sugar
     description: "SugarCRM data sources"
     database: Skyvia

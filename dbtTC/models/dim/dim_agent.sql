@@ -105,10 +105,8 @@ with
 
     ,final as(
         select
-            working.seq_dim_agent.nextval as agent_pk
-
             -- grain
-            ,nvl(u.email, c.agent_email) as agent_email
+            nvl(u.email, c.agent_email) as agent_email
 
             ,u.user_id
             ,nvl(u.fullname, c.agent_name) as agent_name
@@ -125,8 +123,15 @@ with
         from
             client_flags c
             left join mod_user u on c.agent_email = u.email
+
+        union select
+            null, null, null, null, null, null, null, null
     )
 
-select * from final
+select 
+    working.seq_dim_agent.nextval as agent_pk
+    ,*
+from 
+    final
 
 -- select agent_email, count(1) from final group by agent_email order by count(1) desc

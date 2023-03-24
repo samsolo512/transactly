@@ -2,7 +2,22 @@
 -- 1 row/opportunity line item
 
 with
-    src_sf_lead as(
+    src_hs_pipeline_stages as(
+        select *
+        from {{ ref('src_hs_pipeline_stages')}}
+    )
+
+    ,src_hs_object_properties as(
+        select *
+        from {{ ref('src_hs_object_properties')}}
+    )
+
+    ,src_hs_owners as(
+        select *
+        from {{ ref('src_hs_owners')}}
+    )
+
+    ,src_sf_lead as(
         select *
         from {{ ref('src_sf_lead')}}
     )

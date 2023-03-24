@@ -1,3 +1,5 @@
+-- HS_deal
+
 with
     src_hs_object_properties as(
         select *
