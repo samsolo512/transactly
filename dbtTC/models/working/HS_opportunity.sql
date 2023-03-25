@@ -87,6 +87,7 @@ with
             ,try_to_date(p.lease_start_date) as lease_start_date
             ,p.product_family
             ,p.address
+            ,o.email as agent_email
         from
             HS_pivot p
             left join src_HS_pipeline_stages ps on p.stage = ps.stageid

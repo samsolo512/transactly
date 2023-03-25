@@ -9,5 +9,6 @@ select
     ownerid
     ,firstname
     ,lastname
+    ,email
 from 
     src_HS_owners

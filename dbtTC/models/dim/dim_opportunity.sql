@@ -124,24 +124,24 @@ with
         union select
             null as product_id
             
-            ,opportunity_id
-            ,opportunity_name
+            ,o.opportunity_id
+            ,o.opportunity_name
             ,null as opportunity_line_item_name
-            ,stage
+            ,o.stage
             ,null as opportunity_close_date
-            ,lease_start_date
+            ,o.lease_start_date
             ,null as service_start_date
-            ,owner_name as opportunity_owner_name
+            ,o.owner_name as opportunity_owner_name
 
             ,null as product_name
-            ,product_family
+            ,o.product_family
             ,null as account_name
             ,null as vendor
 
             ,null as contact_id
             ,null as contact_email
             ,null as contact_full_name
-            ,address as contact_city
+            ,o.address as contact_city
             ,null as contact_state
             ,null as contact_phone
             ,null as contact_mobile_phone
@@ -152,7 +152,10 @@ with
 
             ,'HS' as source
         from
-            hs_opportunity
+            hs_opportunity o
+            left join sf on o.opportunity_id = sf.opportunity_id
+        where
+            sf.opportunity_id is null
 
         union select 
             '0', '0', 

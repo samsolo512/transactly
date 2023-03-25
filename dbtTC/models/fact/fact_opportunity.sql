@@ -2,22 +2,7 @@
 -- 1 row/opportunity line item
 
 with
-    src_hs_pipeline_stages as(
-        select *
-        from {{ ref('src_hs_pipeline_stages')}}
-    )
-
-    ,src_hs_object_properties as(
-        select *
-        from {{ ref('src_hs_object_properties')}}
-    )
-
-    ,src_hs_owners as(
-        select *
-        from {{ ref('src_hs_owners')}}
-    )
-
-    ,src_sf_lead as(
+    src_sf_lead as(
         select *
         from {{ ref('src_sf_lead')}}
     )
@@ -47,6 +32,11 @@ with
         from {{ ref('src_sf_vendor_payout_c')}}
     )
 
+    ,HS_opportunity as(
+        select *
+        from {{ ref('HS_opportunity')}}
+    )
+
     ,dim_lead as(
         select *
         from {{ ref('dim_lead')}}
@@ -62,7 +52,7 @@ with
         from {{ ref('dim_agent')}}
     )
     
-    ,final as(
+    ,SF as(
         select
             nvl(ld.lead_pk, 0) as lead_pk
             ,nvl(do.opportunity_pk, 0) as opportunity_pk
@@ -80,6 +70,7 @@ with
                 end as unpaid_connection_flag
             ,itm.revenue
             ,datediff(day, opp.created_date, getdate()) as days_since_created
+            ,opp.opportunity_id
 
         from
             src_sf_opportunity opp
@@ -101,6 +92,56 @@ with
                 and p.product_id = do.product_id
             left join dim_agent ag on l.agent_email = ag.agent_email
             left join src_sf_vendor_payout_c v on v.opportunity_id = opp.opportunity_id
+    )
+
+    ,final as(
+        -- salesforce
+        select
+            -- grain
+            lead_pk
+            ,opportunity_pk
+            ,agent_pk
+
+            ,created_date
+            ,close_date
+            ,days_to_close
+            ,last_stage_change_date
+            ,revenue_connection_flag
+            ,unpaid_connection_flag
+            ,revenue
+            ,days_since_created
+            ,'SF' as source
+        from
+            SF
+
+        -- hubspot
+        union select
+            (select lead_pk from dim_lead where lead_id = '0') as lead_pk
+            ,ifnull(o.opportunity_pk, (select opportunity_pk from dim_opportunity where opportunity_id = '0')) as opportunity_pk
+             ,ifnull(a.agent_pk, (select agent_pk from dim_agent where agent_email is null)) as agent_pk
+            
+            ,f.lease_start_date as created_date
+            ,null as close_date
+            ,null as days_to_close
+            ,null as last_stage_change_date
+            ,null as revenue_connection_flag
+            ,null as unpaid_connection_flag
+            ,null as revenue
+            ,null as days_since_created
+            ,'HS' as source
+            
+            -- ,o.opportunity_name
+            -- ,o.opportunity_id
+            -- ,o.label as stage
+            -- ,o.product_family
+            -- ,o.address
+        from
+            HS_opportunity f
+            left join dim_opportunity o on f.opportunity_id = o.opportunity_id
+            left join dim_agent a on f.agent_email = a.agent_email
+            left join sf on f.opportunity_id = sf.opportunity_id
+        where
+            sf.opportunity_id is null
     )
 
 select * from final
