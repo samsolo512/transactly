@@ -25,7 +25,7 @@ select
         when o.paid_c = 'FALSE' then 0
         else null
         end as paid_flag
-    ,lease_begins_c as lease_start_date
+    ,try_to_date(lease_begins_c) as lease_start_date
     ,service_date_begins_c as service_start_date
 
 from

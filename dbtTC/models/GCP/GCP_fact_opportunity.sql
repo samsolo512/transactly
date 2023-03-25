@@ -30,6 +30,7 @@ with
             ,o.stage
             ,o.lease_start_date
             ,o.opportunity_owner_name
+            ,o.source
 
             -- account and product
             ,o.account_name
@@ -68,6 +69,7 @@ with
             ,fact.unpaid_connection_flag
             ,sum(fact.revenue) as revenue
 
+
         from
             fact_opportunity fact
             join dim_opportunity o on fact.opportunity_pk = o.opportunity_pk
@@ -75,7 +77,7 @@ with
 
         group by
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-            19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34
+            19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
     )
 
 select * from final

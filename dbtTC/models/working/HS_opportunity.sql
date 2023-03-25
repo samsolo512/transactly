@@ -32,6 +32,16 @@ with
             and value is not null
     )
 
+    ,starting as(
+        select 
+            a.objectid
+            ,a.name
+            ,a.value 
+        from 
+            src_hs_object_properties a
+            join HS_refine b on a.objectid = b.objectid
+    )
+
     ,HS_pivot as(
         select 
             objectid
@@ -43,36 +53,28 @@ with
             ,product_family
             ,address
         from 
-            (select 
-                a.objectid
-                ,a.name
-                ,a.value 
-            from 
-                src_hs_object_properties a
-                join HS_refine b on a.objectid = b.objectid
-            ) hs
+            starting hs
             
-        pivot(
-            max(value) for name in(
-                'dealname'
-                ,'opportunity_id'
-                ,'dealstage'
-                ,'lease_begins__c'
-                ,'hubspot_owner_id'
-                ,'product_families__c'
-                ,'customer_address'
+            pivot(
+                max(value) for name in(
+                    'dealname'
+                    ,'opportunity_id'
+                    ,'dealstage'
+                    ,'lease_begins__c'
+                    ,'hubspot_owner_id'
+                    ,'product_families__c'
+                    ,'customer_address'
+                )
+            ) as p (
+                objectid
+                ,opportunity_name
+                ,opportunity_id
+                ,stage
+                ,lease_start_date
+                ,opportunity_owner_id
+                ,product_family
+                ,address
             )
-        ) as p (
-            objectid
-            ,opportunity_name
-            ,opportunity_id
-            ,stage
-            ,lease_start_date
-            ,opportunity_owner_id
-            ,product_family
-            ,address
-        )
-
     )
 
     ,final as(

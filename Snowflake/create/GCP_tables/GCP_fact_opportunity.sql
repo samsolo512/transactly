@@ -7,6 +7,7 @@ create or replace table data_warehouse.fact_opportunity (
     ,stage string
     ,lease_start_date string
     ,opportunity_owner_name string
+    ,source string
 
     -- account and product
     ,account_name string

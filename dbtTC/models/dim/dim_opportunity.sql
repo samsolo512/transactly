@@ -1,12 +1,12 @@
 -- dim_opportunity
 
 with
-    --src_sf_lead as(
-        --select *
-        --from {{ ref('src_sf_lead')}}
-    --)
+    HS_opportunity as(
+        select *
+        from {{ ref('HS_opportunity')}}
+    )
 
-    src_sf_contact as(
+    ,src_sf_contact as(
         select *
         from {{ ref('src_sf_contact')}}
     )
@@ -15,11 +15,6 @@ with
         select *
         from {{ ref('src_sf_opportunity')}}
     )
-
-    --,src_sf_user as(
-        --select *
-        --from {{ ref('src_sf_user')}}
-    --)
 
     ,src_sf_opportunity_line_item as(
         select *
@@ -36,7 +31,7 @@ with
         from {{ ref('src_sf_account')}}
     )
 
-    ,final as(
+    ,sf as(
         select
             -- grain
             p.product_id
@@ -87,14 +82,85 @@ with
             left join src_sf_account a2 on p.vendor_id = a2.account_id
             left join src_sf_user u on cont.owner_id = u.user_id
             left join src_sf_user uo on opp.owner_id = uo.user_id
+    )
+
+    ,final as(
+        select
+            product_id
+
+            -- opportunity
+            ,opportunity_id
+            ,opportunity_name
+            ,opportunity_line_item_name
+            ,stage
+            ,opportunity_close_date
+            ,lease_start_date
+            ,service_start_date
+            ,opportunity_owner_name
+
+            -- account and product
+            ,product_name
+            ,product_family
+            ,account_name
+            ,vendor
+
+            -- contact
+            ,contact_id
+            ,contact_email
+            ,contact_full_name
+            ,contact_city
+            ,contact_state
+            ,contact_phone
+            ,contact_mobile_phone
+            ,contact_created_date
+            ,water
+            ,contact_owner_name
+            ,contact_attribution
+
+            ,'SF' as source
+        from
+            sf
+
+        union select
+            null as product_id
+            
+            ,opportunity_id
+            ,opportunity_name
+            ,null as opportunity_line_item_name
+            ,stage
+            ,null as opportunity_close_date
+            ,lease_start_date
+            ,null as service_start_date
+            ,owner_name as opportunity_owner_name
+
+            ,null as product_name
+            ,product_family
+            ,null as account_name
+            ,null as vendor
+
+            ,null as contact_id
+            ,null as contact_email
+            ,null as contact_full_name
+            ,address as contact_city
+            ,null as contact_state
+            ,null as contact_phone
+            ,null as contact_mobile_phone
+            ,null as contact_created_date
+            ,null as water
+            ,null as contact_owner_name
+            ,null as contact_attribution
+
+            ,'HS' as source
+        from
+            hs_opportunity
 
         union select 
             '0', '0', 
-            null, null, null, null, null, null, null, null, null, null, null,
+            null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null
     )
 
-select 
+select
     working.seq_dim_opportunity.nextval as opportunity_pk
     ,* 
 from 
