@@ -291,10 +291,8 @@ with
 
     ,final as(
         select
-            working.seq_dim_lead.nextval as lead_pk
-
             -- grain
-            ,l.lead_id
+            l.lead_id
 
             ,l.first_name
             ,l.last_name
@@ -355,11 +353,14 @@ with
 
         union
         select
-            0, '0', 
+            '0', 
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
     )
 
-select * from final
+select 
+    working.seq_dim_lead.nextval as lead_pk
+    ,* 
+from final
 
 -- select lead_id, count(1) from final group by lead_id order by count(1) desc

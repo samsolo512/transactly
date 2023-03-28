@@ -92,6 +92,7 @@ with
             ,opportunity_id
             ,opportunity_name
             ,opportunity_line_item_name
+            ,null as hs_record_id
             ,stage
             ,opportunity_close_date
             ,lease_start_date
@@ -127,16 +128,17 @@ with
             ,o.opportunity_id
             ,o.opportunity_name
             ,null as opportunity_line_item_name
+            ,o.HS_record_id
             ,o.stage
             ,null as opportunity_close_date
             ,o.lease_start_date
             ,null as service_start_date
-            ,o.owner_name as opportunity_owner_name
+            ,null as opportunity_owner_name
 
-            ,null as product_name
-            ,o.product_family
+            ,o.product_name
+            ,null as product_family
             ,null as account_name
-            ,null as vendor
+            ,o.vendor
 
             ,null as contact_id
             ,null as contact_email
@@ -153,14 +155,11 @@ with
             ,'HS' as source
         from
             hs_opportunity o
-            left join sf on o.opportunity_id = sf.opportunity_id
-        where
-            sf.opportunity_id is null
 
         union select 
             '0', '0', 
             null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null
     )
 
 select

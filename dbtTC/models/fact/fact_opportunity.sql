@@ -108,17 +108,19 @@ with
             ,last_stage_change_date
             ,revenue_connection_flag
             ,unpaid_connection_flag
-            ,revenue
             ,days_since_created
             ,'SF' as source
+            ,sum(revenue) as revenue
         from
             SF
+        group by
+            1,2,3,4,5,6,7,8,9,10,11
 
         -- hubspot
         union select
             (select lead_pk from dim_lead where lead_id = '0') as lead_pk
             ,ifnull(o.opportunity_pk, (select opportunity_pk from dim_opportunity where opportunity_id = '0')) as opportunity_pk
-             ,ifnull(a.agent_pk, (select agent_pk from dim_agent where agent_email is null)) as agent_pk
+            ,(select agent_pk from dim_agent where agent_email is null) as agent_pk
             
             ,f.lease_start_date as created_date
             ,null as close_date
@@ -126,9 +128,9 @@ with
             ,null as last_stage_change_date
             ,null as revenue_connection_flag
             ,null as unpaid_connection_flag
-            ,null as revenue
             ,null as days_since_created
             ,'HS' as source
+            ,null as revenue
             
             -- ,o.opportunity_name
             -- ,o.opportunity_id
@@ -137,14 +139,8 @@ with
             -- ,o.address
         from
             HS_opportunity f
-            left join dim_opportunity o on f.opportunity_id = o.opportunity_id
-            left join dim_agent a on f.agent_email = a.agent_email
-            left join sf on f.opportunity_id = sf.opportunity_id
-        where
-            sf.opportunity_id is null
+            {# left join dim_agent a on f.agent_email = a.agent_email #}
+            left join dim_opportunity o on f.hs_record_id = o.hs_record_id
     )
 
 select * from final
-
--- select opportunity_id, count(1) from final group by opportunity_id order by count(1) desc
-

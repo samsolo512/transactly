@@ -28,7 +28,7 @@ with
         from
             src_hs_object_properties
         where
-            name = 'opportunity_id'
+            name = 'deal_record_id'
             and value is not null
     )
 
@@ -49,9 +49,10 @@ with
             ,opportunity_id
             ,stage
             ,lease_start_date
-            ,opportunity_owner_id
-            ,product_family
+            ,vendor
+            ,product_name
             ,address
+            ,hs_record_id
         from 
             starting hs
             
@@ -59,11 +60,12 @@ with
                 max(value) for name in(
                     'dealname'
                     ,'opportunity_id'
-                    ,'dealstage'
-                    ,'lease_begins__c'
-                    ,'hubspot_owner_id'
-                    ,'product_families__c'
+                    ,'hs_pipeline_stage'
+                    ,'hs_createdate'
+                    ,'vendor_name'
+                    ,'vendor_code'
                     ,'customer_address'
+                    ,'deal_record_id'
                 )
             ) as p (
                 objectid
@@ -71,9 +73,10 @@ with
                 ,opportunity_id
                 ,stage
                 ,lease_start_date
-                ,opportunity_owner_id
-                ,product_family
+                ,vendor
+                ,product_name
                 ,address
+                ,hs_record_id
             )
     )
 
@@ -83,15 +86,16 @@ with
             p.opportunity_name
             ,p.opportunity_id
             ,ps.label as stage
-            ,concat(o.firstname, ' ', o.lastname) as owner_name
+            ,p.vendor
             ,try_to_date(p.lease_start_date) as lease_start_date
-            ,p.product_family
+            ,p.product_name
             ,p.address
-            ,o.email as agent_email
+            {# ,o.email as agent_email #}
+            ,p.hs_record_id
         from
             HS_pivot p
             left join src_HS_pipeline_stages ps on p.stage = ps.stageid
-            left join src_HS_owners o on p.opportunity_owner_id = to_varchar(o.ownerid)
+            {# left join src_HS_owners o on p.opportunity_owner_id = to_varchar(o.ownerid) #}
     )
 
 select * from final

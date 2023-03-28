@@ -4,6 +4,7 @@ create or replace table data_warehouse.fact_opportunity (
     opportunity_name string
     ,opportunity_line_item_name string
     ,opportunity_id string
+    ,hs_record_id string
     ,stage string
     ,lease_start_date string
     ,opportunity_owner_name string
