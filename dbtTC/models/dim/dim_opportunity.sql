@@ -131,7 +131,7 @@ with
             ,o.HS_record_id
             ,o.stage
             ,null as opportunity_close_date
-            ,o.lease_start_date
+            ,null as lease_start_date
             ,null as service_start_date
             ,null as opportunity_owner_name
 
@@ -142,7 +142,7 @@ with
 
             ,null as contact_id
             ,null as contact_email
-            ,null as contact_full_name
+            ,o.customer_full_name as contact_full_name
             ,o.address as contact_city
             ,null as contact_state
             ,null as contact_phone

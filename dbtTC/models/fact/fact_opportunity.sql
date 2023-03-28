@@ -122,7 +122,7 @@ with
             ,ifnull(o.opportunity_pk, (select opportunity_pk from dim_opportunity where opportunity_id = '0')) as opportunity_pk
             ,(select agent_pk from dim_agent where agent_email is null) as agent_pk
             
-            ,f.lease_start_date as created_date
+            ,f.hs_createdate as created_date
             ,null as close_date
             ,null as days_to_close
             ,null as last_stage_change_date

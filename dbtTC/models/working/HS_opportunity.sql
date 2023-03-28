@@ -48,11 +48,12 @@ with
             ,opportunity_name
             ,opportunity_id
             ,stage
-            ,lease_start_date
+            ,hs_createdate
             ,vendor
             ,product_name
             ,address
             ,hs_record_id
+            ,customer_full_name
         from 
             starting hs
             
@@ -66,17 +67,19 @@ with
                     ,'vendor_code'
                     ,'customer_address'
                     ,'deal_record_id'
+                    ,'customer_full_name'
                 )
             ) as p (
                 objectid
                 ,opportunity_name
                 ,opportunity_id
                 ,stage
-                ,lease_start_date
+                ,hs_createdate
                 ,vendor
                 ,product_name
                 ,address
                 ,hs_record_id
+                ,customer_full_name
             )
     )
 
@@ -87,11 +90,12 @@ with
             ,p.opportunity_id
             ,ps.label as stage
             ,p.vendor
-            ,try_to_date(p.lease_start_date) as lease_start_date
+            ,try_to_date(p.hs_createdate) as hs_createdate
             ,p.product_name
             ,p.address
             {# ,o.email as agent_email #}
             ,p.hs_record_id
+            ,p.customer_full_name
         from
             HS_pivot p
             left join src_HS_pipeline_stages ps on p.stage = ps.stageid
