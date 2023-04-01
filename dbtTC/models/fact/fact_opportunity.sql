@@ -122,15 +122,15 @@ with
             ,ifnull(o.opportunity_pk, (select opportunity_pk from dim_opportunity where opportunity_id = '0')) as opportunity_pk
             ,(select agent_pk from dim_agent where agent_email is null) as agent_pk
             
-            ,f.hs_createdate as created_date
-            ,null as close_date
+            ,f.create_date as created_date
+            ,f.closed_date as close_date
             ,null as days_to_close
             ,null as last_stage_change_date
             ,null as revenue_connection_flag
             ,null as unpaid_connection_flag
             ,null as days_since_created
             ,'HS' as source
-            ,null as revenue
+            ,f.revenue
             
             -- ,o.opportunity_name
             -- ,o.opportunity_id
@@ -139,8 +139,7 @@ with
             -- ,o.address
         from
             HS_opportunity f
-            {# left join dim_agent a on f.agent_email = a.agent_email #}
-            left join dim_opportunity o on f.hs_record_id = o.hs_record_id
+            left join dim_opportunity o on f.deal_record_id = o.deal_record_id
     )
 
 select * from final

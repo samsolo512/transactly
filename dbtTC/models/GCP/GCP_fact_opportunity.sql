@@ -27,7 +27,7 @@ with
             o.opportunity_name
             ,o.opportunity_line_item_name
             ,o.opportunity_id
-            ,o.hs_record_id
+            ,o.deal_record_id
             ,o.stage
             ,o.lease_start_date
             ,o.opportunity_owner_name

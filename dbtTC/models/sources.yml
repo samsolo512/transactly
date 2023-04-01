@@ -112,6 +112,9 @@ sources:
       - name: pipeline_stages
         identifier: pipeline_stages
 
+      - name: pipelines
+        identifier: pipelines
+
   - name: Sugar
     description: "SugarCRM data sources"
     database: Skyvia

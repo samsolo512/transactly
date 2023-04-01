@@ -92,7 +92,7 @@ with
             ,opportunity_id
             ,opportunity_name
             ,opportunity_line_item_name
-            ,null as hs_record_id
+            ,null as deal_record_id
             ,stage
             ,opportunity_close_date
             ,lease_start_date
@@ -125,24 +125,24 @@ with
         union select
             null as product_id
             
-            ,o.opportunity_id
-            ,o.opportunity_name
+            ,null as opportunity_id
+            ,o.dealname as opportunity_name
             ,null as opportunity_line_item_name
-            ,o.HS_record_id
-            ,o.stage
+            ,o.deal_record_id
+            ,o.dealstage as stage
             ,null as opportunity_close_date
             ,null as lease_start_date
-            ,null as service_start_date
+            ,o.service_date_begins as service_start_date
             ,null as opportunity_owner_name
 
             ,o.product_name
-            ,null as product_family
+            ,o.product_family as product_family
             ,null as account_name
             ,o.vendor
 
             ,null as contact_id
             ,null as contact_email
-            ,o.customer_full_name as contact_full_name
+            ,null as contact_full_name
             ,o.address as contact_city
             ,null as contact_state
             ,null as contact_phone
@@ -153,6 +153,7 @@ with
             ,null as contact_attribution
 
             ,'HS' as source
+
         from
             hs_opportunity o
 

@@ -17,23 +17,31 @@ with
         from {{ ref('src_hs_object_properties')}}
     )
 
-    ,src_hs_owners as(
+    ,src_hs_pipelines as(
         select *
-        from {{ ref('src_hs_owners')}}
+        from {{ ref('src_hs_pipelines')}}
     )
 
     ,HS_refine as(
         select distinct
-            objectid
+            value
+            ,objectid
         from
             src_hs_object_properties
         where
             name = 'deal_record_id'
-            and value is not null
     )
 
     ,starting as(
-        select 
+        select
+            b.objectid
+            ,a.name
+            ,a.value
+        from 
+            src_hs_object_properties a
+            join HS_refine b on a.objectid = b.value
+
+        union select 
             a.objectid
             ,a.name
             ,a.value 
@@ -45,61 +53,82 @@ with
     ,HS_pivot as(
         select 
             objectid
-            ,opportunity_name
-            ,opportunity_id
-            ,stage
-            ,hs_createdate
-            ,vendor
+            ,dealname
+            ,deal_record_id
+            ,dealstage
             ,product_name
+            ,product_family
+            ,vendor
             ,address
-            ,hs_record_id
-            ,customer_full_name
+            ,contact_attribution
+            ,service_date_begins
+            ,create_date
+            ,closed_date
+            ,revenue
+            ,pipeline
+            ,vendor_code
+            
         from 
             starting hs
             
             pivot(
                 max(value) for name in(
                     'dealname'
-                    ,'opportunity_id'
-                    ,'hs_pipeline_stage'
-                    ,'hs_createdate'
-                    ,'vendor_name'
-                    ,'vendor_code'
-                    ,'customer_address'
                     ,'deal_record_id'
-                    ,'customer_full_name'
+                    ,'dealstage'
+                    ,'product_code'
+                    ,'product_family'
+                    ,'vendor_name'
+                    ,'customer_address'
+                    ,'attribution__c'
+                    ,'service_date_begins__c'
+                    ,'hs_createdate'
+                    ,'closedate'
+                    ,'revenue'
+                    ,'hs_pipeline'
+                    ,'vendor_code'
                 )
             ) as p (
                 objectid
-                ,opportunity_name
-                ,opportunity_id
-                ,stage
-                ,hs_createdate
-                ,vendor
+                ,dealname
+                ,deal_record_id
+                ,dealstage
                 ,product_name
+                ,product_family
+                ,vendor
                 ,address
-                ,hs_record_id
-                ,customer_full_name
+                ,contact_attribution
+                ,service_date_begins
+                ,create_date
+                ,closed_date
+                ,revenue
+                ,pipeline
+                ,vendor_code
             )
     )
 
     ,final as(
         select
             -- p.objectid
-            p.opportunity_name
-            ,p.opportunity_id
-            ,ps.label as stage
-            ,p.vendor
-            ,try_to_date(p.hs_createdate) as hs_createdate
+            p.dealname
+            ,p.deal_record_id
+            ,ps.label as dealstage
             ,p.product_name
+            ,p.product_family
+            ,p.vendor
             ,p.address
-            {# ,o.email as agent_email #}
-            ,p.hs_record_id
-            ,p.customer_full_name
+            ,p.contact_attribution
+            ,try_to_date(p.service_date_begins) as service_date_begins
+            ,try_to_date(p.create_date) as create_date
+            ,try_to_date(p.closed_date) as closed_date
+            ,try_to_number(p.revenue) as revenue
+            ,pl.label as pipeline
+            ,p.vendor_code
+            
         from
             HS_pivot p
-            left join src_HS_pipeline_stages ps on p.stage = ps.stageid
-            {# left join src_HS_owners o on p.opportunity_owner_id = to_varchar(o.ownerid) #}
+            left join src_HS_pipeline_stages ps on p.dealstage = ps.stageid  -- select top 10 * from src_HS_pipeline
+            left join src_HS_pipelines pl on p.pipeline = pl.pipelineid
     )
 
 select * from final
