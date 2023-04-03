@@ -133,7 +133,7 @@ with
             ,null as opportunity_close_date
             ,null as lease_start_date
             ,o.service_date_begins as service_start_date
-            ,null as opportunity_owner_name
+            ,o.owner_name as opportunity_owner_name
 
             ,o.product_name
             ,o.product_family as product_family

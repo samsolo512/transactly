@@ -124,11 +124,14 @@ with
             
             ,f.create_date as created_date
             ,f.closed_date as close_date
-            ,null as days_to_close
+            ,datediff(day, f.create_date, f.closed_date) as days_to_close
             ,null as last_stage_change_date
-            ,null as revenue_connection_flag
-            ,null as unpaid_connection_flag
-            ,null as days_since_created
+            ,case when f.revenue >= 1 then 1 else 0 end as revenue_connection_flag
+            ,case 
+                when f.revenue > 0 then 0
+                else 1
+                end as unpaid_connection_flag
+            ,datediff(day, f.create_date, getdate()) as days_since_created
             ,'HS' as source
             ,f.revenue
             

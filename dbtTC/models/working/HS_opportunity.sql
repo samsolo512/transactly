@@ -56,6 +56,7 @@ with
             ,dealname
             ,deal_record_id
             ,dealstage
+            ,nullif(trim(owner_id), '') as owner_id
             ,product_name
             ,product_family
             ,vendor
@@ -76,8 +77,9 @@ with
                     'dealname'
                     ,'deal_record_id'
                     ,'dealstage'
+                    ,'hubspot_owner_id'
                     ,'product_code'
-                    ,'product_family'
+                    ,'product_families__c'
                     ,'vendor_name'
                     ,'customer_address'
                     ,'attribution__c'
@@ -93,6 +95,7 @@ with
                 ,dealname
                 ,deal_record_id
                 ,dealstage
+                ,owner_id
                 ,product_name
                 ,product_family
                 ,vendor
@@ -113,6 +116,7 @@ with
             p.dealname
             ,p.deal_record_id
             ,ps.label as dealstage
+            ,concat(o.firstname, ' ', o.lastname) as owner_name
             ,p.product_name
             ,p.product_family
             ,p.vendor
@@ -129,6 +133,7 @@ with
             HS_pivot p
             left join src_HS_pipeline_stages ps on p.dealstage = ps.stageid  -- select top 10 * from src_HS_pipeline
             left join src_HS_pipelines pl on p.pipeline = pl.pipelineid
+            left join src_HS_owners o on p.owner_id = o.ownerid
     )
 
 select * from final
