@@ -137,16 +137,16 @@ with
 
             ,o.product_name
             ,o.product_family as product_family
-            ,null as account_name
+            ,o.account_name
             ,o.vendor
 
             ,null as contact_id
-            ,null as contact_email
-            ,null as contact_full_name
+            ,o.email as contact_email
+            ,o.customer_full_name as contact_full_name
             ,o.address as contact_city
             ,null as contact_state
-            ,null as contact_phone
-            ,null as contact_mobile_phone
+            ,o.phone as contact_phone
+            ,o.mobilephone as contact_mobile_phone
             ,null as contact_created_date
             ,null as water
             ,null as contact_owner_name

@@ -54,7 +54,7 @@ with
     
     ,SF as(
         select
-            nvl(ld.lead_pk, 0) as lead_pk
+            nvl(ld.lead_pk, (select lead_pk from dim_lead where lead_id = '0')) as lead_pk
             ,nvl(do.opportunity_pk, 0) as opportunity_pk
             ,nvl(ag.agent_pk, 0) as agent_pk
 

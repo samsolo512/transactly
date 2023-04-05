@@ -24,15 +24,15 @@ with
 
     ,HS_refine as(
         select distinct
-            value
-            ,objectid
+            objectid
+            ,value
         from
             src_hs_object_properties
         where
             name = 'deal_record_id'
     )
 
-    ,starting as(
+    ,deal_value as(
         select
             b.objectid
             ,a.name
@@ -40,8 +40,10 @@ with
         from 
             src_hs_object_properties a
             join HS_refine b on a.objectid = b.value
+    )
 
-        union select 
+    ,deal_object as(
+        select 
             a.objectid
             ,a.name
             ,a.value 
@@ -50,6 +52,54 @@ with
             join HS_refine b on a.objectid = b.objectid
     )
 
+    ,deal_value_contact as(
+        select 
+            a.objectid
+            ,a.objecttypeid
+            ,a.name
+            ,a.value
+            ,b.objectid as aliasobjectid
+        from 
+            src_hs_object_properties a
+            join deal_value b
+                on a.value = b.value
+                and a.name = 'hs_analytics_source_data_2'
+                and b.name = 'hs_analytics_source_data_2'
+                and objecttypeid = '0-1'
+    )
+
+    ,deal_contact as(
+        select 
+            b.aliasobjectid as objectid
+            ,a.name
+            ,a.value
+        from 
+            src_hs_object_properties a
+            join deal_value_contact b 
+                on a.objectid = b.objectid
+                and a.objecttypeid = b.objecttypeid
+    )
+
+    ,combine as(
+        select
+            a.objectid
+            ,a.name
+            ,a.value
+        from deal_value a
+
+        union select
+            b.objectid
+            ,b.name
+            ,b.value
+        from deal_object b
+
+        union select
+            c.objectid
+            ,c.name
+            ,c.value
+        from deal_contact c
+    )
+    
     ,HS_pivot as(
         select 
             objectid
@@ -68,9 +118,14 @@ with
             ,revenue
             ,pipeline
             ,vendor_code
+            ,customer_full_name
+            ,phone
+            ,mobilephone
+            ,email
+            ,account_name
             
         from 
-            starting hs
+            combine hs
             
             pivot(
                 max(value) for name in(
@@ -89,6 +144,12 @@ with
                     ,'revenue'
                     ,'hs_pipeline'
                     ,'vendor_code'
+                    ,'customer_full_name'
+                    ,'phone'
+                    ,'mobilephone'
+                    ,'email'
+                    ,'company'
+            
                 )
             ) as p (
                 objectid
@@ -107,6 +168,11 @@ with
                 ,revenue
                 ,pipeline
                 ,vendor_code
+                ,customer_full_name
+                ,phone
+                ,mobilephone
+                ,email
+                ,account_name
             )
     )
 
@@ -128,10 +194,15 @@ with
             ,try_to_number(p.revenue) as revenue
             ,pl.label as pipeline
             ,p.vendor_code
+            ,p.customer_full_name
+            ,p.phone
+            ,p.mobilephone
+            ,p.email
+            ,p.account_name
             
         from
             HS_pivot p
-            left join src_HS_pipeline_stages ps on p.dealstage = ps.stageid  -- select top 10 * from src_HS_pipeline
+            left join src_HS_pipeline_stages ps on p.dealstage = ps.stageid
             left join src_HS_pipelines pl on p.pipeline = pl.pipelineid
             left join src_HS_owners o on p.owner_id = o.ownerid
     )
