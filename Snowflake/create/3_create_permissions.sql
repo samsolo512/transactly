@@ -1,5 +1,7 @@
 use role securityadmin;
 
+
+
 ----------------------------------------------------------------------------------------------------
 -- grant user roles to users
 
@@ -18,7 +20,9 @@ grant role data_analyst to user mclifton;
 grant role data_analyst to user jcollado;
 grant role data_engineer to user datagrip_svc;
 grant role metabase_role to user metabase_svc;
+grant role googlesheets_role to user googlesheets_svc;
 grant usage on warehouse PowerBI_WH to role PowerBI_role;
+
 
 
 ----------------------------------------------------------------------------------------------------
@@ -39,6 +43,7 @@ grant role data_engineer to role sysadmin;
 grant role airbyte_role to role sysadmin;
 grant role dbt_role to role sysadmin;
 grant role metabase_role to role sysadmin;
+
 
 
 ----------------------------------------------------------------------------------------------------
@@ -87,6 +92,8 @@ grant role airbyte_owner to role data_engineer;
 grant role skyvia_read to role data_engineer;
 grant role skyvia_owner to role data_engineer;
 grant role neo4j_role to role data_engineer;
+grant role googlesheets_role to role data_engineer;
+grant role gcp_tables_read to role data_engineer;
 grant usage on warehouse compute_wh to role data_engineer;
 grant usage on warehouse powerbi_wh to role data_engineer;
 grant usage on warehouse tableau_wh to role data_engineer;
@@ -94,6 +101,11 @@ grant usage on warehouse transactlydev to role data_engineer;
 grant usage on warehouse airbyte_wh to role airbyte_role;
 grant usage on integration GCP to role data_engineer;
 grant imported privileges on database snowflake to role data_engineer;  -- so can view snowflake database
+
+
+-- googlesheets_role
+grant usage on warehouse googlesheets_wh to role googlesheets_role;
+grant role GCP_tables_read to role googlesheets_role;
 
 
 -- metabase_role
@@ -142,6 +154,7 @@ grant role fivetran_read to role admin_read;
 grant role prod_dimension_read to role admin_read;
 grant usage on warehouse compute_wh to role admin_read;
 grant role skyvia_read to role data_analyst;
+
 
 
 ----------------------------------------------------------------------------------------------------
@@ -205,6 +218,30 @@ grant ownership on all schemas in database fivetran to role fivetran_owner revok
 grant ownership on all tables in database fivetran to role fivetran_owner revoke current grants;
 grant ownership on future tables in database fivetran to role fivetran_owner;
 grant create schema, monitor, usage on database fivetran to role fivetran_owner;
+
+
+-- gcp_tables_read
+/*
+select 
+    concat('grant select on prod.dimensional.', table_name, ' to role gcp_tables_read;')
+from 
+    prod.information_schema.tables 
+where 
+    table_schema = 'DIMENSIONAL' 
+    and table_name like 'GCP_%'
+;
+*/
+grant select on prod.dimensional.GCP_DIM_LEAD to role gcp_tables_read;
+grant select on prod.dimensional.GCP_DIM_USER to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_DAILY_SF_ACTIVITY to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_LINE_ITEM to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_ORDER to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_REVENUE to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_TASK to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_TRANSACTION to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_VENDOR_PAYOUT to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_OPPORTUNITY to role gcp_tables_read;
+grant select on prod.dimensional.GCP_FACT_TRANSACTION_MEMBER_CONTACT to role gcp_tables_read;
 
 
 -- quickbooks_owner

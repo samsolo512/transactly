@@ -11,6 +11,8 @@ create warehouse if not exists PowerBI_WH with WAREHOUSE_SIZE = xsmall max_clust
 create warehouse if not exists Tableau_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
 create warehouse if not exists dbt_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
 create warehouse if not exists metabase_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
+create warehouse if not exists googlesheets_WH with WAREHOUSE_SIZE = xsmall max_cluster_count = 1 auto_suspend = 30 auto_resume = true scaling_policy = economy INITIALLY_SUSPENDED = true;
+
 
 
 ---------------------------------------------------------------------------------------------------
@@ -48,7 +50,7 @@ create user if not exists fivetran_user default_role = fivetran_role default_war
 create user if not exists datagrip_svc default_role = data_engineeer default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
 create user if not exists metabase_svc default_role = metabase_role default_warehouse = metabase_wh default_namespace = prod.dimensional password = '' must_change_password = false;
 create user if not exists neo4j_svc default_role = neo4j_role default_warehouse = compute_wh default_namespace = dev.dimensional password = '' must_change_password = false;
-
+create user if not exists GoogleSheets_svc default_role = googlesheets_role default_warehouse = googlesheets_wh default_namespace = prod.dimensional password = '' must_change_password = false;
 
 -- create or modify users
 create user if not exists sbrown default_role = data_engineer default_warehouse = compute_wh default_namespace = dev.dimensional;
@@ -67,6 +69,7 @@ create role if not exists data_analyst;
 create role if not exists data_engineer;
 create role if not exists dbt_role;
 create role if not exists fivetran_role;
+create role if not exists googlesheets_role;
 create role if not exists metabase_role;
 create role if not exists neo4j_role;
 create role if not exists powerbi_role;
@@ -83,6 +86,7 @@ create role if not exists ext_transactly_app;
 create role if not exists ext_twoTurnItOn;
 create role if not exists fivetran_owner;
 create role if not exists fivetran_read;
+create role if not exists GCP_tables_read;
 create role if not exists hubspot_owner;
 create role if not exists hubspot_read;
 create role if not exists prod_owner;
