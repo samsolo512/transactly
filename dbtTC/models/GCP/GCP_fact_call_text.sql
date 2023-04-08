@@ -26,6 +26,7 @@ with
             ,fact.message
             ,fact.message_id
             ,fact.response_time
+            ,contact_name
         from 
             fact_call_text fact
     )

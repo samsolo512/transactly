@@ -14,4 +14,5 @@ create or replace table data_warehouse.fact_call_text (
     ,message string
     ,message_id string
     ,response_time string
+    ,contact_name string
 )

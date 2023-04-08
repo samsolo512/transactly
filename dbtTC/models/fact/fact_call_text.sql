@@ -1,4 +1,4 @@
--- fact_text
+-- fact_call_text
 -- 1 row/communication event
 
 with
@@ -72,6 +72,7 @@ with
     ,allcomm as(
         select
             objectid
+            ,objecttypeid
             ,value as contact_method
         from 
             src_hs_object_properties
@@ -138,6 +139,19 @@ with
                 and o.name = 'hs_timestamp'
     )
 
+    ,contact as(
+        select 
+            o.objectid
+            ,trim(replace(o.value, 'Call with')) as contact_name
+        from
+            src_hs_object_properties o
+            join allcomm a 
+                on o.objectid = a.objectid
+                and o.objecttypeid = a.objecttypeid
+        where
+            o.name = 'hs_call_title'
+    )
+
     ,hs as(
         select distinct
             o.firstname
@@ -152,10 +166,12 @@ with
             ,r.to_number
             ,r.message
             ,t.timestamp
+            ,c.contact_name
         from
             obj r
             left join src_hs_owners o on r.ownerid = nullif(trim(o.ownerid), '')
             left join tmstmp t on r.objectid = t.objectid
+            left join contact c on r.objectid = c.objectid
     )
 
     ,final as(
@@ -174,6 +190,7 @@ with
             ,null as message
             ,null as message_id
             ,null as response_time
+            ,null as contact_name
         from 
             sf
             left join dim_lead l on sf.lead_id = l.lead_id
@@ -196,12 +213,13 @@ with
             ,message_direction as direction
             ,null as call_duration_in_seconds
             ,null as call_duration
-            ,concat(firstname, ' ', lastname)
+            ,concat(firstname, ' ', lastname) as user
             ,null as activity_name
             ,'HS' as source
             ,message
             ,null as message_id
             ,null as response_time
+            ,contact_name
         from
             hs
 
@@ -233,6 +251,7 @@ with
             ,a.text_body as message
             ,a.message_id
             ,a.response_time
+            ,null as contact_name
         from 
             src_sf_twilio_sf_message_c a
             join src_sf_user u on a.owner_id = u.user_id
