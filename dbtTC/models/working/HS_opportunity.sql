@@ -17,87 +17,36 @@ with
         from {{ ref('src_hs_object_properties')}}
     )
 
+    ,src_hs_owners as(
+        select *
+        from {{ ref('src_hs_owners')}}
+    )
+
     ,src_hs_pipelines as(
         select *
         from {{ ref('src_hs_pipelines')}}
     )
 
     ,HS_refine as(
-        select distinct
-            objectid
-            ,value
-        from
-            src_hs_object_properties
-        where
-            name = 'deal_record_id'
-    )
-
-    ,deal_value as(
-        select
-            b.objectid
-            ,a.name
-            ,a.value
-        from 
-            src_hs_object_properties a
-            join HS_refine b on a.objectid = b.value
-    )
-
-    ,deal_object as(
         select 
-            a.objectid
-            ,a.name
-            ,a.value 
+            objectid, objecttypeid, name, try_to_date(value)
         from 
-            src_hs_object_properties a
-            join HS_refine b on a.objectid = b.objectid
+            src_hs_object_properties 
+        where 
+            try_to_date(value) is not null
+            and lower(name) = 'processed_date'
+
+            -- and objectid = 12871139635
     )
 
-    ,deal_value_contact as(
+    ,deals as(
         select 
-            a.objectid
-            ,a.objecttypeid
-            ,a.name
-            ,a.value
-            ,b.objectid as aliasobjectid
+            b.objectid, b.name, b.value
         from 
-            src_hs_object_properties a
-            join deal_value b
-                on a.value = b.value
-                and a.name = 'hs_analytics_source_data_2'
-                and b.name = 'hs_analytics_source_data_2'
-                and objecttypeid = '0-1'
-    )
-
-    ,deal_contact as(
-        select 
-            b.aliasobjectid as objectid
-            ,a.name
-            ,a.value
-        from 
-            src_hs_object_properties a
-            join deal_value_contact b 
-                on a.objectid = b.objectid
-                and a.objecttypeid = b.objecttypeid
-    )
-
-    ,combine as(
-        select
-            a.objectid
-            ,a.name
-            ,a.value
-        from deal_value a
-
-        union select
-            b.objectid
-            ,b.name
-            ,b.value
-        from deal_object b
-
-        union select
-            c.objectid
-            ,c.name
-            ,c.value
-        from deal_contact c
+            HS_refine a
+            join src_hs_object_properties b on a.objectid = b.objectid
+        -- where
+        --     b.name in('dealstage', 'processed_date')
     )
     
     ,HS_pivot as(
@@ -125,7 +74,7 @@ with
             ,account_name
             
         from 
-            combine hs
+            deals hs
             
             pivot(
                 max(value) for name in(
@@ -140,7 +89,7 @@ with
                     ,'attribution__c'
                     ,'service_date_begins__c'
                     ,'hs_createdate'
-                    ,'closedate'
+                    ,'processed_date'
                     ,'revenue'
                     ,'hs_pipeline'
                     ,'vendor_code'
@@ -205,6 +154,8 @@ with
             left join src_HS_pipeline_stages ps on p.dealstage = ps.stageid
             left join src_HS_pipelines pl on p.pipeline = pl.pipelineid
             left join src_HS_owners o on p.owner_id = o.ownerid
+        where
+            ps.label = 'Processed'
     )
 
 select * from final

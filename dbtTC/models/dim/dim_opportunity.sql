@@ -85,6 +85,7 @@ with
     )
 
     ,final as(
+        -- SF
         select
             product_id
 
@@ -122,6 +123,7 @@ with
         from
             sf
 
+        -- HS
         union select
             null as product_id
             

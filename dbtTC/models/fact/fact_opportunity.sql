@@ -117,7 +117,7 @@ with
             1,2,3,4,5,6,7,8,9,10,11
 
         -- hubspot
-        union select
+        union all select
             (select lead_pk from dim_lead where lead_id = '0') as lead_pk
             ,ifnull(o.opportunity_pk, (select opportunity_pk from dim_opportunity where opportunity_id = '0')) as opportunity_pk
             ,(select agent_pk from dim_agent where agent_email is null) as agent_pk
@@ -142,7 +142,7 @@ with
             -- ,o.address
         from
             HS_opportunity f
-            left join dim_opportunity o on f.deal_record_id = o.deal_record_id
+            left join dim_opportunity o on f.dealname = o.opportunity_name
     )
 
 select * from final
