@@ -544,6 +544,10 @@ with
             ,toto.total_closed_orders
             ,toto.total_placed_orders
 
+            ,u.customer_id
+            ,u.updated_date
+            ,case when u.customer_id is not null then 1 else 0 end as has_customer_id_flag
+
         from
             user_lead ul
 
@@ -626,6 +630,9 @@ with
             ,case when days_since_last_order_placed >= 90 then 1 else 0 end
             ,toto.total_closed_orders
             ,toto.total_placed_orders
+            ,customer_id
+            ,updated_date
+            ,has_customer_id_flag
     )
 
     ,final as(
@@ -701,6 +708,10 @@ with
             ,total_closed_orders
             ,total_placed_orders
 
+            ,customer_id
+            ,updated_date
+            ,has_customer_id_flag
+
         from final_logic
 
         group by
@@ -752,12 +763,15 @@ with
             ,days_since_last_order_placed_over_90_flag
             ,total_closed_orders
             ,total_placed_orders
+            ,customer_id
+            ,updated_date
+            ,has_customer_id_flag
 
         union select
             0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null
 
     )
 

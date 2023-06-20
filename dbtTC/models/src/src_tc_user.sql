@@ -26,6 +26,8 @@ select
     ,u.self_procured
     ,u.phone
     ,u.stripe_account_id
+    ,u.customer_id
+    ,to_date(u.updated) as updated_date
 from
     src_tc_user u
 where
