@@ -64,6 +64,10 @@ with
             ,total_closed_orders
             ,total_placed_orders
 
+            ,customer_id
+            ,updated_date
+            ,has_customer_id_flag
+
         from dim_user
     )
 

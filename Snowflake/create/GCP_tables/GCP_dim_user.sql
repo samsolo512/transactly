@@ -52,4 +52,8 @@ create or replace table data_warehouse.dim_user (
     ,days_since_last_order_placed_over_90_flag int
     ,total_closed_orders int
     ,total_placed_orders int
+
+    ,customer_id string
+    ,updated_date date
+    ,has_customer_id_flag int
 )
