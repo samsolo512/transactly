@@ -547,6 +547,9 @@ with
             ,u.customer_id
             ,u.updated_date
             ,case when u.customer_id is not null then 1 else 0 end as has_customer_id_flag
+            ,case when ac.user_id is not null then 1 else 0 end as has_agent_acct_credentials_flag
+            ,case when uv.user_id is not null then 1 else 0 end as is_user_vendor_flag
+            ,to_date(uv.updated) as user_vendor_last_updated
 
         from
             user_lead ul
@@ -564,6 +567,8 @@ with
             left join role_combine rc on ul.user_id = rc.user_id
             left join user_office uo on u.user_id = uo.user_id
             left join util on ul.user_id = util.user_id
+            left join src_tc_user_vendor uv on u.user_id = uv.user_id
+            left join src_tc_agent_acct_credentials ac on u.user_id = ac.user_id
 
             -- orders
             left join first_order_placed fp on u.user_id = fp.user_id
@@ -633,6 +638,9 @@ with
             ,customer_id
             ,updated_date
             ,has_customer_id_flag
+            ,has_agent_acct_credentials_flag
+            ,is_user_vendor_flag
+            ,user_vendor_last_updated
     )
 
     ,final as(
@@ -711,6 +719,9 @@ with
             ,customer_id
             ,updated_date
             ,has_customer_id_flag
+            ,has_agent_acct_credentials_flag
+            ,is_user_vendor_flag
+            ,user_vendor_last_updated
 
         from final_logic
 
@@ -766,12 +777,15 @@ with
             ,customer_id
             ,updated_date
             ,has_customer_id_flag
+            ,has_agent_acct_credentials_flag
+            ,is_user_vendor_flag
+            ,user_vendor_last_updated
 
         union select
             0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null
 
     )
 

@@ -67,6 +67,9 @@ with
             ,customer_id
             ,updated_date
             ,has_customer_id_flag
+            ,has_agent_acct_credentials_flag
+            ,is_user_vendor_flag
+            ,user_vendor_last_updated
 
         from dim_user
     )

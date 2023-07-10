@@ -56,4 +56,7 @@ create or replace table data_warehouse.dim_user (
     ,customer_id string
     ,updated_date date
     ,has_customer_id_flag int
+    ,has_agent_acct_credentials_flag int
+    ,is_user_vendor_flag int
+    ,user_vendor_last_updated date
 )

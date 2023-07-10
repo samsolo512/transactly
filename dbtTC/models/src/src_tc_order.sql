@@ -2,7 +2,7 @@
 
 with src_tc_order as(
     select *
-    from {{ source('gcp_prod_gcp_prod_prod', 'order') }}
+    from {{ source('gcp_prod_gcp_prod_prod', 'tc_order') }}
     where lower(_fivetran_deleted) = 'false'
 )
 
