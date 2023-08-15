@@ -51,6 +51,11 @@ with
         from {{ ref('src_hs_owners') }}
     )
 
+    ,src_tc_ledger as(
+        select *
+        from {{ ref('src_tc_ledger') }}
+    )
+
     ,src_tc_user_agent_subscription_tier as(
         select *
         from {{ ref('src_tc_user_agent_subscription_tier') }}
@@ -550,6 +555,13 @@ with
             ,case when ac.user_id is not null then 1 else 0 end as has_agent_acct_credentials_flag
             ,case when uv.user_id is not null then 1 else 0 end as is_user_vendor_flag
             ,to_date(uv.updated) as user_vendor_last_updated
+            ,auto_payment_flag
+
+            --ledger
+            ,ledger.ledger_id
+            ,ledger.ledger_created_date 
+            ,ledger.ledger_credit_balance
+            ,ledger.ledger_updated_date
 
         from
             user_lead ul
@@ -569,6 +581,7 @@ with
             left join util on ul.user_id = util.user_id
             left join src_tc_user_vendor uv on u.user_id = uv.user_id
             left join src_tc_agent_acct_credentials ac on u.user_id = ac.user_id
+            left join src_tc_ledger ledger on u.user_id = ledger.user_id
 
             -- orders
             left join first_order_placed fp on u.user_id = fp.user_id
@@ -641,6 +654,11 @@ with
             ,has_agent_acct_credentials_flag
             ,is_user_vendor_flag
             ,user_vendor_last_updated
+            ,auto_payment_flag
+            ,ledger_id
+            ,ledger_created_date 
+            ,ledger_credit_balance
+            ,ledger_updated_date
     )
 
     ,final as(
@@ -722,6 +740,13 @@ with
             ,has_agent_acct_credentials_flag
             ,is_user_vendor_flag
             ,user_vendor_last_updated
+            ,auto_payment_flag
+
+            -- ledger
+            ,ledger_id
+            ,ledger_created_date 
+            ,ledger_credit_balance
+            ,ledger_updated_date
 
         from final_logic
 
@@ -780,12 +805,17 @@ with
             ,has_agent_acct_credentials_flag
             ,is_user_vendor_flag
             ,user_vendor_last_updated
+            ,auto_payment_flag
+            ,ledger_id
+            ,ledger_created_date 
+            ,ledger_credit_balance
+            ,ledger_updated_date
 
         union select
             0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
 
     )
 

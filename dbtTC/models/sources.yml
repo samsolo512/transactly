@@ -14,6 +14,7 @@ sources:
       - name: agent_subscription_tier
       - name: contact
       - name: contract
+      - name: ledger
       - name: line_item
       - name: member
       - name: offer_group

@@ -59,4 +59,11 @@ create or replace table data_warehouse.dim_user (
     ,has_agent_acct_credentials_flag int
     ,is_user_vendor_flag int
     ,user_vendor_last_updated date
+    ,auto_payment_flag int
+
+    -- ledger
+    ,ledger_id int
+    ,ledger_created_date date
+    ,ledger_credit_balance int
+    ,ledger_updated_date date
 )

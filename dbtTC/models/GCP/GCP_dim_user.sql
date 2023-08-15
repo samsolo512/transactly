@@ -70,6 +70,13 @@ with
             ,has_agent_acct_credentials_flag
             ,is_user_vendor_flag
             ,user_vendor_last_updated
+            ,auto_payment_flag
+
+            -- ledger
+            ,ledger_id
+            ,ledger_created_date 
+            ,ledger_credit_balance
+            ,ledger_updated_date
 
         from dim_user
     )

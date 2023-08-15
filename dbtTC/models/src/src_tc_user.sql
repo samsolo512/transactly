@@ -18,6 +18,7 @@ select
     {# ,regexp_replace(email, '[^A-Z0-9a-z\@\.\_\\-\+\`\ \,\/\\[\\]\=\)\;\>]', '') as email #}
     {# ,regexp_replace({{ field_clean('u.email') }}, '[^A-Z0-9a-z\@\.\_\\-\+]', '') as email #}
     ,u.first_login
+    ,case when u.auto_payment = true then 1 else 0 end as auto_payment_flag
     ,cast(u.autopay_date as date) as autopay_date
     ,cast(u.created as date) as created_date
     ,u.google_user_id

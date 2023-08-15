@@ -24,5 +24,4 @@ select
     ,l.stripe_paid
 from
     src_tc_line_item l
-where
-    _fivetran_deleted = 'FALSE'
+
