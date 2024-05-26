@@ -66,4 +66,6 @@ create or replace table data_warehouse.dim_user (
     ,ledger_created_date date
     ,ledger_credit_balance int
     ,ledger_updated_date date
+
+    ,contact_owner string
 )

@@ -40,7 +40,7 @@ with
             ,HS_agent_type
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
-        
+            
             ,user_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
@@ -77,6 +77,8 @@ with
             ,ledger_created_date 
             ,ledger_credit_balance
             ,ledger_updated_date
+
+            ,contact_owner
 
         from dim_user
     )

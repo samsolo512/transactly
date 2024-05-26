@@ -47,6 +47,7 @@ with
             ,user.fullname
             ,user.office_name as client_brokerage
             ,user.office_id as client_brokerage_id
+            ,user.parent_office_id
             ,user.tier_1 as tier_1_date  -- due date of 5th sale
             ,user.tier_2 as tier_2_date  -- due date of 1st sale
             ,user.tier_3 as tier_3_date  -- user created date

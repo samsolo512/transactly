@@ -20,6 +20,7 @@ create or replace table data_warehouse.fact_line_item (
     ,client_fullname string
     ,client_brokerage string
     ,client_brokerage_id int
+    ,parent_office_id int
     ,tier_1_date datetime
     ,tier_2_date datetime
     ,tier_3_date date

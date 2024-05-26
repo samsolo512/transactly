@@ -407,6 +407,7 @@ with
             a.user_id
             ,a.office_id
             ,a.office_name
+            ,a.parent_office_id
         from
             offc a
             join unique_office b
@@ -460,6 +461,7 @@ with
             ,u.brokerage
             ,uo.office_id
             ,uo.office_name
+            ,uo.parent_office_id
             ,st.tier as subscription_level
             ,case lower(hagent.lead_status)
                 when 'onboarded' then 'Onboarded (TC/Staff)'
@@ -602,6 +604,7 @@ with
             ,u.brokerage
             ,uo.office_id
             ,uo.office_name
+            ,uo.parent_office_id
             ,st.tier
             ,hagent.lead_status
             ,concat(cont_owner.firstname, ' ', cont_owner.lastname)
@@ -671,6 +674,7 @@ with
             ,brokerage
             ,office_id
             ,office_name
+            ,parent_office_id
             ,subscription_level
             ,lead_status as transaction_coordinator_status
             ,contact_owner
@@ -759,6 +763,7 @@ with
             ,brokerage
             ,office_id
             ,office_name
+            ,parent_office_id
             ,subscription_level
             ,lead_status
             ,contact_owner
@@ -815,7 +820,8 @@ with
             0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null
+            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+            null
 
     )
 
