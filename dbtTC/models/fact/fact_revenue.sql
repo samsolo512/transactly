@@ -78,28 +78,28 @@ with
     )
 
     -- vendor payout revenue
-    ,vendor_revenue as(
-        select
-            a.agent_pk
-            ,opp.opportunity_id
-            ,v.vendor_payout_id
-            ,v.vendor_payout_date as date
-            ,0 as opportunity_revenue
-            ,0 as transactly_revenue
-            ,sum(v.vendor_payout_amount) as payout_revenue
+    -- ,vendor_revenue as(
+    --     select
+    --         a.agent_pk
+    --         ,opp.opportunity_id
+    --         ,v.vendor_payout_id
+    --         ,v.vendor_payout_date as date
+    --         ,0 as opportunity_revenue
+    --         ,0 as transactly_revenue
+    --         ,sum(v.vendor_payout_amount) as payout_revenue
 
-        from
-            fact_opportunity fact
-            join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
-            left join dim_agent a on fact.agent_pk = a.agent_pk
-            left join src_sf_vendor_payout_c v on opp.opportunity_id = v.opportunity_id
+    --     from
+    --         fact_opportunity fact
+    --         join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
+    --         left join dim_agent a on fact.agent_pk = a.agent_pk
+    --         left join src_sf_vendor_payout_c v on opp.opportunity_id = v.opportunity_id
 
-        where
-            v.vendor_payout_amount is not null
+    --     where
+    --         v.vendor_payout_amount is not null
             
-        group by
-            a.agent_pk, v.vendor_payout_date, v.vendor_payout_id, opp.opportunity_id
-    )
+    --     group by
+    --         a.agent_pk, v.vendor_payout_date, v.vendor_payout_id, opp.opportunity_id
+    -- )
    
    ,combine as(
         select
@@ -125,17 +125,17 @@ with
         from TC
         group by agent_pk, date
 
-        union
-        select
-            agent_pk
-            ,opportunity_id
-            ,vendor_payout_id
-            ,cast(date as date) as date
-            ,sum(opportunity_revenue) as opportunity_revenue
-            ,sum(transactly_revenue) as transactly_revenue
-            ,sum(payout_revenue) as vendor_payout_amount
-        from vendor_revenue
-        group by agent_pk, vendor_payout_id, date, opportunity_id
+        -- union
+        -- select
+        --     agent_pk
+        --     ,opportunity_id
+        --     ,vendor_payout_id
+        --     ,cast(date as date) as date
+        --     ,sum(opportunity_revenue) as opportunity_revenue
+        --     ,sum(transactly_revenue) as transactly_revenue
+        --     ,sum(payout_revenue) as vendor_payout_amount
+        -- from vendor_revenue
+        -- group by agent_pk, vendor_payout_id, date, opportunity_id
     )
 
     ,final as(

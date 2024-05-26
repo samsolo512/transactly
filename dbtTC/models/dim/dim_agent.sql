@@ -22,27 +22,27 @@ with
     )
 
     -- leads
-    ,lead_date as(
-        select
-            lower(l.agent_email) as agent_email
-            ,min(l.created_date_time) as created_date_time
-        from
-            src_sf_lead l
-        group by lower(l.agent_email)
-    )
+    -- ,lead_date as(
+    --     select
+    --         lower(l.agent_email) as agent_email
+    --         ,min(l.created_date_time) as created_date_time
+    --     from
+    --         src_sf_lead l
+    --     group by lower(l.agent_email)
+    -- )
 
-    ,lead_id as(
-        select
-            lower(l.agent_email) as agent_email
-            ,l.created_date_time
-            ,min(l.agent_name) as agent_name
-        from
-            src_sf_lead l
-            join lead_date ld
-                on lower(l.agent_email) = lower(ld.agent_email)
-                and ifnull(l.created_date_time, '1/1/1900') = ifnull(ld.created_date_time, '1/1/1900')
-        group by lower(l.agent_email), l.created_date_time
-    )
+    -- ,lead_id as(
+    --     select
+    --         lower(l.agent_email) as agent_email
+    --         ,l.created_date_time
+    --         ,min(l.agent_name) as agent_name
+    --     from
+    --         src_sf_lead l
+    --         join lead_date ld
+    --             on lower(l.agent_email) = lower(ld.agent_email)
+    --             and ifnull(l.created_date_time, '1/1/1900') = ifnull(ld.created_date_time, '1/1/1900')
+    --     group by lower(l.agent_email), l.created_date_time
+    -- )
 
     -- users who are agents
     ,mod_user as(
@@ -72,22 +72,22 @@ with
             mod_user u
 
         -- lead
-        union
-        select
-            lower(l.agent_email) as agent_email
-            ,l.agent_name
-            ,null as user_created_date
-            ,min(l.created_date) as lead_created_date
-            ,0 as tc_agent_flag
-            ,1 as lead_agent_flag
-        from
-            src_sf_lead l
-            join lead_id ld
-                on lower(l.agent_email) = lower(ld.agent_email)
-                and ifnull(l.created_date_time, '1/1/1900') = ifnull(ld.created_date_time, '1/1/1900')
-                and ifnull(l.agent_name, '-1') = ifnull(ld.agent_name, '-1')
-        group by
-            lower(l.agent_email), l.agent_name
+    --     union
+    --     select
+    --         lower(l.agent_email) as agent_email
+    --         ,l.agent_name
+    --         ,null as user_created_date
+    --         ,min(l.created_date) as lead_created_date
+    --         ,0 as tc_agent_flag
+    --         ,1 as lead_agent_flag
+    --     from
+    --         src_sf_lead l
+    --         join lead_id ld
+    --             on lower(l.agent_email) = lower(ld.agent_email)
+    --             and ifnull(l.created_date_time, '1/1/1900') = ifnull(ld.created_date_time, '1/1/1900')
+    --             and ifnull(l.agent_name, '-1') = ifnull(ld.agent_name, '-1')
+    --     group by
+    --         lower(l.agent_email), l.agent_name
     )
 
     ,client_flags as(
