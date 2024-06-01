@@ -79,6 +79,7 @@ with
             ,ledger_updated_date
 
             ,contact_owner
+            ,owner_assigned_date
 
         from dim_user
     )

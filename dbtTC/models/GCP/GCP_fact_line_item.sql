@@ -77,7 +77,6 @@ with
             ,user.second_order_closed as second_order_closed_date
             ,user.third_order_closed as third_order_closed_date
             ,user.fourth_order_closed as fourth_order_closed_date
-            ,user.contact_owner
             ,fact.placed_sequence
             ,fact.closed_sequence
             ,user.original_sales_rep_name
@@ -93,6 +92,8 @@ with
             ,user.HS_assigned_TC
             ,o.assigned_TC_email
 
+            ,user.contact_owner
+            ,user.owner_assigned_date
         from
             fact_line_item fact
             join dim_line_item line on fact.line_item_pk = line.line_item_pk

@@ -526,6 +526,7 @@ with
             ,hagent.transactly_utility_connection_vendor_status
             ,hagent.lead_status as HS_lead_status
             ,hagent.assigned_tc as HS_assigned_TC
+            ,hagent.owner_assigned_date
 
             -- dates
             ,u.created_date as user_created_date
@@ -635,6 +636,7 @@ with
             ,hagent.transactly_utility_connection_vendor_status
             ,hagent.lead_status
             ,hagent.assigned_tc
+            ,hagent.owner_assigned_date
             ,u.created_date
             ,hagent.created_date
             ,tier_3
@@ -677,7 +679,6 @@ with
             ,parent_office_id
             ,subscription_level
             ,lead_status as transaction_coordinator_status
-            ,contact_owner
             ,stripe_account_id
             ,utility_opt_in_status
 
@@ -752,6 +753,9 @@ with
             ,ledger_credit_balance
             ,ledger_updated_date
 
+            ,contact_owner
+            ,owner_assigned_date
+
         from final_logic
 
         group by
@@ -794,6 +798,7 @@ with
             ,transactly_utility_connection_vendor_status
             ,HS_lead_status
             ,HS_assigned_TC
+            ,owner_assigned_date
             ,user_created_date
             ,start_date
             ,days_between_start_date_and_first_order_date
@@ -821,7 +826,7 @@ with
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null
+            null, null
 
     )
 

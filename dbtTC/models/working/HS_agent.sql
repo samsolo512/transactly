@@ -63,6 +63,7 @@ with
                 ,'hs_start_date'
                 ,'start_date'
                 ,'tc_start_date'
+                ,'hubspot_owner_assigneddate'
             )
     )
 
@@ -94,6 +95,7 @@ with
             ,eligible_for_clients
             ,transactly_home_insurance_vendor_status
             ,transactly_utility_connection_vendor_status
+            ,cast(nullif(owner_assigned_date, '') as date) as owner_assigned_date
 
         --     ,cast(hs_start_date as date) as hs_start_date
         --     ,cast(start_date as date) as start_date
@@ -129,10 +131,11 @@ with
                     ,'eligible_for_clients'
                     ,'transactly_home_insurance_vendor_status'
                     ,'transactly_utility_connection_vendor_status'
+                    ,'hubspot_owner_assigneddate'
 
-                    ,'hs_start_date'
-                    ,'start_date'
-                    ,'tc_start_date'
+                    -- ,'hs_start_date'
+                    -- ,'start_date'
+                    -- ,'tc_start_date'
                 )
             )
             as p(
@@ -162,10 +165,11 @@ with
                 ,eligible_for_clients
                 ,transactly_home_insurance_vendor_status
                 ,transactly_utility_connection_vendor_status
+                ,owner_assigned_date
 
-                ,hs_start_date
-                ,start_date
-                ,tc_start_date
+                -- ,hs_start_date
+                -- ,start_date
+                -- ,tc_start_date
             )
     )
 
