@@ -37,7 +37,7 @@ with
             ,pay.spiff
 
         from
-            fact_vendor_payout fact
+            fact_vendor_payout fact 
             left join dim_vendor_payout pay on fact.vendor_payout_pk = pay.vendor_payout_pk
             join dim_opportunity opp on fact.opportunity_pk = opp.opportunity_pk
     )
