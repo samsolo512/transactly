@@ -48,7 +48,6 @@ create or replace table data_warehouse.fact_line_item (
     ,second_order_closed_date date
     ,third_order_closed_date date
     ,fourth_order_closed_date date
-    ,contact_owner string
     ,placed_sequence int
     ,closed_sequence int
     ,original_sales_rep_name string
@@ -63,4 +62,6 @@ create or replace table data_warehouse.fact_line_item (
     ,HS_lead_status string
     ,HS_assigned_TC string
     ,assigned_tc_email string
+    ,contact_owner string
+    ,owner_assigned_date date
 )
