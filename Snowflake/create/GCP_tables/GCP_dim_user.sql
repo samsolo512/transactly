@@ -38,6 +38,7 @@ create or replace table data_warehouse.dim_user (
     ,tier_3 datetime
     ,tier_2 datetime
     ,tier_1 datetime
+    
     ,last_order_due datetime
     ,first_order_placed date
     ,last_order_placed date

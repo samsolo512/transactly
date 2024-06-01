@@ -37,37 +37,37 @@ with
         from {{ ref('dim_lead')}}
     )
 
-    -- ,sf as(
-    --     select
-    --         case
-    --             when lower(b.record_type_name) = 'sms' then 'Text'
-    --             else b.record_type_name
-    --             end as contact_method
-    --         ,a.created_date
-    --         ,regexp_replace(a.caller_id, '[\\+\\-\\)\\(]') as caller_id
-    --         ,regexp_replace(a.phone, '[\\+\\-\\)\\(]') as phone
-    --         ,a.direction
-    --         ,a.call_duration_in_seconds  -- desc table src_sf_agscmi_activity_c
-    --         ,case 
-    --             when a.call_duration_in_seconds/3600 > 1 then floor(a.call_duration_in_seconds/3600, 0) 
-    --             else null 
-    --             end as hours
-    --         ,case 
-    --             when a.call_duration_in_seconds/60 between 1 and 59 then floor(a.call_duration_in_seconds/60, 0) 
-    --             else null 
-    --             end as minutes
-    --         ,case 
-    --             when a.call_duration_in_seconds < 60 then a.call_duration_in_seconds
-    --             when a.call_duration_in_seconds >= 60 then a.call_duration_in_seconds%60
-    --             else null 
-    --             end as seconds
-    --         ,a.lead_id
-    --         ,a.call_twilio_client
-    --         ,a.activity_name
-    --     from 
-    --         src_sf_agscmi_activity_c a
-    --         join src_sf_record_type b on a.record_type_id = b.record_type_id
-    -- )
+    ,sf as(
+        select
+            case
+                when lower(b.record_type_name) = 'sms' then 'Text'
+                else b.record_type_name
+                end as contact_method
+            ,a.created_date
+            ,regexp_replace(a.caller_id, '[\\+\\-\\)\\(]') as caller_id
+            ,regexp_replace(a.phone, '[\\+\\-\\)\\(]') as phone
+            ,a.direction
+            ,a.call_duration_in_seconds  -- desc table src_sf_agscmi_activity_c
+            ,case 
+                when a.call_duration_in_seconds/3600 > 1 then floor(a.call_duration_in_seconds/3600, 0) 
+                else null 
+                end as hours
+            ,case 
+                when a.call_duration_in_seconds/60 between 1 and 59 then floor(a.call_duration_in_seconds/60, 0) 
+                else null 
+                end as minutes
+            ,case 
+                when a.call_duration_in_seconds < 60 then a.call_duration_in_seconds
+                when a.call_duration_in_seconds >= 60 then a.call_duration_in_seconds%60
+                else null 
+                end as seconds
+            ,a.lead_id
+            ,a.call_twilio_client
+            ,a.activity_name
+        from 
+            src_sf_agscmi_activity_c a
+            join src_sf_record_type b on a.record_type_id = b.record_type_id
+    )
 
     ,allcomm as(
         select
@@ -175,30 +175,30 @@ with
     )
 
     ,final as(
-        -- select
-        --     nvl(l.lead_pk, (select lead_pk from dim_lead where lead_id = '0')) as lead_pk
-        --     ,sf.contact_method
-        --     ,sf.created_date
-        --     ,sf.caller_id
-        --     ,sf.phone
-        --     ,sf.direction
-        --     ,sf.call_duration_in_seconds
-        --     ,concat(lpad(nvl(hours, '0'),2,0), ':', lpad(nvl(minutes, '0'),2,0), ':', lpad(nvl(seconds, '0'),2,0)) as call_duration
-        --     ,sf.call_twilio_client as user
-        --     ,sf.activity_name
-        --     ,'SF' as source
-        --     ,null as message
-        --     ,null as message_id
-        --     ,null as response_time
-        --     ,null as contact_name
-        -- from 
-        --     sf
-        --     left join dim_lead l on sf.lead_id = l.lead_id
-
-        -- union
         select
-            -- (select lead_pk from dim_lead where lead_id = '0') as lead_pk
-            contact_method
+            nvl(l.lead_pk, (select lead_pk from dim_lead where lead_id = '0')) as lead_pk
+            ,sf.contact_method
+            ,sf.created_date
+            ,sf.caller_id
+            ,sf.phone
+            ,sf.direction
+            ,sf.call_duration_in_seconds
+            ,concat(lpad(nvl(hours, '0'),2,0), ':', lpad(nvl(minutes, '0'),2,0), ':', lpad(nvl(seconds, '0'),2,0)) as call_duration
+            ,sf.call_twilio_client as user
+            ,sf.activity_name
+            ,'SF' as source
+            ,null as message
+            ,null as message_id
+            ,null as response_time
+            ,null as contact_name
+        from 
+            sf
+            left join dim_lead l on sf.lead_id = l.lead_id
+
+        union
+        select
+            (select lead_pk from dim_lead where lead_id = '0') as lead_pk
+            ,contact_method
             ,timestamp as created_date
             ,case
                 when message_direction = 'Outbound' then to_number
@@ -223,38 +223,38 @@ with
         from
             hs
 
-        -- union
-        -- select
-        --     (select lead_pk from dim_lead where lead_id = '0') as lead_pk
-        --     ,'Text' as contact_method
-        --     ,a.created_date
-        --     ,case
-        --         when lower(direction) like '%outbound%' then to_number
-        --         when lower(direction) like '%inbound%' then from_number
-        --         else null
-        --         end as caller_id
-        --     ,case
-        --         when lower(direction) like '%inbound%' then to_number
-        --         when lower(direction) like '%outbound%' then from_number
-        --         else null
-        --         end as phone
-        --     ,case
-        --         when lower(direction) like '%inbound%' then 'Inbound'
-        --         when lower(direction) like '%outbound%' then 'Outbound'
-        --         else null
-        --         end as direction
-        --     ,null as call_duration_in_seconds
-        --     ,null as call_duration
-        --     ,u.name
-        --     ,null as activity_name
-        --     ,'SF' as source
-        --     ,a.text_body as message
-        --     ,a.message_id
-        --     ,a.response_time
-        --     ,null as contact_name
-        -- from 
-        --     src_sf_twilio_sf_message_c a
-        --     join src_sf_user u on a.owner_id = u.user_id
+        union
+        select
+            (select lead_pk from dim_lead where lead_id = '0') as lead_pk
+            ,'Text' as contact_method
+            ,a.created_date
+            ,case
+                when lower(direction) like '%outbound%' then to_number
+                when lower(direction) like '%inbound%' then from_number
+                else null
+                end as caller_id
+            ,case
+                when lower(direction) like '%inbound%' then to_number
+                when lower(direction) like '%outbound%' then from_number
+                else null
+                end as phone
+            ,case
+                when lower(direction) like '%inbound%' then 'Inbound'
+                when lower(direction) like '%outbound%' then 'Outbound'
+                else null
+                end as direction
+            ,null as call_duration_in_seconds
+            ,null as call_duration
+            ,u.name
+            ,null as activity_name
+            ,'SF' as source
+            ,a.text_body as message
+            ,a.message_id
+            ,a.response_time
+            ,null as contact_name
+        from 
+            src_sf_twilio_sf_message_c a
+            join src_sf_user u on a.owner_id = u.user_id
     )
 
 select * from final

@@ -17,15 +17,15 @@ create or replace table data_warehouse.fact_opportunity (
     ,vendor string
 
     -- lead
-    ,lead_street string
-    ,lead_state string
-    ,lead_phone string
-    ,lead_mobile_phone string
-    ,lead_email string
-    ,lead_owner_name string
-    ,lead_agent_name string
-    ,lead_agent_email string
-    ,lead_week_date date
+    -- ,lead_street string
+    -- ,lead_state string
+    -- ,lead_phone string
+    -- ,lead_mobile_phone string
+    -- ,lead_email string
+    -- ,lead_owner_name string
+    -- ,lead_agent_name string
+    -- ,lead_agent_email string
+    -- ,lead_week_date date
     
     -- contact
     ,contact_id string
