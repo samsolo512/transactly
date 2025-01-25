@@ -171,6 +171,8 @@ select
     ,* 
 from 
     final
+where 
+    opportunity_id is not null or product_id is not null
 
 -- select email, opportunity_id, product_name, count(1) from final group by opportunity_id, product_name, email order by count(1) desc
 -- select 1 as "one"

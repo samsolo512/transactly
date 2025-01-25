@@ -73,11 +73,9 @@ with
     )
 
     ,final as(
-        select
-            working.seq_dim_member_contact.nextval as member_contact_pk
-            
+        select distinct
             --grain
-            ,c.transaction_id
+            c.transaction_id
             ,c.member_contact_id
             ,c.member_or_contact
 
@@ -99,4 +97,8 @@ with
             left join src_tc_party p on c.party_id = p.party_id
     )
 
-select * from final
+select 
+    working.seq_dim_member_contact.nextval as member_contact_pk
+    ,*
+from 
+    final

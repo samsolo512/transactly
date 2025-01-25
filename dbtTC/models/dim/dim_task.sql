@@ -20,11 +20,9 @@ with
     )
 
     ,final as(
-        select
-            working.seq_dim_task.nextval as task_pk
-
+        select distinct
             -- grain
-            ,t.task_id
+            t.task_id
 
             ,t.due_date
             ,datediff(day, due_date, getdate()) as aging_days
@@ -50,5 +48,9 @@ with
 
     )
 
-select * from final
+select
+    working.seq_dim_task.nextval as task_pk
+    ,* 
+from 
+    final
 
