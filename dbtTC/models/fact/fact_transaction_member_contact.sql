@@ -86,8 +86,8 @@ with
                             join src_tc_user_transactly_vendor_opt_out
                                 on member.user_id = src_tc_user_transactly_vendor_opt_out.user_id
                         where
-                            member.role_id = 7
-                            and src_tc_user_transactly_vendor_opt_out.vendor_type_id = 10
+                            member.role_id = 7  -- buyer agent
+                            and src_tc_user_transactly_vendor_opt_out.vendor_type_id = 10  -- utility transfer
                     )
                 THEN 'AGENT OPTED OUT'
 
@@ -111,7 +111,7 @@ with
                         where
                             contact.role_id = 6
                             and COALESCE(contact.email, '') != ''
-                            and COALESCE(contact.phone, '') != '')
+                            -- and COALESCE(contact.phone, '') != '')
                             and t.transaction_id not in (
                                 select transaction_id
                                 from
@@ -119,7 +119,8 @@ with
                                     join src_tc_user usr on member.user_id = usr.user_id
                                 where
                                     member.role_id = 6
-                                    and COALESCE(usr.email, '') != '' and COALESCE(usr.phone, '') != ''
+                                    and COALESCE(usr.email, '') != '' 
+                                    -- and COALESCE(usr.phone, '') != ''
                             )
                 THEN 'INCOMPLETE BUYER'
 
