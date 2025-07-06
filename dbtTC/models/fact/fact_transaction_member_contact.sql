@@ -111,19 +111,19 @@ with
                         where
                             contact.role_id = 6
                             and COALESCE(contact.email, '') != ''
-                            -- and COALESCE(contact.phone, '') != '')
-                            and t.transaction_id not in (
-                                select transaction_id
-                                from
-                                    src_tc_member member
-                                    join src_tc_user usr on member.user_id = usr.user_id
-                                where
-                                    member.role_id = 6
-                                    and COALESCE(usr.email, '') != '' 
-                                    -- and COALESCE(usr.phone, '') != ''
-                            )
+                            -- and COALESCE(contact.phone, '') != ''
+                    )
+                    and t.transaction_id not in (
+                        select transaction_id
+                        from
+                            src_tc_member member
+                            join src_tc_user usr on member.user_id = usr.user_id
+                        where
+                            member.role_id = 6
+                            and COALESCE(usr.email, '') != '' 
+                            -- and COALESCE(usr.phone, '') != ''
+                    )
                 THEN 'INCOMPLETE BUYER'
-
                 ELSE 'READY FOR SENDING'
                 END as utility_transfer_status
 
