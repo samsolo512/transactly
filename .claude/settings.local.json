@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo $VIRTUAL_ENV)",
+      "mcp__ide__getDiagnostics",
+      "mcp__ide__executeCode",
+      "Bash(mkdir:*)"
+    ],
+    "deny": []
+  }
+}
