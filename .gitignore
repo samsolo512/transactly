@@ -8,3 +8,5 @@ Transactly_requests/
 Deleted/
 mySQLproxy/
 .idea/
+logs/
+dbtTC/logs/
