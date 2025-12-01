@@ -10,3 +10,6 @@ mySQLproxy/
 .idea/
 logs/
 dbtTC/logs/
+.claude/
+.vscode/
+
