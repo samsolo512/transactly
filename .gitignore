@@ -12,4 +12,6 @@ logs/
 dbtTC/logs/
 .claude/
 .vscode/
-
+.python-version
+pyproject.toml
+uv.lock
