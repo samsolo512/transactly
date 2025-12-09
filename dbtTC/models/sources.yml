@@ -69,6 +69,12 @@ sources:
       - name: pipelines
         identifier: pipelines
 
+      - name: objects_deals
+        identifier: objects_deals
+
+      - name: objects_contacts
+        identifier: objects_contacts
+
   - name: Sugar
     description: "SugarCRM data sources"
     database: Skyvia
