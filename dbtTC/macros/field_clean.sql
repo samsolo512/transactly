@@ -1,6 +1,6 @@
 {% macro field_clean(field_name) %}
 
-    (
+    lower(
         regexp_replace(
             regexp_replace(
                 {{ field_name }},

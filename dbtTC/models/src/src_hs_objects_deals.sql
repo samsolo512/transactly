@@ -12,5 +12,6 @@ select distinct
     ,d.property_dealstage as dealstage
     ,d.property_partner_object_id as partner_object_id
     ,d.property_hs_object_id as object_id
+    ,d.property_amount as amount
 from 
     src_hs_objects_deals as d
